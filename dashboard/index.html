@@ -3,71 +3,65 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Travranking</title>
+    <title>Travindex</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --paper: #f2f4f1;
-        --surface: #ffffff;
-        --ink: #18222e;
-        --muted: #5e6b78;
-        --line: #d9dfda;
-        --gravel: #cfc6b6;
-        --accent: #1e6b4f;
-        --accent-soft: #dcebe3;
-        --on-accent: #ffffff;
-        --amber: #9a6410;
-        --amber-soft: #f6ead3;
-        --focus: #2f6fd6;
+        --bg: #0b0f14;
+        --surface: #131a22;
+        --raised: #1a232d;
+        --line: #26313d;
+        --line-soft: #1f2832;
+        --line-hover: #3a4757;
+        --ink: #e8edf2;
+        --ink-2: #c9d3de;
+        --muted: #93a0ad;
+        --faint: #6b7784;
+        --accent: #7fa6ff;
+        --link: #9db9ff;
+        --link-hover: #c4d5ff;
+        --on-light: #0b0f14;
+        --sub-on-light: #3a4654;
+        --val-soft: #1b2a4d;
+        --val-strong: #3d6bff;
+        --row-strong: #162038;
+        --warn: #e3ad55;
+        --warn-soft: #3a2f1c;
         --font:
           "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
         --font-cond: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
-        color-scheme: light;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --paper: #121a24;
-          --surface: #18222e;
-          --ink: #e7ecef;
-          --muted: #97a4b0;
-          --line: #2a3644;
-          --gravel: #3b4148;
-          --accent: #56b88f;
-          --accent-soft: #1d3b30;
-          --on-accent: #0c1a13;
-          --amber: #e3ad55;
-          --amber-soft: #3a2f1c;
-          --focus: #7aa7ff;
-          color-scheme: dark;
-        }
+        color-scheme: dark;
       }
 
       * {
         box-sizing: border-box;
       }
-      html {
-        scroll-padding-top: 88px;
-      }
       body {
         margin: 0;
-        background: var(--paper);
+        background: var(--bg);
         color: var(--ink);
         font: 400 15px/1.45 var(--font);
-        font-variant-numeric: tabular-nums;
         -webkit-font-smoothing: antialiased;
       }
-      :focus-visible {
-        outline: 2px solid var(--focus);
-        outline-offset: 2px;
-        border-radius: 4px;
+      a {
+        color: var(--link);
       }
-      .short {
-        display: none;
+      a:hover {
+        color: var(--link-hover);
+      }
+      button,
+      input {
+        font: inherit;
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--link);
+        outline-offset: 2px;
       }
       .sr {
         position: absolute;
@@ -77,575 +71,1621 @@
         clip: rect(0 0 0 0);
         white-space: nowrap;
       }
-
-      /* ---------- Topbar ---------- */
-      .bar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 12px 24px;
-        padding: 12px 24px;
-        background: color-mix(in srgb, var(--paper) 88%, transparent);
-        backdrop-filter: blur(8px);
-        border-bottom: 1px solid var(--line);
+      .num {
+        font-variant-numeric: tabular-nums;
       }
-      .bar h1 {
+      .cond {
+        font-family: var(--font-cond);
+      }
+      .label {
         margin: 0;
-        font: 700 24px/1 var(--font-cond);
-        letter-spacing: 0.01em;
-      }
-      .controls {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: end;
-        gap: 10px;
-      }
-      .controls label {
-        display: grid;
-        gap: 2px;
         font-size: 12px;
+        font-weight: 600;
         color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
       }
-      .controls input,
-      .controls select,
-      .controls button {
-        font: 500 15px/1 var(--font);
-        color: var(--ink);
-        height: 36px;
-        padding: 0 10px;
+      .wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .card {
         background: var(--surface);
         border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+      .chip {
+        font-size: 14px;
+        padding: 5px 12px;
         border-radius: 8px;
+        border: 1px solid var(--line);
+        color: var(--ink-2);
       }
-      .controls select {
-        min-width: 220px;
-        max-width: 70vw;
+      .chip.warn {
+        border-color: transparent;
+        background: var(--warn-soft);
+        color: var(--warn);
       }
-      .controls button {
-        cursor: pointer;
-        padding: 0 16px;
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 44px;
+        padding: 0 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: var(--surface);
         font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        white-space: nowrap;
       }
-      .controls button:hover {
-        border-color: var(--muted);
+      .btn:hover {
+        border-color: var(--line-hover);
       }
-      .controls button:disabled {
-        opacity: 0.6;
+      .btn:disabled {
+        opacity: 0.55;
         cursor: progress;
       }
-      .status {
-        margin: 0 0 0 auto;
-        font-size: 13px;
-        color: var(--muted);
-        min-height: 1.4em;
+      .btn.icon {
+        width: 44px;
+        padding: 0;
       }
-      .status.error {
-        color: var(--amber);
-        font-weight: 600;
-      }
-
-      /* ---------- Layout ---------- */
-      .layout {
-        display: grid;
-        grid-template-columns: 200px minmax(0, 1fr);
-        gap: 32px;
-        max-width: 1160px;
-        margin: 0 auto;
-        padding: 24px;
-      }
-      .rail {
-        position: sticky;
-        top: 88px;
-        align-self: start;
-        display: grid;
-        gap: 2px;
-      }
-      .rail a {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 0 8px;
-        padding: 8px 10px;
-        border-radius: 8px;
-        color: inherit;
-        text-decoration: none;
-      }
-      .rail a:hover {
-        background: var(--surface);
-      }
-      .rail a[aria-current="true"] {
-        background: var(--surface);
-        box-shadow: inset 3px 0 0 var(--accent);
-      }
-      .rail a.past {
-        color: var(--muted);
-      }
-      .rail .rn {
-        font: 600 16px/1.2 var(--font-cond);
-      }
-      .rail .rt {
-        font-size: 13px;
-        color: var(--muted);
-      }
-      .rail .rtrack {
-        grid-column: 1 / -1;
-        font-size: 12px;
-        color: var(--muted);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .rail .rtop {
-        grid-column: 1 / -1;
-        font-size: 13px;
-        color: var(--muted);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      main {
-        min-width: 0;
-      }
-
-      /* ---------- Race ---------- */
-      .race {
-        padding: 8px 0 40px;
-      }
-      .race + .race {
-        border-top: 1px solid var(--line);
-        padding-top: 28px;
-      }
-      .race-head {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: 4px 14px;
-      }
-      .race-head h2 {
-        margin: 0;
-        font: 700 30px/1 var(--font-cond);
-      }
-      .race-head .meta {
-        margin: 0;
-        color: var(--muted);
-      }
-      .next {
-        font: 600 12px/1 var(--font);
-        padding: 5px 8px;
-        border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent);
-      }
-
-      /* Upploppet: startnumren placerade efter poäng, ledaren närmast mål */
-      .stretch {
-        position: relative;
-        margin: 18px 0 10px;
-        height: 40px;
-      }
-      .stretch .lane {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 15px;
-        height: 6px;
-        background: var(--gravel);
-        border-radius: 3px;
-      }
-      .stretch .finish {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 10px;
-        background: repeating-conic-gradient(
-            var(--ink) 0 25%,
-            transparent 0 50%
-          )
-          0 0 / 5px 5px;
-        border-radius: 2px;
-        opacity: 0.8;
-      }
-      .horse-dot {
-        position: absolute;
-        left: 0;
-        width: 26px;
-        height: 26px;
-        margin-left: -13px;
-        display: grid;
-        place-items: center;
-        font: 700 14px/1 var(--font-cond);
-        background: var(--surface);
-        color: var(--ink);
-        border: 2px solid var(--ink);
-        border-radius: 50%;
-        transition:
-          left 1100ms cubic-bezier(0.2, 0.7, 0.15, 1),
-          transform 150ms;
-        cursor: default;
-      }
-      .horse-dot.lead {
+      .badge-leg {
+        font: 700 15px/1.2 var(--font-cond);
+        padding: 3px 9px;
+        border-radius: 7px;
         background: var(--accent);
-        border-color: var(--accent);
-        color: var(--on-accent);
+        color: var(--on-light);
       }
-      .horse-dot.hl,
-      tr.runner.hl .nr {
-        transform: scale(1.18);
-      }
-
-      /* ---------- Table ---------- */
-      .runners {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .runners th {
-        text-align: left;
-        font-weight: 500;
-        font-size: 12px;
-        color: var(--muted);
-        padding: 6px 8px;
-        border-bottom: 1px solid var(--line);
-        white-space: nowrap;
-      }
-      .runners td {
-        padding: 9px 8px;
-        border-bottom: 1px solid var(--line);
-        vertical-align: middle;
-      }
-      .runners .num {
-        text-align: right;
-        white-space: nowrap;
-      }
-      .runners th[title] {
-        cursor: help;
-        text-decoration: underline dotted;
-        text-underline-offset: 3px;
-      }
-      tr.runner.hl td {
-        background: var(--surface);
-      }
-      tr.runner.low .horse,
-      tr.runner.low .pts {
+      .val {
+        justify-self: end;
+        font: 700 17px/1.3 var(--font-cond);
+        padding: 1px 7px;
+        border-radius: 7px;
+        font-variant-numeric: tabular-nums;
         color: var(--muted);
       }
-
-      .c-rank {
-        width: 28px;
-        color: var(--muted);
-        font: 600 15px/1 var(--font-cond);
+      .val.pos {
+        background: var(--val-soft);
+        color: var(--link);
       }
-      tr.runner.r1 .c-rank {
-        color: var(--accent);
+      .val.strong {
+        background: var(--val-strong);
+        color: #fff;
       }
       .nr {
+        flex: none;
         display: inline-grid;
         place-items: center;
         width: 28px;
         height: 28px;
-        font: 700 15px/1 var(--font-cond);
-        border: 1.5px solid var(--ink);
-        border-radius: 6px;
-        transition: transform 150ms;
-      }
-      tr.runner.r1 .nr {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: var(--on-accent);
+        border-radius: 7px;
+        border: 1.5px solid var(--muted);
+        font: 700 16px/1 var(--font-cond);
       }
 
-      .toggle {
-        all: unset;
-        cursor: pointer;
-        display: grid;
-        gap: 1px;
-        border-radius: 4px;
+      /* ---------- Topbar ---------- */
+      .top {
+        border-bottom: 1px solid var(--line-soft);
       }
-      .toggle .horse {
+      .top .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px 16px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+      .brand-group {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--ink);
+        text-decoration: none;
+        font: 700 24px/1 var(--font-cond);
+        letter-spacing: 0.02em;
+      }
+      .brand:hover {
+        color: var(--ink);
+      }
+      .mainnav a {
+        display: inline-block;
+        padding: 10px 14px;
+        border-radius: 10px;
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .mainnav a[aria-current="page"] {
+        background: var(--raised);
+        color: var(--ink);
         font-weight: 600;
-        overflow-wrap: anywhere;
       }
-      .toggle .horse::after {
-        content: "\00a0+";
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+      .field {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 44px;
+        padding: 0 14px;
+        border-radius: 12px;
+        background: var(--surface);
+        border: 1px solid var(--line);
         color: var(--muted);
-        font-weight: 400;
       }
-      .toggle[aria-expanded="true"] .horse::after {
-        content: "\00a0−";
+      .field:focus-within {
+        border-color: var(--line-hover);
       }
-      .toggle .driver {
+      .field input {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        outline: none;
+        background: transparent;
+        color: var(--ink);
+        font-size: 15px;
+      }
+      .field input[type="date"] {
+        color-scheme: dark;
+        width: 136px;
+      }
+      .search {
+        position: relative;
+        min-width: 280px;
+      }
+      .search .field {
+        width: 100%;
+      }
+      .results {
+        position: absolute;
+        z-index: 20;
+        top: calc(100% + 6px);
+        left: 0;
+        right: 0;
+        margin: 0;
+        padding: 6px;
+        list-style: none;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 16px 40px rgb(0 0 0 / 0.45);
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+      .results button {
+        all: unset;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 48px;
+        padding: 6px 10px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .results button:hover,
+      .results button:focus-visible {
+        background: var(--raised);
+        outline: none;
+      }
+      .results .rs-name {
+        font: 600 18px/1.15 var(--font-cond);
+      }
+      .results .rs-meta {
         font-size: 13px;
         color: var(--muted);
       }
-      .notes {
+      .results .empty-hit {
+        padding: 10px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .statusline {
+        min-height: 20px;
+        margin: 10px 0 0;
+        font-size: 13px;
+        color: var(--muted);
+        text-align: right;
+      }
+      .statusline.error {
+        color: var(--warn);
+        font-weight: 600;
+      }
+
+      /* ---------- Dagens spel ---------- */
+      .page {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        padding-top: 14px;
+        padding-bottom: 48px;
+      }
+      .page-head {
         display: flex;
         flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .page-head .eyebrow {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      h1 {
+        margin: 0;
+        font: 700 52px/1 var(--font-cond);
+      }
+      .page-meta {
+        font-size: 15px;
+        color: var(--muted);
+      }
+      .today {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: flex-start;
+      }
+      .games {
+        flex: 1 1 260px;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .game-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .game-btn {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-height: 68px;
+        padding: 12px 16px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        text-align: left;
+        cursor: pointer;
+      }
+      .game-btn:hover {
+        border-color: var(--line-hover);
+      }
+      .game-btn[aria-pressed="true"] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--on-light);
+      }
+      .game-btn .g-id {
+        font: 700 26px/1 var(--font-cond);
+        min-width: 52px;
+      }
+      .game-btn .g-text {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .game-btn .g-tracks {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .game-btn .g-meta {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .game-btn[aria-pressed="true"] .g-meta {
+        color: var(--sub-on-light);
+      }
+      .game-btn .g-time {
+        font: 600 18px/1 var(--font-cond);
+        font-variant-numeric: tabular-nums;
+      }
+      .today-main {
+        flex: 999 1 560px;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .sel {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 24px;
+      }
+      .sel-id {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        min-width: 0;
+      }
+      .sel-id .big {
+        font: 700 56px/1 var(--font-cond);
+        color: var(--accent);
+      }
+      .sel-id .s-tracks {
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .sel-id .s-meta {
+        display: block;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .stats {
+        display: flex;
+        gap: 32px;
+      }
+      .stat {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .stat .v {
+        font: 700 30px/1 var(--font-cond);
+        font-variant-numeric: tabular-nums;
+      }
+      .stat .v.blue {
+        color: var(--link);
+      }
+
+      .track {
+        overflow: hidden;
+      }
+      .track-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 20px;
+      }
+      .track-head .t-title {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        min-width: 0;
+      }
+      .track-head h2 {
+        margin: 0;
+        font: 700 28px/1 var(--font-cond);
+      }
+      .track-head .t-sum {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .status-pill {
+        flex: none;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 8px;
+        background: var(--val-soft);
+        color: var(--link);
+      }
+      .status-pill.done {
+        background: var(--raised);
+        color: var(--muted);
+      }
+      .legs {
+        overflow-x: auto;
+        border-top: 1px solid var(--line);
+      }
+      .legs-inner {
+        min-width: 820px;
+      }
+      .leg-head,
+      .leg-row {
+        display: grid;
+        grid-template-columns:
+          80px 70px 80px minmax(0, 1.1fr) 70px minmax(0, 1.4fr)
+          minmax(0, 1.4fr) 28px;
+        gap: 12px;
+        align-items: center;
+        padding: 10px 20px;
+      }
+      .leg-head {
+        background: var(--raised);
+      }
+      .leg-row {
+        min-height: 60px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-top: 1px solid var(--line-soft);
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .leg-row:hover {
+        background: var(--raised);
+        color: var(--ink);
+      }
+      .leg-row.past {
+        opacity: 0.72;
+      }
+      .leg-row .r-main,
+      .leg-row .r-line {
+        display: contents;
+      }
+      .leg-row .leg {
+        grid-column: 1;
+        justify-self: start;
+        font: 700 16px/1.2 var(--font-cond);
+        padding: 4px 9px;
+        border-radius: 8px;
+        background: var(--raised);
+        border: 1px solid var(--line);
+        color: var(--accent);
+        white-space: nowrap;
+      }
+      .leg-row .r-no {
+        grid-column: 2;
+        grid-row: 1;
+        font-size: 15px;
+        color: var(--ink-2);
+      }
+      .leg-row .r-time {
+        grid-column: 3;
+        grid-row: 1;
+        font: 600 20px/1 var(--font-cond);
+        font-variant-numeric: tabular-nums;
+      }
+      .leg-row .r-meta {
+        grid-column: 4;
+        font-size: 14px;
+        color: var(--ink-2);
+      }
+      .leg-row .r-starters {
+        grid-column: 5;
+        text-align: right;
+        font: 600 18px/1 var(--font-cond);
+        font-variant-numeric: tabular-nums;
+      }
+      .leg-row .r-pick {
+        grid-column: 6;
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        min-width: 0;
+      }
+      .r-pick .r-pickname,
+      .r-val .r-valname {
+        font-size: 15px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .r-val .r-valname {
+        font-weight: 400;
+      }
+      .r-pick .r-note {
+        font-size: 13px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .leg-row .r-val {
+        grid-column: 7;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+      .r-val .val {
+        font-size: 15px;
+        padding: 1px 6px;
+        border-radius: 6px;
+      }
+      .leg-row .chev {
+        grid-column: 8;
+        color: var(--faint);
+      }
+
+      /* ---------- Loppvy ---------- */
+      .crumbs {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .crumbs a {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .crumbs .here {
+        color: var(--ink);
+      }
+      .back {
+        align-self: flex-start;
+        display: flex;
+        align-items: center;
         gap: 4px;
-        margin-top: 4px;
+        min-height: 44px;
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .race-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .race-head .rh-left {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .race-head .rh-tag {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .race-head .rh-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+      }
+      .race-head .rh-time {
+        font: 700 44px/1 var(--font-cond);
+        font-variant-numeric: tabular-nums;
+      }
+      .race-head .rh-count {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .race-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .race-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        min-width: 84px;
+        height: 56px;
+        padding: 0 8px;
+        border-radius: 12px;
+        text-decoration: none;
+        background: var(--surface);
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+      .race-tab:hover {
+        border-color: var(--line-hover);
+        color: var(--ink);
+      }
+      .race-tab .t-no {
+        font: 700 18px/1 var(--font-cond);
+      }
+      .race-tab .t-sub {
+        font-size: 12px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .race-tab[aria-current="page"] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--on-light);
+      }
+      .race-tab[aria-current="page"] .t-sub {
+        color: var(--sub-on-light);
+      }
+      .race-tab.past:not([aria-current="page"]) {
+        opacity: 0.72;
+      }
+      .race-body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: flex-start;
+      }
+      .ranking {
+        flex: 999 1 640px;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .ranking-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 20px;
+      }
+      .ranking-head h2 {
+        margin: 0;
+        font: 700 24px/1.2 var(--font-cond);
+      }
+      .sort {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .seg {
+        display: flex;
+        gap: 2px;
+        padding: 3px;
+        border-radius: 12px;
+        background: var(--bg);
+        border: 1px solid var(--line);
+      }
+      .seg button {
+        height: 38px;
+        padding: 0 16px;
+        border: 0;
+        border-radius: 9px;
+        background: transparent;
+        color: var(--ink-2);
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .seg button[aria-pressed="true"] {
+        background: var(--ink);
+        color: var(--on-light);
+        font-weight: 700;
+      }
+      .table-box {
+        overflow-x: auto;
+        border-top: 1px solid var(--line);
+      }
+      .runners {
+        width: 100%;
+        min-width: 760px;
+        border-collapse: collapse;
+      }
+      .runners th {
+        padding: 10px 6px;
+        background: var(--raised);
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+      }
+      .runners td {
+        padding: 6px;
+        border-top: 1px solid var(--line-soft);
+        vertical-align: middle;
+      }
+      .runners th:first-child,
+      .runners td:first-child {
+        padding-left: 20px;
+      }
+      .runners th:last-child,
+      .runners td:last-child {
+        padding-right: 20px;
+      }
+      .runners .right {
+        text-align: right;
+      }
+      .runners .center {
+        text-align: center;
+      }
+      tr.runner {
+        height: 58px;
+      }
+      tr.runner.strong td {
+        background: var(--row-strong);
+      }
+      tr.runner.flash td {
+        animation: flash 1.6s ease-out;
+      }
+      @keyframes flash {
+        from {
+          background: #2a3b63;
+        }
+      }
+      .c-rank {
+        width: 52px;
+      }
+      .c-nr {
+        width: 52px;
+      }
+      .rank {
+        display: inline-grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        font: 700 18px/1 var(--font-cond);
+      }
+      .rank.r1 {
+        background: var(--ink);
+        color: var(--on-light);
+      }
+      .rank.r2 {
+        background: var(--line);
+      }
+      .horse-cell {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+      .toggle {
+        all: unset;
+        cursor: pointer;
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 0 10px;
+        min-width: 0;
+        min-height: 44px;
+        align-content: center;
+        border-radius: 4px;
+      }
+      .toggle:focus-visible {
+        outline: 2px solid var(--link);
+      }
+      .h-name {
+        font: 600 20px/1.15 var(--font-cond);
+      }
+      .h-name::after {
+        content: "\00a0+";
+        color: var(--faint);
+        font-weight: 500;
+      }
+      .toggle[aria-expanded="true"] .h-name::after {
+        content: "\00a0−";
+      }
+      .h-driver {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .low .h-name,
+      .low .pts-n {
+        color: var(--ink-2);
+      }
+      .c-pts {
+        width: 24%;
+      }
+      .pts {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .pts-n {
+        min-width: 40px;
+        font: 700 20px/1 var(--font-cond);
+        font-variant-numeric: tabular-nums;
+      }
+      .bar {
+        flex: 1;
+        display: block;
+        height: 6px;
+        border-radius: 3px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .bar > span {
+        display: block;
+        height: 100%;
+        background: var(--ink-2);
+      }
+      .c-win {
+        font: 600 20px/1 var(--font-cond);
+      }
+      .c-odds {
+        font-size: 15px;
+        color: var(--ink-2);
+      }
+      .c-val {
+        width: 100px;
+      }
+      .odds-inline {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      tr.detail td {
+        padding: 6px 20px 18px 124px;
+        background: var(--bg);
+        border-top: 0;
+      }
+      .factors {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 6px 24px;
+        margin: 8px 0 10px;
+      }
+      .factor {
+        display: grid;
+        grid-template-columns: 96px 1fr 2.6ch;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--ink-2);
+      }
+      .factor .bar {
+        height: 5px;
+      }
+      .factor .bar > span {
+        background: var(--muted);
+      }
+      .factor.missing {
+        color: var(--faint);
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 8px;
       }
       .tag {
-        white-space: nowrap;
         font-size: 12px;
-        padding: 1px 7px;
+        padding: 2px 8px;
         border-radius: 999px;
-        background: var(--amber-soft);
-        color: var(--amber);
+        background: var(--warn-soft);
+        color: var(--warn);
       }
       .tag.plain {
         background: transparent;
         border: 1px solid var(--line);
         color: var(--muted);
       }
-
-      .c-points {
-        width: 30%;
-        min-width: 120px;
-      }
-      .points {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        justify-content: flex-end;
-      }
-      .points .track {
-        flex: 1;
-        height: 6px;
-        background: var(--line);
-        border-radius: 3px;
-        overflow: hidden;
-        max-width: 160px;
-      }
-      .points .fill {
-        display: block;
-        height: 100%;
-        width: var(--w);
-        background: var(--ink);
-        border-radius: 3px;
-      }
-      tr.runner.r1 .points .fill {
-        background: var(--accent);
-      }
-      .pts {
-        font-weight: 600;
-        min-width: 3.2ch;
-      }
-
-      .value {
-        font-weight: 600;
-      }
-      .value.good {
-        padding: 2px 7px;
-        border-radius: 6px;
-        background: var(--accent-soft);
-        color: var(--accent);
-      }
-      .value.weak {
-        color: var(--muted);
-        font-weight: 400;
-      }
-
-      tr.detail td {
-        padding: 4px 8px 18px 72px;
-        background: transparent;
-      }
-      .factors {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-        gap: 6px 24px;
-        margin: 6px 0 8px;
-      }
-      .factor {
-        display: grid;
-        grid-template-columns: 92px 1fr 2.4ch;
-        align-items: center;
-        gap: 8px;
-        font-size: 13px;
-      }
-      .factor .ft {
-        height: 5px;
-        background: var(--line);
-        border-radius: 3px;
-        overflow: hidden;
-      }
-      .factor .ff {
-        display: block;
-        height: 100%;
-        width: var(--w);
-        background: var(--muted);
-      }
-      .factor.missing {
-        color: var(--muted);
-      }
-      .factor.missing .ff {
-        background: transparent;
-      }
       .detail-meta {
         margin: 0;
         font-size: 13px;
         color: var(--muted);
       }
-
       .scratched {
-        margin: 10px 0 0;
+        margin: 0;
+        padding: 12px 20px;
+        border-top: 1px solid var(--line-soft);
         font-size: 13px;
         color: var(--muted);
       }
 
-      /* ---------- Tomt, laddar, fel ---------- */
+      .side {
+        flex: 1 1 300px;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .side .card {
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .side h2 {
+        margin: 0;
+        font: 700 22px/1.2 var(--font-cond);
+      }
+      .best {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line-soft);
+      }
+      .best .b-text {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .best .b-name {
+        font: 600 19px/1.2 var(--font-cond);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .best .b-meta {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .side p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ink-2);
+      }
+      .side strong {
+        color: var(--ink);
+      }
+
+      /* ---------- PDF-förhandsvisning ---------- */
+      .preview {
+        width: min(960px, calc(100vw - 32px));
+        height: calc(100vh - 48px);
+        max-width: none;
+        max-height: none;
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        color: var(--ink);
+        overflow: hidden;
+      }
+      .preview[open] {
+        display: flex;
+        flex-direction: column;
+      }
+      .preview::backdrop {
+        background: rgb(0 0 0 / 0.7);
+      }
+      .preview-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 12px 12px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+      .preview-head h2 {
+        margin: 0;
+        min-width: 0;
+        font: 700 22px/1.2 var(--font-cond);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .preview-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .preview-actions a.btn {
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .preview-actions .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--on-light);
+      }
+      .preview-frame {
+        flex: 1;
+        width: 100%;
+        border: 0;
+        background: var(--bg);
+      }
+      .preview-fallback {
+        flex: 1;
+        display: grid;
+        place-content: center;
+        gap: 8px;
+        padding: 24px;
+        text-align: center;
+        color: var(--muted);
+      }
+      .preview-fallback[hidden] {
+        display: none;
+      }
+
+      /* ---------- Tomt, laddar ---------- */
       .empty {
-        max-width: 46ch;
-        padding: 48px 0;
+        padding: 48px 24px;
+        max-width: 52ch;
       }
       .empty h2 {
-        font: 700 26px/1.1 var(--font-cond);
         margin: 0 0 8px;
+        font: 700 26px/1.1 var(--font-cond);
       }
       .empty p {
         margin: 0;
         color: var(--muted);
       }
       .skeleton {
-        height: 280px;
-        border-radius: 10px;
-        margin-bottom: 24px;
+        height: 260px;
+        border-radius: 18px;
         background:
-          linear-gradient(90deg, var(--line) 0 30%, transparent 30%) 0 0 / 100%
-            34px no-repeat,
-          repeating-linear-gradient(var(--paper) 0 18px, var(--line) 18px 19px)
-            0 60px / 100% 100% no-repeat;
-        opacity: 0.7;
+          linear-gradient(var(--raised) 0 0) 20px 20px / 30% 24px no-repeat,
+          repeating-linear-gradient(
+              var(--surface) 0 59px,
+              var(--line-soft) 59px 60px
+            )
+            0 64px / 100% 100% no-repeat;
+        border: 1px solid var(--line);
       }
-      .refreshing main {
-        opacity: 0.55;
+      .refreshing #view {
+        opacity: 0.6;
         transition: opacity 200ms;
       }
 
       /* ---------- Mobil ---------- */
       @media (max-width: 820px) {
-        .bar {
-          position: static;
-          padding: 12px 16px;
-          gap: 8px;
-          backdrop-filter: none;
+        .d-only {
+          display: none !important;
         }
-        .controls {
-          display: grid;
-          grid-template-columns: auto 1fr;
+        .tools .btn {
+          width: 44px;
+          padding: 0;
+        }
+        .btn-text,
+        .sr-m {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+          white-space: nowrap;
+        }
+        .wrap {
+          padding: 0 16px;
+        }
+        .top .wrap {
+          padding-top: 16px;
+          padding-bottom: 12px;
+        }
+        .brand {
+          font-size: 22px;
+        }
+        .brand-group {
+          gap: 16px;
+        }
+        .tools {
+          width: 100%;
+          order: 3;
+        }
+        .tools .field.date {
+          flex: 1;
+        }
+        .tools .field input[type="date"] {
           width: 100%;
         }
-        .controls select {
+        .search {
           min-width: 0;
-          max-width: none;
           width: 100%;
+          order: 4;
         }
-        .controls button {
-          grid-column: 1 / -1;
+        .search[hidden] {
+          display: none;
         }
-        .status {
-          margin: 0;
-          width: 100%;
+        .search-toggle {
+          display: inline-flex;
         }
-        .layout {
-          grid-template-columns: 1fr;
-          gap: 0;
-          padding: 0 16px 24px;
+        .statusline {
+          text-align: left;
+          margin-top: 8px;
         }
-        .rail {
-          position: sticky;
-          top: 0;
-          z-index: 5;
-          display: flex;
-          overflow-x: auto;
-          gap: 4px;
+
+        .page {
+          gap: 14px;
+          padding-top: 6px;
+        }
+        .page-head .eyebrow {
+          font-size: 14px;
+          margin-bottom: 4px;
+        }
+        h1 {
+          font-size: 40px;
+        }
+        .page-meta {
+          display: none;
+        }
+        .today {
+          gap: 12px;
+        }
+        .games {
+          flex-basis: 100%;
           margin: 0 -16px;
-          padding: 8px 16px;
-          background: var(--paper);
-          border-bottom: 1px solid var(--line);
+          max-width: none;
+          border-bottom: 1px solid var(--line-soft);
+        }
+        .game-list {
+          flex-direction: row;
+          overflow-x: auto;
+          padding: 0 16px 14px;
           scrollbar-width: none;
         }
-        .rail a {
+        .game-btn {
           flex: none;
-          grid-template-columns: auto auto;
-          padding: 6px 10px;
+          min-height: 40px;
+          height: 40px;
+          padding: 0 18px;
+          border-radius: 20px;
         }
-        .rail .rtop {
+        .game-btn .g-id {
+          font-size: 17px;
+          min-width: 0;
+          letter-spacing: 0.02em;
+        }
+        .game-btn .g-text,
+        .game-btn .g-time {
           display: none;
         }
-        .rail a[aria-current="true"] {
-          box-shadow: inset 0 -3px 0 var(--accent);
+        .today-main {
+          flex-basis: 100%;
+          gap: 12px;
         }
-        html {
-          scroll-padding-top: 60px;
+        .card {
+          border-radius: 16px;
         }
-        .race {
-          padding-top: 20px;
+        .sel {
+          flex-wrap: nowrap;
+          padding: 16px;
         }
-        .c-odds,
-        .c-rank {
-          display: none;
+        .sel-id .big {
+          font-size: 30px;
         }
-        .c-points {
-          width: auto;
+        .sel-id {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+        .sel-id .s-tracks {
+          font-size: 14px;
+          font-weight: 400;
+          color: var(--muted);
+        }
+        .stats {
+          text-align: right;
+        }
+        .stat {
+          align-items: flex-end;
+        }
+        .stat .v {
+          font-size: 26px;
+        }
+        .track-head {
+          padding: 12px 16px;
+          min-height: 60px;
+        }
+        .track-head .t-title {
+          flex-direction: column;
+          gap: 2px;
+        }
+        .track-head h2 {
+          font-size: 24px;
+        }
+        .track-head .t-sum {
+          font-size: 13px;
+        }
+        .legs-inner {
           min-width: 0;
         }
-        .points .track {
+        .leg-row {
+          grid-template-columns: 44px minmax(0, 1fr) auto 18px;
+          min-height: 64px;
+          padding: 10px 16px;
+          border-top: 0;
+          border-bottom: 1px solid var(--line-soft);
+        }
+        .leg-row:last-child {
+          border-bottom: 0;
+        }
+        .leg-row .leg {
+          justify-self: stretch;
+          height: 36px;
+          padding: 0 2px;
+          display: grid;
+          place-items: center;
+          border-radius: 10px;
+          font-size: 15px;
+        }
+        .leg-row .r-main {
+          grid-column: 2;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          min-width: 0;
+        }
+        .leg-row .r-line {
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+        }
+        .leg-row .r-time {
+          font-size: 19px;
+        }
+        .leg-row .r-no,
+        .leg-row .r-meta {
+          font-size: 13px;
+          color: var(--muted);
+        }
+        .leg-row .r-pick {
+          grid-column: 3;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 2px;
+          max-width: 120px;
+        }
+        .r-pick .label {
+          font-size: 11px;
+        }
+        .r-pick .r-pickname {
+          font-size: 14px;
+          max-width: 120px;
+        }
+        .leg-row .chev {
+          grid-column: 4;
+        }
+
+        .race-page {
+          gap: 16px;
+        }
+        .race-head {
+          align-items: flex-end;
+          gap: 12px;
+        }
+        .race-head .rh-left {
+          gap: 4px;
+        }
+        .race-head .rh-tag {
+          font-size: 14px;
+          gap: 8px;
+        }
+        .badge-leg {
+          font-size: 13px;
+          padding: 2px 7px;
+          border-radius: 6px;
+        }
+        .race-head h1 {
+          font-size: 38px;
+        }
+        .race-head .rh-time {
+          font-size: 30px;
+        }
+        .race-head .rh-count {
+          font-size: 13px;
+        }
+        .race-head .chips {
+          order: 3;
+          width: 100%;
+          gap: 6px;
+        }
+        .chip {
+          font-size: 13px;
+          padding: 4px 10px;
+        }
+        .race-tabs {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          gap: 6px;
+          margin: 0 -16px;
+          padding: 10px 16px;
+          border-top: 1px solid var(--line-soft);
+          border-bottom: 1px solid var(--line-soft);
+          scrollbar-width: none;
+        }
+        .race-tab {
+          flex: none;
+          min-width: 44px;
+          width: auto;
+          height: 44px;
+          padding: 0 6px;
+        }
+        .race-tab .t-no {
+          font-size: 17px;
+        }
+        .race-body {
+          gap: 12px;
+        }
+        .ranking {
+          flex-basis: 100%;
+          background: transparent;
+          border: 0;
+          overflow: visible;
+        }
+        .ranking-head {
+          padding: 0 0 12px;
+        }
+        .ranking-head h2 {
           display: none;
         }
-        .long {
-          display: none;
+        .sort {
+          width: 100%;
+          justify-content: space-between;
         }
-        .short {
-          display: inline;
+        .seg {
+          background: var(--surface);
         }
-        .tag {
-          white-space: normal;
+        .seg button {
+          padding: 0 14px;
+        }
+        .table-box {
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          background: var(--surface);
+          overflow: hidden;
+        }
+        .runners {
+          min-width: 0;
+          table-layout: fixed;
         }
         .runners th {
-          white-space: normal;
+          font-size: 11px;
+          padding: 10px 4px;
+        }
+        .runners td {
+          padding: 8px 4px;
+        }
+        .runners th:first-child,
+        .runners td:first-child {
+          padding-left: 12px;
+        }
+        .runners th:last-child,
+        .runners td:last-child {
+          padding-right: 12px;
+        }
+        tr.runner {
+          height: 64px;
+        }
+        .c-rank {
+          width: 40px;
+        }
+        .c-pts {
+          width: 52px;
+          text-align: right;
+        }
+        .c-win {
+          width: 48px;
+          font-size: 18px;
+        }
+        .c-val {
+          width: 70px;
+        }
+        .rank {
+          width: 28px;
+          height: 28px;
+          font-size: 16px;
+        }
+        .horse-cell .nr {
+          width: 24px;
+          height: 24px;
+          border-radius: 6px;
+          font-size: 14px;
+        }
+        .toggle {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          flex-wrap: nowrap;
+          gap: 0;
+          overflow: hidden;
+        }
+        .h-name {
+          font-size: 18px;
+          max-width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .h-name::after {
+          content: none;
+        }
+        .h-driver {
+          font-size: 12px;
+          max-width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .pts {
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 4px;
+        }
+        .pts-n {
+          min-width: 0;
+          font-size: 18px;
+        }
+        .pts .bar {
+          flex: none;
+          width: 40px;
+          height: 4px;
+        }
+        .c-val .val {
+          display: inline-block;
+          font-size: 16px;
+          padding: 1px 6px;
+          border-radius: 6px;
         }
         tr.detail td {
-          padding-left: 8px;
+          padding: 4px 12px 16px;
         }
-        .runners td,
-        .runners th {
-          padding-left: 5px;
-          padding-right: 5px;
+        .factors {
+          grid-template-columns: 1fr;
+        }
+        .scratched {
+          padding: 12px;
+        }
+        .side {
+          flex-basis: 100%;
+        }
+        .side .card {
+          padding: 14px 16px;
+          gap: 8px;
+        }
+        .side h2 {
+          font-size: 18px;
+        }
+        .preview {
+          width: 100vw;
+          height: 100dvh;
+          border: 0;
+          border-radius: 0;
+        }
+        .preview-head {
+          padding: 10px 10px 10px 16px;
+        }
+        .preview-actions .btn {
+          width: 44px;
+          padding: 0;
         }
       }
-
+      @media (min-width: 821px) {
+        .m-only,
+        .search-toggle {
+          display: none !important;
+        }
+      }
       @media (prefers-reduced-motion: reduce) {
-        .horse-dot,
-        .nr,
-        .refreshing main {
+        tr.runner.flash td {
+          animation: none;
+        }
+        .refreshing #view {
           transition: none;
         }
       }
     </style>
   </head>
   <body>
-    <header class="bar" id="bar">
-      <h1>Travranking</h1>
-      <div class="controls">
-        <label>Datum <input type="date" id="date" /></label>
-        <label
-          >Spel
-          <select id="game" disabled>
-            <option>Hämtar spel …</option>
-          </select></label
+    <header class="top">
+      <div class="wrap">
+        <div class="brand-group">
+          <a href="./" class="brand" data-nav="today">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              aria-hidden="true"
+              style="color: var(--accent)"
+            >
+              <path d="M3 18h18" />
+              <path d="M5 14l4-6 4 4 6-8" />
+            </svg>
+            TRAVINDEX
+          </a>
+          <nav aria-label="Huvudmeny" class="mainnav d-only">
+            <a href="./" data-nav="today" id="nav-today">Idag</a>
+          </nav>
+        </div>
+        <button
+          type="button"
+          class="btn icon search-toggle"
+          id="search-toggle"
+          aria-label="Sök häst"
+          aria-expanded="false"
+          aria-controls="search"
         >
-        <button type="button" id="refresh">Uppdatera</button>
-        <button type="button" id="export" disabled>Exportera PDF</button>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+          </svg>
+        </button>
+        <div class="tools">
+          <label class="field date">
+            <span class="sr">Datum</span>
+            <input type="date" id="date" />
+          </label>
+          <button type="button" class="btn" id="refresh">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 11a8 8 0 1 0-2.3 5.7" />
+              <path d="M20 4v7h-7" />
+            </svg>
+            <span class="btn-text">Uppdatera</span>
+          </button>
+          <button type="button" class="btn" id="export" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 4v11" />
+              <path d="M7 10l5 5 5-5" />
+              <path d="M5 20h14" />
+            </svg>
+            <span class="btn-text">PDF</span>
+          </button>
+          <div class="search" id="search">
+            <label class="field">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3.5-3.5" />
+              </svg>
+              <span class="sr">Sök häst eller kusk</span>
+              <input
+                type="search"
+                id="q"
+                placeholder="Sök häst eller kusk"
+                autocomplete="off"
+                aria-controls="q-results"
+              />
+            </label>
+            <ul class="results" id="q-results" hidden></ul>
+          </div>
+        </div>
       </div>
-      <p class="status" id="status" role="status" aria-live="polite"></p>
     </header>
 
-    <div class="layout">
-      <nav class="rail" id="rail" aria-label="Lopp"></nav>
-      <main id="main"></main>
+    <div class="wrap">
+      <p class="statusline" id="status" role="status" aria-live="polite"></p>
     </div>
+    <div id="view"></div>
+
+    <dialog class="preview" id="preview" aria-labelledby="preview-title">
+      <div class="preview-head">
+        <h2 id="preview-title">PDF</h2>
+        <div class="preview-actions">
+          <a class="btn" id="preview-open" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 4h6v6" />
+              <path d="M20 4l-9 9" />
+              <path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+            </svg>
+            <span class="btn-text">Öppna i ny flik</span>
+          </a>
+          <a class="btn primary" id="preview-download">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 4v11" />
+              <path d="M7 10l5 5 5-5" />
+              <path d="M5 20h14" />
+            </svg>
+            <span class="btn-text">Ladda ner</span>
+          </a>
+          <button type="button" class="btn icon" id="preview-close" aria-label="Stäng förhandsvisning">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12" />
+              <path d="M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <iframe class="preview-frame" id="preview-frame" title="Förhandsvisning av PDF"></iframe>
+      <div class="preview-fallback" id="preview-fallback" hidden>
+        <p>Webbläsaren kan inte visa PDF:en här.</p>
+        <p>Öppna den i en ny flik eller ladda ner den.</p>
+      </div>
+    </dialog>
 
     <script>
       const FACTORS = [
@@ -661,24 +1701,41 @@
         ["freshness", "Vila"],
         ["market", "Marknad"],
       ];
+      /** Spelvärde (modell/marknad) från vilket etiketten fylls i. */
       const GOOD_VALUE = 1.15;
       const LOW_CONFIDENCE = 0.6;
+      const SORTS = [
+        ["points", "Poäng"],
+        ["value", "Värde"],
+        ["number", "Startnr"],
+      ];
 
       const $ = (id) => document.getElementById(id);
       const els = {
         date: $("date"),
-        game: $("game"),
         refresh: $("refresh"),
         exportPdf: $("export"),
         status: $("status"),
-        rail: $("rail"),
-        main: $("main"),
+        view: $("view"),
+        q: $("q"),
+        results: $("q-results"),
+        search: $("search"),
+        searchToggle: $("search-toggle"),
       };
       const state = {
         date: null,
+        games: [],
         gameId: null,
+        /** Senast hämtade ranking per spel-id. */
+        rankings: new Map(),
+        loading: false,
+        error: null,
+        /** Avdelning 1..n när loppvyn visas, annars null. */
+        leg: null,
+        sort: "points",
+        open: new Set(),
+        highlight: null,
         source: null,
-        firstRender: true,
       };
 
       const todayStockholm = () =>
@@ -704,7 +1761,54 @@
         });
       const hhmm = (iso) => (iso && iso.length >= 16 ? iso.slice(11, 16) : "");
       const startMethod = (m) =>
-        m === "auto" ? "autostart" : m === "volte" ? "voltstart" : "";
+        m === "auto" ? "Autostart" : m === "volte" ? "Voltstart" : "";
+      const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+      const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+      const longDate = (d) =>
+        cap(
+          new Date(`${d}T12:00:00`).toLocaleDateString("sv-SE", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+          }),
+        );
+
+      const game = () => state.rankings.get(state.gameId) ?? null;
+      const summary = () => state.games.find((g) => g.id === state.gameId);
+      const legLabel = (g, i) => `${g.gameType}-${i + 1}`;
+      const started = (race) => {
+        const today = todayStockholm();
+        if (state.date < today) return true;
+        if (state.date > today || !race.startTime) return false;
+        return Date.parse(race.startTime) <= Date.now();
+      };
+      const valuePct = (v) => Math.round((v - 1) * 100);
+      function valueBadge(v, cls = "val") {
+        if (v == null) return `<span class="${cls}">–</span>`;
+        const p = valuePct(v);
+        const kind = v >= GOOD_VALUE ? " strong" : p > 0 ? " pos" : "";
+        const text = `${p > 0 ? "+" : p < 0 ? "−" : ""}${Math.abs(p)}%`;
+        return `<span class="${cls}${kind}">${text}</span>`;
+      }
+      const winPct = (p) => {
+        const x = p * 100;
+        if (x < 0.5) return "&lt;1%";
+        return `${x < 10 ? nf(x, 1) : Math.round(x)}%`;
+      };
+      const bestValue = (race) =>
+        race.runners
+          .filter((r) => r.value != null)
+          .sort((a, b) => b.value - a.value)[0] ?? null;
+
+      function countdown(race) {
+        if (!race.startTime) return "";
+        const today = todayStockholm();
+        if (state.date !== today) return longDate(state.date);
+        const min = Math.round((Date.parse(race.startTime) - Date.now()) / 60000);
+        if (min <= 0) return "Startat";
+        const h = Math.floor(min / 60);
+        return `Start om ${h ? `${h} h ` : ""}${min % 60} min`;
+      }
 
       function setStatus(text, isError = false) {
         els.status.textContent = text;
@@ -712,55 +1816,55 @@
         els.status.setAttribute("role", isError ? "alert" : "status");
       }
 
-      function syncUrl() {
+      /* ---------- URL och navigering ---------- */
+      function urlFor(leg) {
         const p = new URLSearchParams({ date: state.date });
         if (state.gameId) p.set("game", state.gameId);
-        history.replaceState(null, "", `?${p}`);
+        if (leg) p.set("lopp", String(leg));
+        return `?${p}`;
       }
-
-      function emptyState(title, text) {
-        els.exportPdf.disabled = true;
-        els.rail.innerHTML = "";
-        els.main.innerHTML = `<div class="empty"><h2>${esc(title)}</h2><p>${esc(text)}</p></div>`;
+      function go(leg, { push = true } = {}) {
+        state.leg = leg;
+        if (push) history.pushState(null, "", urlFor(leg));
+        else history.replaceState(null, "", urlFor(leg));
+        render();
+        if (state.highlight == null) scrollTo({ top: 0 });
       }
 
       /* ---------- Spel ---------- */
       async function loadGames(preferredId) {
-        els.game.disabled = true;
-        els.game.innerHTML = "<option>Hämtar spel …</option>";
-        setStatus("");
+        state.games = [];
+        state.error = null;
+        state.loading = true;
+        render();
+        setStatus("Hämtar spel …");
         try {
           const res = await fetch(`/api/games?date=${state.date}`);
           const body = await res.json();
           if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
+          state.games = body;
           if (!body.length) {
-            els.game.innerHTML = "<option>Inga spel</option>";
             state.gameId = null;
-            syncUrl();
-            return emptyState(
-              "Inga spel den här dagen",
-              "ATG har inga spel med flera lopp det här datumet. Välj ett annat datum.",
-            );
+            state.leg = null;
+            state.loading = false;
+            history.replaceState(null, "", urlFor(null));
+            setStatus("");
+            return render();
           }
-          els.game.innerHTML = body
-            .map(
-              (g) =>
-                `<option value="${esc(g.id)}">${esc(g.type)} ${esc(g.tracks.join(" och "))}${g.startTime ? ` (${hhmm(g.startTime)})` : ""}</option>`,
-            )
-            .join("");
-          els.game.disabled = false;
+          if (!body.some((g) => g.id === preferredId)) state.leg = null;
           state.gameId = body.some((g) => g.id === preferredId)
             ? preferredId
             : body[0].id;
-          els.game.value = state.gameId;
-          syncUrl();
+          history.replaceState(null, "", urlFor(state.leg));
           loadRanking(false);
         } catch (err) {
-          els.game.innerHTML = "<option>Inga spel</option>";
-          emptyState(
-            "Kunde inte hämta spelen",
-            `${err.message}. Kontrollera att servern körs och tryck Uppdatera.`,
-          );
+          state.loading = false;
+          state.error = {
+            title: "Kunde inte hämta spelen",
+            text: `${err.message}. Kontrollera att servern körs och tryck Uppdatera.`,
+          };
+          setStatus("");
+          render();
         }
       }
 
@@ -768,22 +1872,24 @@
       function loadRanking(fresh) {
         if (!state.gameId) return;
         state.source?.close();
-        const hasData = els.main.querySelector(".race");
-        if (hasData) document.body.classList.add("refreshing");
-        else
-          els.main.innerHTML =
-            '<div class="skeleton"></div><div class="skeleton"></div>';
+        const gameId = state.gameId;
+        const hasData = state.rankings.has(gameId);
+        state.loading = true;
+        state.error = null;
+        document.body.classList.toggle("refreshing", hasData);
         els.refresh.disabled = true;
         els.exportPdf.disabled = true;
+        render();
         setStatus("Hämtar startlistor …");
 
         const es = new EventSource(
-          `/api/rankings?date=${state.date}&game=${encodeURIComponent(state.gameId)}${fresh ? "&fresh=1" : ""}`,
+          `/api/rankings?date=${state.date}&game=${encodeURIComponent(gameId)}${fresh ? "&fresh=1" : ""}`,
         );
         state.source = es;
         const done = () => {
           es.close();
           if (state.source === es) state.source = null;
+          state.loading = false;
           els.refresh.disabled = false;
           document.body.classList.remove("refreshing");
         };
@@ -793,8 +1899,9 @@
         es.addEventListener("result", (e) => {
           const data = JSON.parse(e.data);
           done();
-          render(data);
-          els.exportPdf.disabled = !data.races.length;
+          state.rankings.set(gameId, data);
+          if (state.leg && state.leg > data.races.length) state.leg = null;
+          render();
           setStatus(
             `Uppdaterad ${new Date(data.computedAt).toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" })}`,
           );
@@ -805,115 +1912,314 @@
             : "Anslutningen till servern bröts";
           done();
           if (hasData) setStatus(`Kunde inte uppdatera: ${message}`, true);
-          else
-            emptyState(
-              "Kunde inte räkna fram rankingen",
-              `${message}. Tryck Uppdatera för att försöka igen.`,
-            );
+          else {
+            state.error = {
+              title: "Kunde inte räkna fram rankingen",
+              text: `${message}. Tryck Uppdatera för att försöka igen.`,
+            };
+            setStatus("");
+          }
+          render();
         });
       }
 
       /* ---------- Rendering ---------- */
-      function render(game) {
-        const now = Date.now();
+      function render() {
+        const g = game();
+        els.exportPdf.disabled = state.loading || !g?.races.length;
+        if (state.leg) $("nav-today").removeAttribute("aria-current");
+        else $("nav-today").setAttribute("aria-current", "page");
+        if (state.leg && g?.races[state.leg - 1]) renderRace(g);
+        else renderToday(g);
+        closeResults();
+      }
+
+      function emptyHtml(title, text) {
+        return `<div class="card empty"><h2>${esc(title)}</h2><p>${esc(text)}</p></div>`;
+      }
+
+      function renderToday(g) {
         const isToday = state.date === todayStockholm();
-        const nextRace = isToday
-          ? game.races.find((r) => r.startTime && Date.parse(r.startTime) > now)
-          : null;
+        const trackCount = new Set(state.games.flatMap((x) => x.tracks)).size;
+        const head = `<div class="page-head">
+      <div><span class="eyebrow">${esc(longDate(state.date))}</span><h1>${isToday ? "Dagens spel" : "Spel"}</h1></div>
+      ${state.games.length ? `<span class="page-meta">${plural(trackCount, "bana", "banor")} · ${state.games.length} spel · rankingen uppdateras när oddsen rör sig</span>` : ""}
+    </div>`;
 
-        /* Loppnumret är per bana, så spel med två banor (V86) får krockar.
-           Ankarna bygger därför på loppets plats i spelet. */
-        game.races.forEach((r, i) => (r.key = i + 1));
-        const multiTrack = new Set(game.races.map((r) => r.trackName)).size > 1;
+        let body;
+        if (state.error && !state.games.length) body = emptyHtml(state.error.title, state.error.text);
+        else if (!state.games.length && state.loading)
+          body = '<div class="skeleton"></div>';
+        else if (!state.games.length)
+          body = emptyHtml(
+            "Inga spel den här dagen",
+            "ATG har inga spel med flera lopp det här datumet. Välj ett annat datum.",
+          );
+        else
+          body = `<div class="today">
+      <aside class="games">
+        <h2 class="label sr-m" id="games-label">Välj spel</h2>
+        <div role="group" aria-labelledby="games-label" class="game-list">${state.games.map(gameBtnHtml).join("")}</div>
+      </aside>
+      <div class="today-main">${selectedHtml(g)}${tracksHtml(g)}</div>
+    </div>`;
 
-        els.rail.innerHTML = game.races
-          .map((r) => {
-            const top = r.runners[0];
-            const past =
-              isToday && r.startTime && Date.parse(r.startTime) < now;
-            return `<a href="#lopp-${r.key}" data-race="${r.key}" class="${past ? "past" : ""}">
-      <span class="rn">Lopp ${r.number}</span><span class="rt">${hhmm(r.startTime)}</span>
-      ${multiTrack ? `<span class="rtrack">${esc(r.trackName)}</span>` : ""}
-      <span class="rtop">${top ? `${top.number} ${esc(top.horseName)}` : ""}</span></a>`;
+        els.view.innerHTML = `<div class="wrap page">${head}${body}</div>`;
+      }
+
+      function gameBtnHtml(s) {
+        const on = s.id === state.gameId;
+        const r = state.rankings.get(s.id);
+        const done = r && r.races.length && r.races.every(started);
+        const meta = r
+          ? plural(r.races.length, "avdelning", "avdelningar") +
+            (done ? " · avgjort" : "")
+          : "";
+        return `<button type="button" class="game-btn" data-game="${esc(s.id)}" aria-pressed="${on}">
+      <span class="g-id">${esc(s.type)}</span>
+      <span class="g-text"><span class="g-tracks">${esc(s.tracks.join(" + "))}</span>${meta ? `<span class="g-meta">${esc(meta)}</span>` : ""}</span>
+      <span class="g-time">${hhmm(s.startTime)}</span>
+    </button>`;
+      }
+
+      function selectedHtml(g) {
+        const s = summary();
+        if (!s) return "";
+        const races = g?.races ?? [];
+        const tracks = g
+          ? [...new Set(races.map((r) => r.trackName))]
+          : s.tracks;
+        const allDone = races.length > 0 && races.every(started);
+        const starters = races.reduce((n, r) => n + r.runners.length, 0);
+        const valueCount = races.filter(
+          (r) => !started(r) && (bestValue(r)?.value ?? 0) >= GOOD_VALUE,
+        ).length;
+        const meta = g
+          ? `${plural(races.length, "avdelning", "avdelningar")} · ${starters} startande`
+          : "Räknar fram ranking …";
+        const mobileMeta = g
+          ? `${plural(races.length, "avdelning", "avdelningar")} · ${tracks.join(" + ")}`
+          : tracks.join(" + ");
+        return `<section class="card sel" aria-label="Valt spel">
+      <div class="sel-id">
+        <span class="big">${esc(g?.gameType ?? s.type)}</span>
+        <div>
+          <span class="s-tracks d-only">${esc(tracks.join(" + "))}</span>
+          <span class="s-meta d-only">${esc(meta)}</span>
+          <span class="s-tracks m-only">${esc(mobileMeta)}</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="label">${allDone ? "Avgjort" : "Första start"}</span><span class="v">${hhmm(races[0]?.startTime ?? s.startTime)}</span></div>
+        <div class="stat d-only"><span class="label">Värdespel</span><span class="v blue">${g && !allDone ? valueCount : "–"}</span></div>
+      </div>
+    </section>`;
+      }
+
+      function tracksHtml(g) {
+        if (state.error && !g) return emptyHtml(state.error.title, state.error.text);
+        if (!g) return '<div class="skeleton"></div>';
+        if (!g.races.length)
+          return emptyHtml("Inga travlopp i spelet", "Välj ett annat spel.");
+        const groups = new Map();
+        g.races.forEach((race, i) => {
+          if (!groups.has(race.trackName)) groups.set(race.trackName, []);
+          groups.get(race.trackName).push({ race, i });
+        });
+        return [...groups]
+          .map(([name, list]) => {
+            const done = list.every((x) => started(x.race));
+            const first = hhmm(list[0].race.startTime);
+            const last = hhmm(list[list.length - 1].race.startTime);
+            const span = first && last ? ` · ${first}–${last}` : "";
+            return `<section class="card track">
+        <div class="track-head">
+          <div class="t-title"><h2>${esc(name)}</h2><span class="t-sum">${plural(list.length, "avdelning", "avdelningar")}${span}</span></div>
+          <span class="status-pill${done ? " done" : ""}">${done ? "Avgjord" : "Öppen"}</span>
+        </div>
+        <div class="legs"><div class="legs-inner">
+          <div class="leg-head label d-only" aria-hidden="true"><span>Avd</span><span>Lopp</span><span>Tid</span><span>Distans · start</span><span style="text-align:right">Startande</span><span>Högst rankad</span><span>Bästa värde</span><span></span></div>
+          ${list.map(({ race, i }) => legRowHtml(g, race, i)).join("")}
+        </div></div>
+      </section>`;
+          })
+          .join("");
+      }
+
+      function legRowHtml(g, race, i) {
+        const top = race.runners[0];
+        const best = bestValue(race);
+        const meta = [
+          race.distance ? `${race.distance} m` : "",
+          startMethod(race.startMethod),
+          race.sport === "monte" ? "Monté" : "",
+        ]
+          .filter(Boolean)
+          .join(" · ");
+        const showBest = best && best.value > 1;
+        return `<a href="${urlFor(i + 1)}" data-leg="${i + 1}" class="leg-row${started(race) ? " past" : ""}">
+      <span class="leg">${esc(legLabel(g, i))}</span>
+      <span class="r-main">
+        <span class="r-line"><span class="r-time">${hhmm(race.startTime)}</span><span class="r-no"><span class="m-only">Lopp </span><span class="d-only">R</span>${race.number}</span></span>
+        <span class="r-meta">${esc(meta)}<span class="m-only"> · ${race.runners.length} startande</span></span>
+      </span>
+      <span class="r-starters d-only">${race.runners.length}</span>
+      <span class="r-pick"><span class="label m-only">Högst rankad</span><span class="r-pickname">${top ? esc(top.horseName) : "–"}</span>${top ? `<span class="r-note d-only">${winPct(top.winProbability)} vinst</span>` : ""}</span>
+      <span class="r-val d-only">${showBest ? `<span class="r-valname">${esc(best.horseName)}</span>${valueBadge(best.value)}` : '<span class="r-valname" style="color:var(--muted)">–</span>'}</span>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </a>`;
+      }
+
+      function renderRace(g) {
+        const i = state.leg - 1;
+        const race = g.races[i];
+        const leg = legLabel(g, i);
+        const monte = race.sport === "monte";
+        const chips = [
+          race.distance ? `${race.distance} m` : "",
+          startMethod(race.startMethod),
+          plural(race.runners.length, "startande", "startande"),
+          monte ? "Monté" : "",
+        ]
+          .filter(Boolean)
+          .map((c) => `<span class="chip">${esc(c)}</span>`)
+          .join("");
+        const lists = [
+          race.topList === "stl"
+            ? '<span class="chip" title="Kusk- och tränarbonus kommer från topplistorna för STL-lopp">STL-topplista</span>'
+            : "",
+          race.monteList
+            ? '<span class="chip" title="Ryttarbonus kommer från Travsports topplista för montélopp">Montétopplista</span>'
+            : "",
+        ].join("");
+
+        const tabs = g.races
+          .map((r, j) => {
+            const on = j === i;
+            return `<a href="${urlFor(j + 1)}" data-leg="${j + 1}" class="race-tab${started(r) ? " past" : ""}"${on ? ' aria-current="page"' : ""} aria-label="Lopp ${r.number}, ${esc(r.trackName)}, ${hhmm(r.startTime)}, ${esc(legLabel(g, j))}">
+        <span class="t-no">${esc(g.gameType)}:${j + 1}</span><span class="t-sub d-only">${hhmm(r.startTime)} · Lopp ${r.number}</span>
+      </a>`;
           })
           .join("");
 
-        els.main.innerHTML = game.races.length
-          ? game.races.map((r) => raceHtml(r, r === nextRace)).join("")
-          : '<div class="empty"><h2>Inga travlopp i spelet</h2><p>Välj ett annat spel.</p></div>';
+        const runners = race.runners.slice().sort((a, b) =>
+          state.sort === "value"
+            ? (b.value ?? -1) - (a.value ?? -1) || a.rank - b.rank
+            : state.sort === "number"
+              ? a.number - b.number
+              : a.rank - b.rank,
+        );
+        const sorts = SORTS.map(
+          ([id, label]) =>
+            `<button type="button" data-sort="${id}" aria-pressed="${state.sort === id}">${label}</button>`,
+        ).join("");
+        const best = race.runners
+          .filter((r) => r.value != null)
+          .sort((a, b) => b.value - a.value)
+          .slice(0, 3);
+        const person = monte ? "ryttare" : "kusk";
 
-        const animate =
-          state.firstRender &&
-          !matchMedia("(prefers-reduced-motion: reduce)").matches;
-        els.main
-          .querySelectorAll(".stretch")
-          .forEach((s) => layoutStretch(s, animate));
-        observeRaces();
+        els.view.innerHTML = `<div class="wrap page race-page">
+    <nav aria-label="Brödsmulor" class="crumbs d-only">
+      <a href="${urlFor(null)}" data-nav="today">Dagens spel</a><span aria-hidden="true">/</span>
+      <span>${esc(g.gameType)} · ${esc(race.trackName)}</span><span aria-hidden="true">/</span>
+      <span class="here">Lopp ${race.number}</span>
+    </nav>
+    <a href="${urlFor(null)}" data-nav="today" class="back m-only">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      Dagens spel
+    </a>
 
-        if (state.firstRender && nextRace)
-          $(`lopp-${nextRace.key}`)?.scrollIntoView({ block: "start" });
-        state.firstRender = false;
+    <div class="race-head">
+      <div class="rh-left">
+        <div class="rh-tag"><span class="badge-leg">${esc(leg)}</span><span>${esc(race.trackName)}</span></div>
+        <h1>Lopp ${race.number}</h1>
+        <div class="chips d-only">${chips}${lists}</div>
+      </div>
+      <div class="rh-right">
+        <span class="rh-time">${hhmm(race.startTime)}</span>
+        <span class="rh-count" id="countdown">${esc(countdown(race))}</span>
+      </div>
+      <div class="chips m-only">${chips}${lists}</div>
+    </div>
+
+    <nav aria-label="Lopp i spelet" class="race-tabs">${tabs}</nav>
+
+    <div class="race-body">
+      <section class="card ranking" aria-labelledby="ranking-h">
+        <div class="ranking-head">
+          <h2 id="ranking-h">Ranking</h2>
+          <div class="sort">
+            <span class="label" id="sort-label">Sortera efter</span>
+            <div class="seg" role="group" aria-labelledby="sort-label">${sorts}</div>
+          </div>
+        </div>
+        <div class="table-box">
+          <table class="runners">
+            <thead><tr>
+              <th scope="col" class="c-rank center"><span class="d-only">Rank</span><span class="m-only">#</span></th>
+              <th scope="col" class="c-nr center d-only">Nr</th>
+              <th scope="col"><span class="d-only">Häst · ${person}</span><span class="m-only">Häst</span></th>
+              <th scope="col" class="c-pts">Poäng</th>
+              <th scope="col" class="c-win right" title="Modellens chans att hästen vinner"><span class="d-only">Vinst %</span><span class="m-only">Vinst</span></th>
+              <th scope="col" class="right d-only">Odds</th>
+              <th scope="col" class="c-val right" title="Modellens vinstchans jämfört med marknadens">Värde</th>
+            </tr></thead>
+            <tbody>${runners.map((r) => runnerHtml(race, r)).join("")}</tbody>
+          </table>
+          ${race.scratched.length ? `<p class="scratched">Strukna: ${race.scratched.join(", ")}</p>` : ""}
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="card" aria-labelledby="best-h">
+          <h2 id="best-h">Bästa värde</h2>
+          ${
+            best.length
+              ? best
+                  .map(
+                    (b) => `<div class="best">
+            <span class="nr">${b.number}</span>
+            <span class="b-text"><span class="b-name">${esc(b.horseName)}</span><span class="b-meta">${winPct(b.winProbability)} vinst · odds ${b.odds ? nf(b.odds, 2) : "–"}</span></span>
+            ${valueBadge(b.value)}
+          </div>`,
+                  )
+                  .join("")
+              : "<p>Odds saknas ännu, så värdet kan inte räknas.</p>"
+          }
+        </section>
+        <section class="card">
+          <h2>Så läser du tabellen</h2>
+          <p><strong>Poäng</strong> är hästens samlade rankingpoäng (0–100). <strong>Vinst %</strong> är modellens chans att hästen vinner. Tryck på en häst för att se delpoängen.</p>
+          <p><strong>Värde</strong> jämför modellens vinstchans med marknadens (oddsen). Positivt betyder att modellen tror mer på hästen än spelarna gör; en fylld etikett markerar +${valuePct(GOOD_VALUE)}% eller mer.</p>
+        </section>
+      </aside>
+    </div>
+  </div>`;
+
+        if (state.highlight != null) {
+          const row = els.view.querySelector(
+            `tr.runner[data-nr="${state.highlight}"]`,
+          );
+          state.highlight = null;
+          if (row) {
+            row.scrollIntoView({ block: "center" });
+            row.classList.add("flash");
+          }
+        }
       }
 
-      function raceHtml(race, isNext) {
-        const max = Math.max(...race.runners.map((r) => r.points), 1);
-        const meta = [
-          race.trackName,
-          [
-            race.distance ? `${race.distance} m` : "",
-            startMethod(race.startMethod),
-          ]
-            .filter(Boolean)
-            .join(" "),
-          race.sport === "monte" ? "monté" : "",
-          hhmm(race.startTime),
-        ]
-          .filter(Boolean)
-          .join(", ");
-        const dots = race.runners
-          .map(
-            (r) =>
-              `<span class="horse-dot${r.rank === 1 ? " lead" : ""}" data-nr="${r.number}" data-points="${r.points}" title="${r.number} ${esc(r.horseName)}: ${nf(r.points, 1)} poäng">${r.number}</span>`,
-          )
-          .join("");
-
-        return `<section class="race" id="lopp-${race.key}" aria-labelledby="h-${race.key}">
-    <header class="race-head">
-      <h2 id="h-${race.key}">Lopp ${race.number}</h2>
-      <p class="meta">${esc(meta)}</p>
-      ${race.topList === "stl" ? '<span class="tag plain" title="Kusk- och tränarbonus kommer från topplistorna för STL-lopp">STL-topplista</span>' : ""}
-      ${race.monteList ? '<span class="tag plain" title="Ryttarbonus kommer från Travsports topplista för montélopp">Montétopplista</span>' : ""}
-      ${isNext ? '<span class="next">Nästa lopp</span>' : ""}
-    </header>
-    <div class="stretch" aria-hidden="true"><div class="lane"></div><span class="finish"></span>${dots}</div>
-    <table class="runners">
-      <thead><tr>
-        <th scope="col" class="c-rank"><span class="sr">Placering</span></th>
-        <th scope="col">Nr</th>
-        <th scope="col">Häst och ${race.sport === "monte" ? "ryttare" : "kusk"}</th>
-        <th scope="col" class="num c-points">Poäng</th>
-        <th scope="col" class="num" title="Modellens chans att hästen vinner, räknat från poängen"><span class="long">Vinstchans</span><span class="short">Vinst</span></th>
-        <th scope="col" class="num c-odds">Odds</th>
-        <th scope="col" class="num" title="Modellens vinstchans delat med spelarnas. Över 1 betyder att modellen tror mer på hästen än oddset gör."><span class="long">Spelvärde</span><span class="short">Värde</span></th>
-      </tr></thead>
-      <tbody>${race.runners.map((r) => runnerHtml(race, r, max)).join("")}</tbody>
-    </table>
-    ${race.scratched.length ? `<p class="scratched">Strukna: ${race.scratched.join(", ")}</p>` : ""}
-  </section>`;
-      }
-
-      function runnerHtml(race, r, max) {
-        const id = `d-${race.key}-${r.number}`;
+      function runnerHtml(race, r) {
+        const key = `${race.raceId}-${r.number}`;
+        const id = `d-${r.number}`;
+        const open = state.open.has(key);
         const low = r.confidence < LOW_CONFIDENCE;
+        const strong = r.value != null && r.value >= GOOD_VALUE;
+        const rankCls = r.rank === 1 ? " r1" : r.rank <= 3 ? " r2" : "";
         const tags = [
           ...r.notes.map((n) => `<span class="tag">${esc(n)}</span>`),
           low ? '<span class="tag plain">Lite data</span>' : "",
         ].join("");
-        const value =
-          r.value == null
-            ? "–"
-            : `<span class="value ${r.value >= GOOD_VALUE ? "good" : r.value < 0.85 ? "weak" : ""}">${nf(r.value, 2)}</span>`;
-
         const factors = FACTORS.filter(([k]) => r.factors[k]?.weight > 0)
           .map(([k, name]) => {
             const label =
@@ -921,133 +2227,212 @@
             const f = r.factors[k];
             const missing = f.raw === null;
             return `<div class="factor${missing ? " missing" : ""}"><span>${label}</span>
-      <span class="ft"><span class="ff" style="--w:${missing ? 0 : f.score}%"></span></span>
-      <span>${missing ? "–" : Math.round(f.score)}</span></div>`;
+        <span class="bar"><span style="width:${missing ? 0 : f.score}%"></span></span>
+        <span class="num">${missing ? "–" : Math.round(f.score)}</span></div>`;
           })
           .join("");
+        const odds = r.odds ? nf(r.odds, 2) : "–";
 
-        return `<tr class="runner r${r.rank}${low ? " low" : ""}" data-nr="${r.number}">
-      <td class="c-rank">${r.rank}</td>
-      <td><span class="nr">${r.number}</span></td>
-      <td>
-        <button type="button" class="toggle" aria-expanded="false" aria-controls="${id}">
-          <span class="horse">${esc(r.horseName)}</span><span class="driver">${esc(r.driverName)}</span>
+        return `<tr class="runner${strong ? " strong" : ""}${low ? " low" : ""}" data-nr="${r.number}">
+      <td class="c-rank center"><span class="rank${rankCls}">${r.rank}</span></td>
+      <td class="c-nr center d-only"><span class="nr">${r.number}</span></td>
+      <td><div class="horse-cell">
+        <span class="nr m-only" aria-label="Startnummer ${r.number}">${r.number}</span>
+        <button type="button" class="toggle" aria-expanded="${open}" aria-controls="${id}" data-key="${esc(key)}">
+          <span class="h-name">${esc(r.horseName)}</span><span class="h-driver">${esc(r.driverName)}</span>
         </button>
-        ${tags ? `<div class="notes">${tags}</div>` : ""}
-      </td>
-      <td class="num c-points"><div class="points"><span class="track"><span class="fill" style="--w:${(r.points / max) * 100}%"></span></span><span class="pts">${nf(r.points, 1)}</span></div></td>
-      <td class="num">${r.winProbability < 0.005 ? "&lt;1" : Math.round(r.winProbability * 100)} %</td>
-      <td class="num c-odds">${r.odds ? nf(r.odds, 2) : "–"}</td>
-      <td class="num">${value}</td>
+      </div></td>
+      <td class="c-pts"><div class="pts"><span class="pts-n">${nf(r.points, 1)}</span><span class="bar"><span style="width:${Math.max(0, Math.min(100, r.points))}%"></span></span></div></td>
+      <td class="c-win right num">${winPct(r.winProbability)}</td>
+      <td class="c-odds right num d-only">${odds}</td>
+      <td class="c-val right">${valueBadge(r.value)}<span class="odds-inline m-only">odds ${odds}</span></td>
     </tr>
-    <tr class="detail" id="${id}" hidden><td colspan="7">
+    <tr class="detail" id="${id}"${open ? "" : " hidden"}><td colspan="7">
+      ${tags ? `<div class="tags">${tags}</div>` : ""}
       <div class="factors">${factors}</div>
       <p class="detail-meta">Tränare ${esc(r.trainerName)}. Data finns för ${Math.round(r.confidence * 100)} % av poängen; saknade delar räknas som medel.</p>
     </td></tr>`;
       }
 
-      /* Upploppet: placera startnumren efter poäng, lägg dem i rader så de inte krockar. */
-      function layoutStretch(stretch, animate) {
-        const dots = [...stretch.querySelectorAll(".horse-dot")];
-        const width = stretch.clientWidth || 600;
-        const pts = dots.map((d) => Number(d.dataset.points));
-        const lo = Math.min(...pts),
-          hi = Math.max(...pts);
-        const minGap = (30 / width) * 100;
-        const rowsLastX = [];
-        const placed = dots
-          .map((d, i) => ({ d, x: 3 + ((pts[i] - lo) / (hi - lo || 1)) * 90 }))
-          .sort((a, b) => a.x - b.x);
-
-        for (const p of placed) {
-          let row = rowsLastX.findIndex((last) => p.x - last >= minGap);
-          if (row === -1)
-            row =
-              rowsLastX.length < 3
-                ? rowsLastX.length
-                : rowsLastX.indexOf(Math.min(...rowsLastX));
-          rowsLastX[row] = p.x;
-          p.row = row;
-        }
-        const rows = Math.max(1, rowsLastX.length);
-        const rowH = 30;
-        stretch.style.height = `${rows * rowH + 10}px`;
-        for (const p of placed) {
-          p.d.style.top = `${5 + p.row * rowH}px`;
-          if (!animate) p.d.style.left = `${p.x}%`;
-        }
-        if (animate) {
-          placed.forEach((p) => (p.d.style.left = "0%"));
-          requestAnimationFrame(() =>
-            requestAnimationFrame(() =>
-              placed.forEach((p) => (p.d.style.left = `${p.x}%`)),
-            ),
-          );
-        }
+      /* ---------- Sök ---------- */
+      function closeResults() {
+        els.results.hidden = true;
+        els.results.innerHTML = "";
       }
-
-      /* Markera aktuellt lopp i listan till vänster. */
-      let observer;
-      function observeRaces() {
-        observer?.disconnect();
-        const links = new Map(
-          [...els.rail.querySelectorAll("a")].map((a) => [a.dataset.race, a]),
-        );
-        observer = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (!e.isIntersecting) continue;
-              links.forEach((a) => a.removeAttribute("aria-current"));
-              const a = links.get(e.target.id.replace("lopp-", ""));
-              a?.setAttribute("aria-current", "true");
-              a?.scrollIntoView({ block: "nearest", inline: "nearest" });
-            }
-          },
-          { rootMargin: "-30% 0px -60% 0px" },
-        );
-        els.main.querySelectorAll(".race").forEach((s) => observer.observe(s));
+      function search() {
+        const term = els.q.value.trim().toLocaleLowerCase("sv-SE");
+        if (!term) return closeResults();
+        const g = game();
+        if (!g) {
+          els.results.innerHTML =
+            '<li class="empty-hit">Välj ett spel först – sökningen gäller spelets startlistor.</li>';
+          els.results.hidden = false;
+          return;
+        }
+        const hits = g.races
+          .flatMap((race, i) =>
+            race.runners.map((r) => ({ race, i, r })),
+          )
+          .filter(
+            ({ r }) =>
+              r.horseName.toLocaleLowerCase("sv-SE").includes(term) ||
+              r.driverName.toLocaleLowerCase("sv-SE").includes(term),
+          )
+          .slice(0, 10);
+        els.results.innerHTML = hits.length
+          ? hits
+              .map(
+                ({ race, i, r }) => `<li><button type="button" data-leg="${i + 1}" data-nr="${r.number}">
+          <span class="nr">${r.number}</span>
+          <span><span class="rs-name">${esc(r.horseName)}</span><br><span class="rs-meta">${esc(legLabel(g, i))} · ${esc(race.trackName)} lopp ${race.number} · ${esc(r.driverName)} · rank ${r.rank}</span></span>
+        </button></li>`,
+              )
+              .join("")
+          : '<li class="empty-hit">Ingen häst eller kusk matchar i det här spelet.</li>';
+        els.results.hidden = false;
       }
+      els.q.addEventListener("input", search);
+      els.q.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          els.q.value = "";
+          closeResults();
+        }
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          els.results.querySelector("button")?.focus();
+        }
+      });
+      els.results.addEventListener("click", (e) => {
+        const b = e.target.closest("button[data-leg]");
+        if (!b) return;
+        state.highlight = Number(b.dataset.nr);
+        state.sort = "points";
+        els.q.value = "";
+        go(Number(b.dataset.leg));
+      });
+      document.addEventListener("click", (e) => {
+        if (!els.search.contains(e.target)) closeResults();
+      });
+      els.searchToggle.addEventListener("click", () => {
+        const show = els.search.hidden;
+        els.search.hidden = !show;
+        els.searchToggle.setAttribute("aria-expanded", String(show));
+        if (show) els.q.focus();
+      });
+      const mobile = matchMedia("(max-width: 820px)");
+      const syncSearch = () => {
+        els.search.hidden = mobile.matches;
+        els.searchToggle.setAttribute("aria-expanded", "false");
+      };
+      mobile.addEventListener("change", syncSearch);
+      syncSearch();
 
       /* ---------- Interaktion ---------- */
-      els.main.addEventListener("click", (e) => {
-        const btn = e.target.closest(".toggle");
-        if (!btn) return;
-        const open = btn.getAttribute("aria-expanded") === "true";
-        btn.setAttribute("aria-expanded", String(!open));
-        $(btn.getAttribute("aria-controls")).hidden = open;
+      document.addEventListener("click", (e) => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey)
+          return;
+        const nav = e.target.closest("a[data-nav], a[data-leg]");
+        if (nav) {
+          e.preventDefault();
+          return go(nav.dataset.leg ? Number(nav.dataset.leg) : null);
+        }
+        const gameBtn = e.target.closest("button[data-game]");
+        if (gameBtn) {
+          if (gameBtn.dataset.game === state.gameId) return;
+          state.gameId = gameBtn.dataset.game;
+          state.leg = null;
+          history.pushState(null, "", urlFor(null));
+          loadRanking(false);
+          return refocus(`[data-game="${CSS.escape(state.gameId)}"]`);
+        }
+        const sortBtn = e.target.closest("button[data-sort]");
+        if (sortBtn) {
+          state.sort = sortBtn.dataset.sort;
+          render();
+          return refocus(`[data-sort="${state.sort}"]`);
+        }
+        const toggle = e.target.closest(".toggle");
+        if (toggle) {
+          const open = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", String(!open));
+          $(toggle.getAttribute("aria-controls")).hidden = open;
+          if (open) state.open.delete(toggle.dataset.key);
+          else state.open.add(toggle.dataset.key);
+        }
       });
 
-      function highlight(e, on) {
-        const host = e.target.closest(".horse-dot, tr.runner");
-        if (!host) return;
-        const race = host.closest(".race");
-        const nr = host.dataset.nr;
-        race
-          .querySelector(`.horse-dot[data-nr="${nr}"]`)
-          ?.classList.toggle("hl", on);
-        race
-          .querySelector(`tr.runner[data-nr="${nr}"]`)
-          ?.classList.toggle("hl", on);
-      }
-      els.main.addEventListener("mouseover", (e) => highlight(e, true));
-      els.main.addEventListener("mouseout", (e) => highlight(e, false));
+      /* Vyn byggs om vid varje rendering – behåll fokus på knappen. */
+      const refocus = (sel) => els.view.querySelector(sel)?.focus();
+
+      addEventListener("popstate", () => {
+        const p = new URLSearchParams(location.search);
+        const date = p.get("date");
+        const leg = Number(p.get("lopp")) || null;
+        if (date && date !== state.date) {
+          state.date = date;
+          els.date.value = date;
+          state.rankings.clear();
+          state.leg = leg;
+          return loadGames(p.get("game"));
+        }
+        state.leg = leg;
+        const gameId = p.get("game");
+        if (gameId && gameId !== state.gameId) {
+          state.gameId = gameId;
+          if (!state.rankings.has(gameId)) return loadRanking(false);
+        }
+        render();
+      });
 
       els.date.addEventListener("change", () => {
         if (!els.date.value) return;
         state.date = els.date.value;
-        state.firstRender = true;
+        state.rankings.clear();
+        state.leg = null;
+        history.pushState(null, "", urlFor(null));
         loadGames(null);
-      });
-      els.game.addEventListener("change", () => {
-        state.gameId = els.game.value;
-        state.firstRender = true;
-        syncUrl();
-        loadRanking(false);
       });
       els.refresh.addEventListener("click", () =>
         state.gameId ? loadRanking(true) : loadGames(null),
       );
-      /* PDF: hämtas som fil så att vi kan visa förlopp och fel i statusraden. */
+      /* PDF: hämtas som fil så att vi kan visa förlopp och fel i statusraden,
+         och visas sedan i en förhandsvisning med knappar för att spara. */
+      const preview = {
+        dialog: $("preview"),
+        title: $("preview-title"),
+        frame: $("preview-frame"),
+        fallback: $("preview-fallback"),
+        open: $("preview-open"),
+        download: $("preview-download"),
+        url: null,
+      };
+      function showPreview(blob, name, title) {
+        if (preview.url) URL.revokeObjectURL(preview.url);
+        preview.url = URL.createObjectURL(blob);
+        preview.title.textContent = title;
+        preview.open.href = preview.url;
+        preview.download.href = preview.url;
+        preview.download.download = name;
+        // Mobilwebbläsare saknar ofta inbyggd PDF-visare; visa då bara knapparna.
+        const inline = navigator.pdfViewerEnabled !== false;
+        preview.frame.hidden = !inline;
+        preview.fallback.hidden = inline;
+        preview.frame.src = inline ? `${preview.url}#view=FitH` : "about:blank";
+        preview.dialog.showModal();
+      }
+      preview.dialog.addEventListener("close", () => {
+        preview.frame.src = "about:blank";
+        if (preview.url) URL.revokeObjectURL(preview.url);
+        preview.url = null;
+        els.exportPdf.focus();
+      });
+      $("preview-close").addEventListener("click", () =>
+        preview.dialog.close(),
+      );
+      preview.dialog.addEventListener("click", (e) => {
+        if (e.target === preview.dialog) preview.dialog.close();
+      });
+
       els.exportPdf.addEventListener("click", async () => {
         if (!state.gameId) return;
         els.exportPdf.disabled = true;
@@ -1066,15 +2451,13 @@
             /filename="([^"]+)"/.exec(
               res.headers.get("content-disposition") || "",
             )?.[1] || "travranking.pdf";
-          const link = Object.assign(document.createElement("a"), {
-            href: URL.createObjectURL(blob),
-            download: name,
-          });
-          document.body.append(link);
-          link.click();
-          link.remove();
-          setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-          setStatus(`PDF sparad: ${name}`);
+          const g = game();
+          showPreview(
+            blob,
+            name,
+            `${g?.gameType ?? "PDF"} · ${longDate(state.date)}`,
+          );
+          setStatus("");
         } catch (err) {
           setStatus(`Kunde inte skapa PDF: ${err.message}`, true);
         } finally {
@@ -1082,23 +2465,19 @@
         }
       });
 
-      let resizeTimer;
-      addEventListener("resize", () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(
-          () =>
-            els.main
-              .querySelectorAll(".stretch")
-              .forEach((s) => layoutStretch(s, false)),
-          150,
-        );
-      });
+      /* Nedräkningen och "avgjord"-status följer klockan. */
+      setInterval(() => {
+        const g = game();
+        const el = $("countdown");
+        if (el && g && state.leg) el.textContent = countdown(g.races[state.leg - 1]);
+      }, 30_000);
 
       /* ---------- Start ---------- */
       const params = new URLSearchParams(location.search);
       state.date = /^\d{4}-\d{2}-\d{2}$/.test(params.get("date") || "")
         ? params.get("date")
         : todayStockholm();
+      state.leg = Number(params.get("lopp")) || null;
       els.date.value = state.date;
       loadGames(params.get("game"));
     </script>

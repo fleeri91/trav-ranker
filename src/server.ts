@@ -163,7 +163,7 @@ async function exportPdf(res: ServerResponse, url: URL) {
   );
   res.writeHead(200, {
     "content-type": "application/pdf",
-    "content-disposition": `attachment; filename="${name}"`,
+    "content-disposition": `inline; filename="${name}"`,
     "content-length": pdf.length,
     "cache-control": "no-store",
   });

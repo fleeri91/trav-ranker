@@ -1,0 +1,27 @@
+{
+  "name": "trav-ranker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Poängbaserad rankning av starter i ATG-travlopp",
+  "scripts": {
+    "rank": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts",
+    "backtest": "tsx scripts/backtest.ts",
+    "check:charts": "tsx scripts/check-charts.ts",
+    "dashboard": "tsx watch src/server.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "22.9.0",
+    "@types/pdfkit": "^0.17.6",
+    "tsx": "4.19.2",
+    "typescript": "5.6.3"
+  },
+  "dependencies": {
+    "pdfkit": "^0.17.2"
+  }
+}

@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Travranking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f2f4f1;
+        --surface: #ffffff;
+        --ink: #18222e;
+        --muted: #5e6b78;
+        --line: #d9dfda;
+        --gravel: #cfc6b6;
+        --accent: #1e6b4f;
+        --accent-soft: #dcebe3;
+        --on-accent: #ffffff;
+        --amber: #9a6410;
+        --amber-soft: #f6ead3;
+        --focus: #2f6fd6;
+        --font:
+          "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        --font-cond: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #121a24;
+          --surface: #18222e;
+          --ink: #e7ecef;
+          --muted: #97a4b0;
+          --line: #2a3644;
+          --gravel: #3b4148;
+          --accent: #56b88f;
+          --accent-soft: #1d3b30;
+          --on-accent: #0c1a13;
+          --amber: #e3ad55;
+          --amber-soft: #3a2f1c;
+          --focus: #7aa7ff;
+          color-scheme: dark;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-padding-top: 88px;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 400 15px/1.45 var(--font);
+        font-variant-numeric: tabular-nums;
+        -webkit-font-smoothing: antialiased;
+      }
+      :focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      .short {
+        display: none;
+      }
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      /* ---------- Topbar ---------- */
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 24px;
+        padding: 12px 24px;
+        background: color-mix(in srgb, var(--paper) 88%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .bar h1 {
+        margin: 0;
+        font: 700 24px/1 var(--font-cond);
+        letter-spacing: 0.01em;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 10px;
+      }
+      .controls label {
+        display: grid;
+        gap: 2px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .controls input,
+      .controls select,
+      .controls button {
+        font: 500 15px/1 var(--font);
+        color: var(--ink);
+        height: 36px;
+        padding: 0 10px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .controls select {
+        min-width: 220px;
+        max-width: 70vw;
+      }
+      .controls button {
+        cursor: pointer;
+        padding: 0 16px;
+        font-weight: 600;
+      }
+      .controls button:hover {
+        border-color: var(--muted);
+      }
+      .controls button:disabled {
+        opacity: 0.6;
+        cursor: progress;
+      }
+      .status {
+        margin: 0 0 0 auto;
+        font-size: 13px;
+        color: var(--muted);
+        min-height: 1.4em;
+      }
+      .status.error {
+        color: var(--amber);
+        font-weight: 600;
+      }
+
+      /* ---------- Layout ---------- */
+      .layout {
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        gap: 32px;
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .rail {
+        position: sticky;
+        top: 88px;
+        align-self: start;
+        display: grid;
+        gap: 2px;
+      }
+      .rail a {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0 8px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        color: inherit;
+        text-decoration: none;
+      }
+      .rail a:hover {
+        background: var(--surface);
+      }
+      .rail a[aria-current="true"] {
+        background: var(--surface);
+        box-shadow: inset 3px 0 0 var(--accent);
+      }
+      .rail a.past {
+        color: var(--muted);
+      }
+      .rail .rn {
+        font: 600 16px/1.2 var(--font-cond);
+      }
+      .rail .rt {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .rail .rtrack {
+        grid-column: 1 / -1;
+        font-size: 12px;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .rail .rtop {
+        grid-column: 1 / -1;
+        font-size: 13px;
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      main {
+        min-width: 0;
+      }
+
+      /* ---------- Race ---------- */
+      .race {
+        padding: 8px 0 40px;
+      }
+      .race + .race {
+        border-top: 1px solid var(--line);
+        padding-top: 28px;
+      }
+      .race-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 14px;
+      }
+      .race-head h2 {
+        margin: 0;
+        font: 700 30px/1 var(--font-cond);
+      }
+      .race-head .meta {
+        margin: 0;
+        color: var(--muted);
+      }
+      .next {
+        font: 600 12px/1 var(--font);
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      /* Upploppet: startnumren placerade efter poäng, ledaren närmast mål */
+      .stretch {
+        position: relative;
+        margin: 18px 0 10px;
+        height: 40px;
+      }
+      .stretch .lane {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 15px;
+        height: 6px;
+        background: var(--gravel);
+        border-radius: 3px;
+      }
+      .stretch .finish {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        background: repeating-conic-gradient(
+            var(--ink) 0 25%,
+            transparent 0 50%
+          )
+          0 0 / 5px 5px;
+        border-radius: 2px;
+        opacity: 0.8;
+      }
+      .horse-dot {
+        position: absolute;
+        left: 0;
+        width: 26px;
+        height: 26px;
+        margin-left: -13px;
+        display: grid;
+        place-items: center;
+        font: 700 14px/1 var(--font-cond);
+        background: var(--surface);
+        color: var(--ink);
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        transition:
+          left 1100ms cubic-bezier(0.2, 0.7, 0.15, 1),
+          transform 150ms;
+        cursor: default;
+      }
+      .horse-dot.lead {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--on-accent);
+      }
+      .horse-dot.hl,
+      tr.runner.hl .nr {
+        transform: scale(1.18);
+      }
+
+      /* ---------- Table ---------- */
+      .runners {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .runners th {
+        text-align: left;
+        font-weight: 500;
+        font-size: 12px;
+        color: var(--muted);
+        padding: 6px 8px;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+      .runners td {
+        padding: 9px 8px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+      }
+      .runners .num {
+        text-align: right;
+        white-space: nowrap;
+      }
+      .runners th[title] {
+        cursor: help;
+        text-decoration: underline dotted;
+        text-underline-offset: 3px;
+      }
+      tr.runner.hl td {
+        background: var(--surface);
+      }
+      tr.runner.low .horse,
+      tr.runner.low .pts {
+        color: var(--muted);
+      }
+
+      .c-rank {
+        width: 28px;
+        color: var(--muted);
+        font: 600 15px/1 var(--font-cond);
+      }
+      tr.runner.r1 .c-rank {
+        color: var(--accent);
+      }
+      .nr {
+        display: inline-grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        font: 700 15px/1 var(--font-cond);
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        transition: transform 150ms;
+      }
+      tr.runner.r1 .nr {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--on-accent);
+      }
+
+      .toggle {
+        all: unset;
+        cursor: pointer;
+        display: grid;
+        gap: 1px;
+        border-radius: 4px;
+      }
+      .toggle .horse {
+        font-weight: 600;
+        overflow-wrap: anywhere;
+      }
+      .toggle .horse::after {
+        content: "\00a0+";
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .toggle[aria-expanded="true"] .horse::after {
+        content: "\00a0−";
+      }
+      .toggle .driver {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .notes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 4px;
+      }
+      .tag {
+        white-space: nowrap;
+        font-size: 12px;
+        padding: 1px 7px;
+        border-radius: 999px;
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+      .tag.plain {
+        background: transparent;
+        border: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .c-points {
+        width: 30%;
+        min-width: 120px;
+      }
+      .points {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .points .track {
+        flex: 1;
+        height: 6px;
+        background: var(--line);
+        border-radius: 3px;
+        overflow: hidden;
+        max-width: 160px;
+      }
+      .points .fill {
+        display: block;
+        height: 100%;
+        width: var(--w);
+        background: var(--ink);
+        border-radius: 3px;
+      }
+      tr.runner.r1 .points .fill {
+        background: var(--accent);
+      }
+      .pts {
+        font-weight: 600;
+        min-width: 3.2ch;
+      }
+
+      .value {
+        font-weight: 600;
+      }
+      .value.good {
+        padding: 2px 7px;
+        border-radius: 6px;
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+      .value.weak {
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      tr.detail td {
+        padding: 4px 8px 18px 72px;
+        background: transparent;
+      }
+      .factors {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 6px 24px;
+        margin: 6px 0 8px;
+      }
+      .factor {
+        display: grid;
+        grid-template-columns: 92px 1fr 2.4ch;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+      }
+      .factor .ft {
+        height: 5px;
+        background: var(--line);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .factor .ff {
+        display: block;
+        height: 100%;
+        width: var(--w);
+        background: var(--muted);
+      }
+      .factor.missing {
+        color: var(--muted);
+      }
+      .factor.missing .ff {
+        background: transparent;
+      }
+      .detail-meta {
+        margin: 0;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .scratched {
+        margin: 10px 0 0;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* ---------- Tomt, laddar, fel ---------- */
+      .empty {
+        max-width: 46ch;
+        padding: 48px 0;
+      }
+      .empty h2 {
+        font: 700 26px/1.1 var(--font-cond);
+        margin: 0 0 8px;
+      }
+      .empty p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .skeleton {
+        height: 280px;
+        border-radius: 10px;
+        margin-bottom: 24px;
+        background:
+          linear-gradient(90deg, var(--line) 0 30%, transparent 30%) 0 0 / 100%
+            34px no-repeat,
+          repeating-linear-gradient(var(--paper) 0 18px, var(--line) 18px 19px)
+            0 60px / 100% 100% no-repeat;
+        opacity: 0.7;
+      }
+      .refreshing main {
+        opacity: 0.55;
+        transition: opacity 200ms;
+      }
+
+      /* ---------- Mobil ---------- */
+      @media (max-width: 820px) {
+        .bar {
+          position: static;
+          padding: 12px 16px;
+          gap: 8px;
+          backdrop-filter: none;
+        }
+        .controls {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          width: 100%;
+        }
+        .controls select {
+          min-width: 0;
+          max-width: none;
+          width: 100%;
+        }
+        .controls button {
+          grid-column: 1 / -1;
+        }
+        .status {
+          margin: 0;
+          width: 100%;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+          gap: 0;
+          padding: 0 16px 24px;
+        }
+        .rail {
+          position: sticky;
+          top: 0;
+          z-index: 5;
+          display: flex;
+          overflow-x: auto;
+          gap: 4px;
+          margin: 0 -16px;
+          padding: 8px 16px;
+          background: var(--paper);
+          border-bottom: 1px solid var(--line);
+          scrollbar-width: none;
+        }
+        .rail a {
+          flex: none;
+          grid-template-columns: auto auto;
+          padding: 6px 10px;
+        }
+        .rail .rtop {
+          display: none;
+        }
+        .rail a[aria-current="true"] {
+          box-shadow: inset 0 -3px 0 var(--accent);
+        }
+        html {
+          scroll-padding-top: 60px;
+        }
+        .race {
+          padding-top: 20px;
+        }
+        .c-odds,
+        .c-rank {
+          display: none;
+        }
+        .c-points {
+          width: auto;
+          min-width: 0;
+        }
+        .points .track {
+          display: none;
+        }
+        .long {
+          display: none;
+        }
+        .short {
+          display: inline;
+        }
+        .tag {
+          white-space: normal;
+        }
+        .runners th {
+          white-space: normal;
+        }
+        tr.detail td {
+          padding-left: 8px;
+        }
+        .runners td,
+        .runners th {
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .horse-dot,
+        .nr,
+        .refreshing main {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="bar" id="bar">
+      <h1>Travranking</h1>
+      <div class="controls">
+        <label>Datum <input type="date" id="date" /></label>
+        <label
+          >Spel
+          <select id="game" disabled>
+            <option>Hämtar spel …</option>
+          </select></label
+        >
+        <button type="button" id="refresh">Uppdatera</button>
+        <button type="button" id="export" disabled>Exportera PDF</button>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </header>
+
+    <div class="layout">
+      <nav class="rail" id="rail" aria-label="Lopp"></nav>
+      <main id="main"></main>
+    </div>
+
+    <script>
+      const FACTORS = [
+        ["form", "Form"],
+        ["speed", "Fart"],
+        ["class", "Klass"],
+        ["winRate", "Segerprocent"],
+        ["driver", "Kusk"],
+        ["trainer", "Tränare"],
+        ["position", "Spår/distans"],
+        ["gearForm", "Rustningsform"],
+        ["gearChange", "Ny utrustning"],
+        ["freshness", "Vila"],
+        ["market", "Marknad"],
+      ];
+      const GOOD_VALUE = 1.15;
+      const LOW_CONFIDENCE = 0.6;
+
+      const $ = (id) => document.getElementById(id);
+      const els = {
+        date: $("date"),
+        game: $("game"),
+        refresh: $("refresh"),
+        exportPdf: $("export"),
+        status: $("status"),
+        rail: $("rail"),
+        main: $("main"),
+      };
+      const state = {
+        date: null,
+        gameId: null,
+        source: null,
+        firstRender: true,
+      };
+
+      const todayStockholm = () =>
+        new Date().toLocaleDateString("sv-SE", {
+          timeZone: "Europe/Stockholm",
+        });
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const nf = (n, d) =>
+        n.toLocaleString("sv-SE", {
+          minimumFractionDigits: d,
+          maximumFractionDigits: d,
+        });
+      const hhmm = (iso) => (iso && iso.length >= 16 ? iso.slice(11, 16) : "");
+      const startMethod = (m) =>
+        m === "auto" ? "autostart" : m === "volte" ? "voltstart" : "";
+
+      function setStatus(text, isError = false) {
+        els.status.textContent = text;
+        els.status.classList.toggle("error", isError);
+        els.status.setAttribute("role", isError ? "alert" : "status");
+      }
+
+      function syncUrl() {
+        const p = new URLSearchParams({ date: state.date });
+        if (state.gameId) p.set("game", state.gameId);
+        history.replaceState(null, "", `?${p}`);
+      }
+
+      function emptyState(title, text) {
+        els.exportPdf.disabled = true;
+        els.rail.innerHTML = "";
+        els.main.innerHTML = `<div class="empty"><h2>${esc(title)}</h2><p>${esc(text)}</p></div>`;
+      }
+
+      /* ---------- Spel ---------- */
+      async function loadGames(preferredId) {
+        els.game.disabled = true;
+        els.game.innerHTML = "<option>Hämtar spel …</option>";
+        setStatus("");
+        try {
+          const res = await fetch(`/api/games?date=${state.date}`);
+          const body = await res.json();
+          if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
+          if (!body.length) {
+            els.game.innerHTML = "<option>Inga spel</option>";
+            state.gameId = null;
+            syncUrl();
+            return emptyState(
+              "Inga spel den här dagen",
+              "ATG har inga spel med flera lopp det här datumet. Välj ett annat datum.",
+            );
+          }
+          els.game.innerHTML = body
+            .map(
+              (g) =>
+                `<option value="${esc(g.id)}">${esc(g.type)} ${esc(g.tracks.join(" och "))}${g.startTime ? ` (${hhmm(g.startTime)})` : ""}</option>`,
+            )
+            .join("");
+          els.game.disabled = false;
+          state.gameId = body.some((g) => g.id === preferredId)
+            ? preferredId
+            : body[0].id;
+          els.game.value = state.gameId;
+          syncUrl();
+          loadRanking(false);
+        } catch (err) {
+          els.game.innerHTML = "<option>Inga spel</option>";
+          emptyState(
+            "Kunde inte hämta spelen",
+            `${err.message}. Kontrollera att servern körs och tryck Uppdatera.`,
+          );
+        }
+      }
+
+      /* ---------- Ranking (server-sent events med förlopp) ---------- */
+      function loadRanking(fresh) {
+        if (!state.gameId) return;
+        state.source?.close();
+        const hasData = els.main.querySelector(".race");
+        if (hasData) document.body.classList.add("refreshing");
+        else
+          els.main.innerHTML =
+            '<div class="skeleton"></div><div class="skeleton"></div>';
+        els.refresh.disabled = true;
+        els.exportPdf.disabled = true;
+        setStatus("Hämtar startlistor …");
+
+        const es = new EventSource(
+          `/api/rankings?date=${state.date}&game=${encodeURIComponent(state.gameId)}${fresh ? "&fresh=1" : ""}`,
+        );
+        state.source = es;
+        const done = () => {
+          es.close();
+          if (state.source === es) state.source = null;
+          els.refresh.disabled = false;
+          document.body.classList.remove("refreshing");
+        };
+        es.addEventListener("log", (e) =>
+          setStatus(JSON.parse(e.data).replace(/^ATG: |^Topplista /, "")),
+        );
+        es.addEventListener("result", (e) => {
+          const data = JSON.parse(e.data);
+          done();
+          render(data);
+          els.exportPdf.disabled = !data.races.length;
+          setStatus(
+            `Uppdaterad ${new Date(data.computedAt).toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" })}`,
+          );
+        });
+        es.addEventListener("error", (e) => {
+          const message = e.data
+            ? JSON.parse(e.data).message
+            : "Anslutningen till servern bröts";
+          done();
+          if (hasData) setStatus(`Kunde inte uppdatera: ${message}`, true);
+          else
+            emptyState(
+              "Kunde inte räkna fram rankingen",
+              `${message}. Tryck Uppdatera för att försöka igen.`,
+            );
+        });
+      }
+
+      /* ---------- Rendering ---------- */
+      function render(game) {
+        const now = Date.now();
+        const isToday = state.date === todayStockholm();
+        const nextRace = isToday
+          ? game.races.find((r) => r.startTime && Date.parse(r.startTime) > now)
+          : null;
+
+        /* Loppnumret är per bana, så spel med två banor (V86) får krockar.
+           Ankarna bygger därför på loppets plats i spelet. */
+        game.races.forEach((r, i) => (r.key = i + 1));
+        const multiTrack = new Set(game.races.map((r) => r.trackName)).size > 1;
+
+        els.rail.innerHTML = game.races
+          .map((r) => {
+            const top = r.runners[0];
+            const past =
+              isToday && r.startTime && Date.parse(r.startTime) < now;
+            return `<a href="#lopp-${r.key}" data-race="${r.key}" class="${past ? "past" : ""}">
+      <span class="rn">Lopp ${r.number}</span><span class="rt">${hhmm(r.startTime)}</span>
+      ${multiTrack ? `<span class="rtrack">${esc(r.trackName)}</span>` : ""}
+      <span class="rtop">${top ? `${top.number} ${esc(top.horseName)}` : ""}</span></a>`;
+          })
+          .join("");
+
+        els.main.innerHTML = game.races.length
+          ? game.races.map((r) => raceHtml(r, r === nextRace)).join("")
+          : '<div class="empty"><h2>Inga travlopp i spelet</h2><p>Välj ett annat spel.</p></div>';
+
+        const animate =
+          state.firstRender &&
+          !matchMedia("(prefers-reduced-motion: reduce)").matches;
+        els.main
+          .querySelectorAll(".stretch")
+          .forEach((s) => layoutStretch(s, animate));
+        observeRaces();
+
+        if (state.firstRender && nextRace)
+          $(`lopp-${nextRace.key}`)?.scrollIntoView({ block: "start" });
+        state.firstRender = false;
+      }
+
+      function raceHtml(race, isNext) {
+        const max = Math.max(...race.runners.map((r) => r.points), 1);
+        const meta = [
+          race.trackName,
+          [
+            race.distance ? `${race.distance} m` : "",
+            startMethod(race.startMethod),
+          ]
+            .filter(Boolean)
+            .join(" "),
+          race.sport === "monte" ? "monté" : "",
+          hhmm(race.startTime),
+        ]
+          .filter(Boolean)
+          .join(", ");
+        const dots = race.runners
+          .map(
+            (r) =>
+              `<span class="horse-dot${r.rank === 1 ? " lead" : ""}" data-nr="${r.number}" data-points="${r.points}" title="${r.number} ${esc(r.horseName)}: ${nf(r.points, 1)} poäng">${r.number}</span>`,
+          )
+          .join("");
+
+        return `<section class="race" id="lopp-${race.key}" aria-labelledby="h-${race.key}">
+    <header class="race-head">
+      <h2 id="h-${race.key}">Lopp ${race.number}</h2>
+      <p class="meta">${esc(meta)}</p>
+      ${race.topList === "stl" ? '<span class="tag plain" title="Kusk- och tränarbonus kommer från topplistorna för STL-lopp">STL-topplista</span>' : ""}
+      ${race.monteList ? '<span class="tag plain" title="Ryttarbonus kommer från Travsports topplista för montélopp">Montétopplista</span>' : ""}
+      ${isNext ? '<span class="next">Nästa lopp</span>' : ""}
+    </header>
+    <div class="stretch" aria-hidden="true"><div class="lane"></div><span class="finish"></span>${dots}</div>
+    <table class="runners">
+      <thead><tr>
+        <th scope="col" class="c-rank"><span class="sr">Placering</span></th>
+        <th scope="col">Nr</th>
+        <th scope="col">Häst och ${race.sport === "monte" ? "ryttare" : "kusk"}</th>
+        <th scope="col" class="num c-points">Poäng</th>
+        <th scope="col" class="num" title="Modellens chans att hästen vinner, räknat från poängen"><span class="long">Vinstchans</span><span class="short">Vinst</span></th>
+        <th scope="col" class="num c-odds">Odds</th>
+        <th scope="col" class="num" title="Modellens vinstchans delat med spelarnas. Över 1 betyder att modellen tror mer på hästen än oddset gör."><span class="long">Spelvärde</span><span class="short">Värde</span></th>
+      </tr></thead>
+      <tbody>${race.runners.map((r) => runnerHtml(race, r, max)).join("")}</tbody>
+    </table>
+    ${race.scratched.length ? `<p class="scratched">Strukna: ${race.scratched.join(", ")}</p>` : ""}
+  </section>`;
+      }
+
+      function runnerHtml(race, r, max) {
+        const id = `d-${race.key}-${r.number}`;
+        const low = r.confidence < LOW_CONFIDENCE;
+        const tags = [
+          ...r.notes.map((n) => `<span class="tag">${esc(n)}</span>`),
+          low ? '<span class="tag plain">Lite data</span>' : "",
+        ].join("");
+        const value =
+          r.value == null
+            ? "–"
+            : `<span class="value ${r.value >= GOOD_VALUE ? "good" : r.value < 0.85 ? "weak" : ""}">${nf(r.value, 2)}</span>`;
+
+        const factors = FACTORS.filter(([k]) => r.factors[k]?.weight > 0)
+          .map(([k, name]) => {
+            const label =
+              race.sport === "monte" && k === "driver" ? "Ryttare" : name;
+            const f = r.factors[k];
+            const missing = f.raw === null;
+            return `<div class="factor${missing ? " missing" : ""}"><span>${label}</span>
+      <span class="ft"><span class="ff" style="--w:${missing ? 0 : f.score}%"></span></span>
+      <span>${missing ? "–" : Math.round(f.score)}</span></div>`;
+          })
+          .join("");
+
+        return `<tr class="runner r${r.rank}${low ? " low" : ""}" data-nr="${r.number}">
+      <td class="c-rank">${r.rank}</td>
+      <td><span class="nr">${r.number}</span></td>
+      <td>
+        <button type="button" class="toggle" aria-expanded="false" aria-controls="${id}">
+          <span class="horse">${esc(r.horseName)}</span><span class="driver">${esc(r.driverName)}</span>
+        </button>
+        ${tags ? `<div class="notes">${tags}</div>` : ""}
+      </td>
+      <td class="num c-points"><div class="points"><span class="track"><span class="fill" style="--w:${(r.points / max) * 100}%"></span></span><span class="pts">${nf(r.points, 1)}</span></div></td>
+      <td class="num">${r.winProbability < 0.005 ? "&lt;1" : Math.round(r.winProbability * 100)} %</td>
+      <td class="num c-odds">${r.odds ? nf(r.odds, 2) : "–"}</td>
+      <td class="num">${value}</td>
+    </tr>
+    <tr class="detail" id="${id}" hidden><td colspan="7">
+      <div class="factors">${factors}</div>
+      <p class="detail-meta">Tränare ${esc(r.trainerName)}. Data finns för ${Math.round(r.confidence * 100)} % av poängen; saknade delar räknas som medel.</p>
+    </td></tr>`;
+      }
+
+      /* Upploppet: placera startnumren efter poäng, lägg dem i rader så de inte krockar. */
+      function layoutStretch(stretch, animate) {
+        const dots = [...stretch.querySelectorAll(".horse-dot")];
+        const width = stretch.clientWidth || 600;
+        const pts = dots.map((d) => Number(d.dataset.points));
+        const lo = Math.min(...pts),
+          hi = Math.max(...pts);
+        const minGap = (30 / width) * 100;
+        const rowsLastX = [];
+        const placed = dots
+          .map((d, i) => ({ d, x: 3 + ((pts[i] - lo) / (hi - lo || 1)) * 90 }))
+          .sort((a, b) => a.x - b.x);
+
+        for (const p of placed) {
+          let row = rowsLastX.findIndex((last) => p.x - last >= minGap);
+          if (row === -1)
+            row =
+              rowsLastX.length < 3
+                ? rowsLastX.length
+                : rowsLastX.indexOf(Math.min(...rowsLastX));
+          rowsLastX[row] = p.x;
+          p.row = row;
+        }
+        const rows = Math.max(1, rowsLastX.length);
+        const rowH = 30;
+        stretch.style.height = `${rows * rowH + 10}px`;
+        for (const p of placed) {
+          p.d.style.top = `${5 + p.row * rowH}px`;
+          if (!animate) p.d.style.left = `${p.x}%`;
+        }
+        if (animate) {
+          placed.forEach((p) => (p.d.style.left = "0%"));
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() =>
+              placed.forEach((p) => (p.d.style.left = `${p.x}%`)),
+            ),
+          );
+        }
+      }
+
+      /* Markera aktuellt lopp i listan till vänster. */
+      let observer;
+      function observeRaces() {
+        observer?.disconnect();
+        const links = new Map(
+          [...els.rail.querySelectorAll("a")].map((a) => [a.dataset.race, a]),
+        );
+        observer = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              links.forEach((a) => a.removeAttribute("aria-current"));
+              const a = links.get(e.target.id.replace("lopp-", ""));
+              a?.setAttribute("aria-current", "true");
+              a?.scrollIntoView({ block: "nearest", inline: "nearest" });
+            }
+          },
+          { rootMargin: "-30% 0px -60% 0px" },
+        );
+        els.main.querySelectorAll(".race").forEach((s) => observer.observe(s));
+      }
+
+      /* ---------- Interaktion ---------- */
+      els.main.addEventListener("click", (e) => {
+        const btn = e.target.closest(".toggle");
+        if (!btn) return;
+        const open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+        $(btn.getAttribute("aria-controls")).hidden = open;
+      });
+
+      function highlight(e, on) {
+        const host = e.target.closest(".horse-dot, tr.runner");
+        if (!host) return;
+        const race = host.closest(".race");
+        const nr = host.dataset.nr;
+        race
+          .querySelector(`.horse-dot[data-nr="${nr}"]`)
+          ?.classList.toggle("hl", on);
+        race
+          .querySelector(`tr.runner[data-nr="${nr}"]`)
+          ?.classList.toggle("hl", on);
+      }
+      els.main.addEventListener("mouseover", (e) => highlight(e, true));
+      els.main.addEventListener("mouseout", (e) => highlight(e, false));
+
+      els.date.addEventListener("change", () => {
+        if (!els.date.value) return;
+        state.date = els.date.value;
+        state.firstRender = true;
+        loadGames(null);
+      });
+      els.game.addEventListener("change", () => {
+        state.gameId = els.game.value;
+        state.firstRender = true;
+        syncUrl();
+        loadRanking(false);
+      });
+      els.refresh.addEventListener("click", () =>
+        state.gameId ? loadRanking(true) : loadGames(null),
+      );
+      /* PDF: hämtas som fil så att vi kan visa förlopp och fel i statusraden. */
+      els.exportPdf.addEventListener("click", async () => {
+        if (!state.gameId) return;
+        els.exportPdf.disabled = true;
+        setStatus("Skapar PDF …");
+        try {
+          const res = await fetch(
+            `/api/export.pdf?date=${state.date}&game=${encodeURIComponent(state.gameId)}`,
+          );
+          if (!res.ok)
+            throw new Error(
+              (await res.json().catch(() => ({}))).error ||
+                `HTTP ${res.status}`,
+            );
+          const blob = await res.blob();
+          const name =
+            /filename="([^"]+)"/.exec(
+              res.headers.get("content-disposition") || "",
+            )?.[1] || "travranking.pdf";
+          const link = Object.assign(document.createElement("a"), {
+            href: URL.createObjectURL(blob),
+            download: name,
+          });
+          document.body.append(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+          setStatus(`PDF sparad: ${name}`);
+        } catch (err) {
+          setStatus(`Kunde inte skapa PDF: ${err.message}`, true);
+        } finally {
+          els.exportPdf.disabled = false;
+        }
+      });
+
+      let resizeTimer;
+      addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(
+          () =>
+            els.main
+              .querySelectorAll(".stretch")
+              .forEach((s) => layoutStretch(s, false)),
+          150,
+        );
+      });
+
+      /* ---------- Start ---------- */
+      const params = new URLSearchParams(location.search);
+      state.date = /^\d{4}-\d{2}-\d{2}$/.test(params.get("date") || "")
+        ? params.get("date")
+        : todayStockholm();
+      els.date.value = state.date;
+      loadGames(params.get("game"));
+    </script>
+  </body>
+</html>

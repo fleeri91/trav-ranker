@@ -1,0 +1,5318 @@
+[
+  {
+    "gameId": "GS75_2026-10-11_17_4",
+    "gameType": "GS75",
+    "races": [
+      {
+        "raceId": "2026-10-11_17_4",
+        "number": 4,
+        "name": "Lassas Lavins Minne - Fördel Ston - DubbelCupen, Försök 5 i Meeting 6 (Final Bergsåker 7/11)",
+        "trackName": "Hagmyren",
+        "distance": 2640,
+        "startMethod": "auto",
+        "startTime": "2026-10-11T15:00:00",
+        "runners": [
+          {
+            "rank": 1,
+            "number": 4,
+            "horseName": "Majblomster",
+            "driverName": "Mats E Djuse",
+            "trainerName": "Jan-Olov Persson",
+            "points": 96.3,
+            "confidence": 1,
+            "winProbability": 0.9878,
+            "marketProbability": 0.6915,
+            "value": 1.43,
+            "odds": 1.22,
+            "factors": {
+              "form": {
+                "raw": 8.666666666666668,
+                "score": 100,
+                "weight": 0.2,
+                "contribution": 20
+              },
+              "speed": {
+                "raw": -81.868,
+                "score": 100,
+                "weight": 0.18,
+                "contribution": 18
+              },
+              "class": {
+                "raw": 16.27080669827439,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "winRate": {
+                "raw": 0.4774034560480841,
+                "score": 100,
+                "weight": 0.1,
+                "contribution": 10
+              },
+              "driver": {
+                "raw": 35.213627269623494,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "trainer": {
+                "raw": 34.84360515964247,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 9,
+                "score": 90,
+                "weight": 0.1,
+                "contribution": 9
+              },
+              "equipment": {
+                "raw": 1,
+                "score": 33.3,
+                "weight": 0.04,
+                "contribution": 1.33
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 79.46,
+                "score": 100,
+                "weight": 0.05,
+                "contribution": 5
+              }
+            },
+            "notes": [
+              "Vann senast",
+              "Topp-10 kusk (#1)",
+              "Topp-10 tränare (#4)",
+              "Byter till amerikansk vagn"
+            ]
+          },
+          {
+            "rank": 2,
+            "number": 1,
+            "horseName": "Hulte Annika",
+            "driverName": "Marcus Lilius",
+            "trainerName": "Leif Jonsson",
+            "points": 52.4,
+            "confidence": 1,
+            "winProbability": 0.004,
+            "marketProbability": 0.1056,
+            "value": 0.04,
+            "odds": 7.99,
+            "factors": {
+              "form": {
+                "raw": 1.2380952380952381,
+                "score": 35.8,
+                "weight": 0.2,
+                "contribution": 7.16
+              },
+              "speed": {
+                "raw": -83.32,
+                "score": 74.5,
+                "weight": 0.18,
+                "contribution": 13.41
+              },
+              "class": {
+                "raw": 14.876677162530672,
+                "score": 48,
+                "weight": 0.12,
+                "contribution": 5.76
+              },
+              "winRate": {
+                "raw": 0.3110083281712437,
+                "score": 50.6,
+                "weight": 0.1,
+                "contribution": 5.06
+              },
+              "driver": {
+                "raw": 26.41716213778664,
+                "score": 51.2,
+                "weight": 0.12,
+                "contribution": 6.15
+              },
+              "trainer": {
+                "raw": 21.932209180311865,
+                "score": 46.9,
+                "weight": 0.07,
+                "contribution": 3.28
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 10.37,
+                "score": 12.9,
+                "weight": 0.05,
+                "contribution": 0.64
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 3 av senaste 5"
+            ]
+          },
+          {
+            "rank": 3,
+            "number": 5,
+            "horseName": "Guli Hektor",
+            "driverName": "Fredrik Plassen",
+            "trainerName": "Jörgen Westholm",
+            "points": 51.9,
+            "confidence": 1,
+            "winProbability": 0.0038,
+            "marketProbability": 0.058,
+            "value": 0.07,
+            "odds": 14.54,
+            "factors": {
+              "form": {
+                "raw": 3.80952380952381,
+                "score": 58,
+                "weight": 0.2,
+                "contribution": 11.6
+              },
+              "speed": {
+                "raw": -83.919,
+                "score": 64,
+                "weight": 0.18,
+                "contribution": 11.52
+              },
+              "class": {
+                "raw": 14.159954363494467,
+                "score": 21.3,
+                "weight": 0.12,
+                "contribution": 2.56
+              },
+              "winRate": {
+                "raw": 0.20076629570747218,
+                "score": 17.8,
+                "weight": 0.1,
+                "contribution": 1.78
+              },
+              "driver": {
+                "raw": 27.599172376759064,
+                "score": 57.8,
+                "weight": 0.12,
+                "contribution": 6.94
+              },
+              "trainer": {
+                "raw": 30.773181681417228,
+                "score": 83.2,
+                "weight": 0.07,
+                "contribution": 5.83
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 4.62,
+                "score": 5.6,
+                "weight": 0.05,
+                "contribution": 0.28
+              }
+            },
+            "notes": [
+              "Topp-10 tränare (#8)"
+            ]
+          },
+          {
+            "rank": 4,
+            "number": 6,
+            "horseName": "Hulte Alva",
+            "driverName": "Linda S Hedström",
+            "trainerName": "Linda S Hedström",
+            "points": 49.3,
+            "confidence": 1,
+            "winProbability": 0.0028,
+            "marketProbability": 0.0483,
+            "value": 0.06,
+            "odds": 17.47,
+            "factors": {
+              "form": {
+                "raw": 3.428571428571429,
+                "score": 54.7,
+                "weight": 0.2,
+                "contribution": 10.95
+              },
+              "speed": {
+                "raw": -82.728,
+                "score": 84.9,
+                "weight": 0.18,
+                "contribution": 15.28
+              },
+              "class": {
+                "raw": 14.645209803649337,
+                "score": 39.4,
+                "weight": 0.12,
+                "contribution": 4.73
+              },
+              "winRate": {
+                "raw": 0.3070541753164134,
+                "score": 49.4,
+                "weight": 0.1,
+                "contribution": 4.94
+              },
+              "driver": {
+                "raw": 18.766899706986074,
+                "score": 8.8,
+                "weight": 0.12,
+                "contribution": 1.06
+              },
+              "trainer": {
+                "raw": 18.685313847628176,
+                "score": 33.5,
+                "weight": 0.07,
+                "contribution": 2.34
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 2.18,
+                "score": 2.6,
+                "weight": 0.05,
+                "contribution": 0.13
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 5,
+            "number": 7,
+            "horseName": "Re Alkapital",
+            "driverName": "Ulf Ohlsson",
+            "trainerName": "Claes Eskilsson",
+            "points": 36.7,
+            "confidence": 1,
+            "winProbability": 0.0006,
+            "marketProbability": 0.0143,
+            "value": 0.04,
+            "odds": 59.16,
+            "factors": {
+              "form": {
+                "raw": -1.3809523809523812,
+                "score": 13.2,
+                "weight": 0.2,
+                "contribution": 2.63
+              },
+              "speed": {
+                "raw": -84.07,
+                "score": 61.4,
+                "weight": 0.18,
+                "contribution": 11.05
+              },
+              "class": {
+                "raw": 14.320196923880141,
+                "score": 27.3,
+                "weight": 0.12,
+                "contribution": 3.27
+              },
+              "winRate": {
+                "raw": 0.23289458689458692,
+                "score": 27.4,
+                "weight": 0.1,
+                "contribution": 2.74
+              },
+              "driver": {
+                "raw": 28.651212078100016,
+                "score": 63.6,
+                "weight": 0.12,
+                "contribution": 7.64
+              },
+              "trainer": {
+                "raw": 10.547440639919062,
+                "score": 0,
+                "weight": 0.07,
+                "contribution": 0
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.65,
+                "score": 0.6,
+                "weight": 0.05,
+                "contribution": 0.03
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 3 av senaste 5",
+              "Topp-10 kusk (#4)"
+            ]
+          },
+          {
+            "rank": 6,
+            "number": 9,
+            "horseName": "Pellpers Mårten",
+            "driverName": "Jan-Olov Åberg",
+            "trainerName": "Madelen Ess",
+            "points": 32.6,
+            "confidence": 1,
+            "winProbability": 0.0003,
+            "marketProbability": 0.0084,
+            "value": 0.04,
+            "odds": 99.99,
+            "factors": {
+              "form": {
+                "raw": 1.7301587301587302,
+                "score": 40.1,
+                "weight": 0.2,
+                "contribution": 8.01
+              },
+              "speed": {
+                "raw": -84.325,
+                "score": 56.9,
+                "weight": 0.18,
+                "contribution": 10.24
+              },
+              "class": {
+                "raw": 13.841615323501586,
+                "score": 9.4,
+                "weight": 0.12,
+                "contribution": 1.13
+              },
+              "winRate": {
+                "raw": 0.22040168776371308,
+                "score": 23.7,
+                "weight": 0.1,
+                "contribution": 2.37
+              },
+              "driver": {
+                "raw": 17.276151117002613,
+                "score": 0.6,
+                "weight": 0.12,
+                "contribution": 0.07
+              },
+              "trainer": {
+                "raw": 17.210006320481682,
+                "score": 27.4,
+                "weight": 0.07,
+                "contribution": 1.92
+              },
+              "position": {
+                "raw": 6,
+                "score": 60,
+                "weight": 0.1,
+                "contribution": 6
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.15,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5"
+            ]
+          },
+          {
+            "rank": 7,
+            "number": 3,
+            "horseName": "Pave Sokken",
+            "driverName": "Guro Mogset",
+            "trainerName": "Guro Mogset",
+            "points": 31.5,
+            "confidence": 0.81,
+            "winProbability": 0.0003,
+            "marketProbability": 0.0084,
+            "value": 0.04,
+            "odds": 99.99,
+            "factors": {
+              "form": {
+                "raw": -2.904761904761905,
+                "score": 0,
+                "weight": 0.2,
+                "contribution": 0
+              },
+              "speed": {
+                "raw": -84.225,
+                "score": 58.6,
+                "weight": 0.18,
+                "contribution": 10.56
+              },
+              "class": {
+                "raw": 13.588292284048428,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "winRate": {
+                "raw": 0.14310067657433645,
+                "score": 0.7,
+                "weight": 0.1,
+                "contribution": 0.07
+              },
+              "driver": {
+                "raw": null,
+                "score": 50,
+                "weight": 0.12,
+                "contribution": 6
+              },
+              "trainer": {
+                "raw": null,
+                "score": 50,
+                "weight": 0.07,
+                "contribution": 3.5
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.63,
+                "score": 0.6,
+                "weight": 0.05,
+                "contribution": 0.03
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 3 av senaste 5"
+            ]
+          },
+          {
+            "rank": 8,
+            "number": 2,
+            "horseName": "G.G.Qurre",
+            "driverName": "Torbjörn Granath",
+            "trainerName": "Tomas Karlsson",
+            "points": 28.8,
+            "confidence": 1,
+            "winProbability": 0.0002,
+            "marketProbability": 0.0084,
+            "value": 0.03,
+            "odds": 99.99,
+            "factors": {
+              "form": {
+                "raw": -0.20634920634920628,
+                "score": 23.3,
+                "weight": 0.2,
+                "contribution": 4.66
+              },
+              "speed": {
+                "raw": -84.449,
+                "score": 54.7,
+                "weight": 0.18,
+                "contribution": 9.85
+              },
+              "class": {
+                "raw": 13.91367642004555,
+                "score": 12.1,
+                "weight": 0.12,
+                "contribution": 1.46
+              },
+              "winRate": {
+                "raw": 0.140756921513843,
+                "score": 0,
+                "weight": 0.1,
+                "contribution": 0
+              },
+              "driver": {
+                "raw": 17.170731707317074,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "trainer": {
+                "raw": 15.713123644251628,
+                "score": 21.3,
+                "weight": 0.07,
+                "contribution": 1.49
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.18,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5"
+            ]
+          },
+          {
+            "rank": 9,
+            "number": 8,
+            "horseName": "Gör Som Jag Vill",
+            "driverName": "Robert Skoglund",
+            "trainerName": "Robert Skoglund",
+            "points": 24.2,
+            "confidence": 1,
+            "winProbability": 0.0001,
+            "marketProbability": 0.057,
+            "value": 0,
+            "odds": 14.79,
+            "factors": {
+              "form": {
+                "raw": -2.142857142857143,
+                "score": 6.6,
+                "weight": 0.2,
+                "contribution": 1.32
+              },
+              "speed": {
+                "raw": -87.567,
+                "score": 0,
+                "weight": 0.18,
+                "contribution": 0
+              },
+              "class": {
+                "raw": 14.470107483815948,
+                "score": 32.9,
+                "weight": 0.12,
+                "contribution": 3.94
+              },
+              "winRate": {
+                "raw": 0.18650008596481174,
+                "score": 13.6,
+                "weight": 0.1,
+                "contribution": 1.36
+              },
+              "driver": {
+                "raw": 23.815861124814052,
+                "score": 36.8,
+                "weight": 0.12,
+                "contribution": 4.42
+              },
+              "trainer": {
+                "raw": 28.85481176885045,
+                "score": 75.4,
+                "weight": 0.07,
+                "contribution": 5.27
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 1.76,
+                "score": 2,
+                "weight": 0.05,
+                "contribution": 0.1
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 3 av senaste 5"
+            ]
+          }
+        ],
+        "scratched": [],
+        "topList": "all"
+      },
+      {
+        "raceId": "2026-10-11_17_5",
+        "number": 5,
+        "name": "Hudik Hockey",
+        "trackName": "Hagmyren",
+        "distance": 2140,
+        "startMethod": "volte",
+        "startTime": "2026-10-11T15:22:00",
+        "runners": [
+          {
+            "rank": 1,
+            "number": 10,
+            "horseName": "Kommendör Henry",
+            "driverName": "Ulf Ohlsson",
+            "trainerName": "Oskar Kylin Blom",
+            "points": 80.4,
+            "confidence": 1,
+            "winProbability": 0.5405,
+            "marketProbability": 0.1878,
+            "value": 2.88,
+            "odds": 4.52,
+            "factors": {
+              "form": {
+                "raw": 5.0476190476190474,
+                "score": 100,
+                "weight": 0.2,
+                "contribution": 20
+              },
+              "speed": {
+                "raw": -74.18200000000002,
+                "score": 100,
+                "weight": 0.18,
+                "contribution": 18
+              },
+              "class": {
+                "raw": 13.490393341725442,
+                "score": 73.5,
+                "weight": 0.12,
+                "contribution": 8.81
+              },
+              "winRate": {
+                "raw": 0.21044444444444446,
+                "score": 74.9,
+                "weight": 0.1,
+                "contribution": 7.49
+              },
+              "driver": {
+                "raw": 28.651212078100016,
+                "score": 67.6,
+                "weight": 0.12,
+                "contribution": 8.11
+              },
+              "trainer": {
+                "raw": 25.90622075618999,
+                "score": 66.2,
+                "weight": 0.07,
+                "contribution": 4.63
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 23.82,
+                "score": 100,
+                "weight": 0.05,
+                "contribution": 5
+              }
+            },
+            "notes": [
+              "Topp-10 kusk (#4)",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 2,
+            "number": 11,
+            "horseName": "Kaiser",
+            "driverName": "Mats E Djuse",
+            "trainerName": "Andreas Träff",
+            "points": 73.2,
+            "confidence": 1,
+            "winProbability": 0.2177,
+            "marketProbability": 0.0968,
+            "value": 2.25,
+            "odds": 8.77,
+            "factors": {
+              "form": {
+                "raw": 3.2222222222222223,
+                "score": 75.3,
+                "weight": 0.2,
+                "contribution": 15.05
+              },
+              "speed": {
+                "raw": -74.8,
+                "score": 82.1,
+                "weight": 0.18,
+                "contribution": 14.77
+              },
+              "class": {
+                "raw": 13.778818273208202,
+                "score": 91.8,
+                "weight": 0.12,
+                "contribution": 11.02
+              },
+              "winRate": {
+                "raw": 0.20765405864853378,
+                "score": 73.1,
+                "weight": 0.1,
+                "contribution": 7.31
+              },
+              "driver": {
+                "raw": 35.213627269623494,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "trainer": {
+                "raw": 20.751707305046722,
+                "score": 42.1,
+                "weight": 0.07,
+                "contribution": 2.94
+              },
+              "position": {
+                "raw": 4.5,
+                "score": 45,
+                "weight": 0.1,
+                "contribution": 4.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 12.96,
+                "score": 53.6,
+                "weight": 0.05,
+                "contribution": 2.68
+              }
+            },
+            "notes": [
+              "Topp-10 kusk (#1)",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 3,
+            "number": 1,
+            "horseName": "Staro Uber",
+            "driverName": "Robert Dunder",
+            "trainerName": "Robert Dunder",
+            "points": 63.4,
+            "confidence": 1,
+            "winProbability": 0.0645,
+            "marketProbability": 0.0637,
+            "value": 1.01,
+            "odds": 13.33,
+            "factors": {
+              "form": {
+                "raw": 1.9365079365079365,
+                "score": 57.8,
+                "weight": 0.2,
+                "contribution": 11.57
+              },
+              "speed": {
+                "raw": -75.679,
+                "score": 56.6,
+                "weight": 0.18,
+                "contribution": 10.19
+              },
+              "class": {
+                "raw": 13.899392961484782,
+                "score": 99.5,
+                "weight": 0.12,
+                "contribution": 11.94
+              },
+              "winRate": {
+                "raw": 0.2188,
+                "score": 80.3,
+                "weight": 0.1,
+                "contribution": 8.03
+              },
+              "driver": {
+                "raw": 24.980086764389938,
+                "score": 49.5,
+                "weight": 0.12,
+                "contribution": 5.94
+              },
+              "trainer": {
+                "raw": 24.882436235708006,
+                "score": 61.4,
+                "weight": 0.07,
+                "contribution": 4.3
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 3,
+                "score": 30,
+                "weight": 0.02,
+                "contribution": 0.6
+              },
+              "market": {
+                "raw": 9.72,
+                "score": 39.7,
+                "weight": 0.05,
+                "contribution": 1.99
+              }
+            },
+            "notes": [
+              "Comeback efter 104 dagar"
+            ]
+          },
+          {
+            "rank": 4,
+            "number": 9,
+            "horseName": "Lotus Miller",
+            "driverName": "Ludwig Wickman",
+            "trainerName": "Anders Wallin",
+            "points": 60.3,
+            "confidence": 1,
+            "winProbability": 0.0434,
+            "marketProbability": 0.0468,
+            "value": 0.93,
+            "odds": 18.13,
+            "factors": {
+              "form": {
+                "raw": 2.746031746031746,
+                "score": 68.8,
+                "weight": 0.2,
+                "contribution": 13.76
+              },
+              "speed": {
+                "raw": -74.42500000000001,
+                "score": 93,
+                "weight": 0.18,
+                "contribution": 16.73
+              },
+              "class": {
+                "raw": 13.411430045762065,
+                "score": 68.4,
+                "weight": 0.12,
+                "contribution": 8.21
+              },
+              "winRate": {
+                "raw": 0.16198128620228727,
+                "score": 43.3,
+                "weight": 0.1,
+                "contribution": 4.33
+              },
+              "driver": {
+                "raw": 23.53571189251671,
+                "score": 42.4,
+                "weight": 0.12,
+                "contribution": 5.09
+              },
+              "trainer": {
+                "raw": 20.183007174650413,
+                "score": 39.4,
+                "weight": 0.07,
+                "contribution": 2.76
+              },
+              "position": {
+                "raw": 6,
+                "score": 60,
+                "weight": 0.1,
+                "contribution": 6
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 2.72,
+                "score": 9.8,
+                "weight": 0.05,
+                "contribution": 0.49
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5",
+              "Vann senast",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 5,
+            "number": 3,
+            "horseName": "Betting Gold",
+            "driverName": "Fredrik Plassen",
+            "trainerName": "Fredrik Wallin",
+            "points": 58.3,
+            "confidence": 1,
+            "winProbability": 0.0342,
+            "marketProbability": 0.1262,
+            "value": 0.27,
+            "odds": 6.73,
+            "factors": {
+              "form": {
+                "raw": 0.280701754385965,
+                "score": 35.4,
+                "weight": 0.2,
+                "contribution": 7.08
+              },
+              "speed": {
+                "raw": -76.4,
+                "score": 35.7,
+                "weight": 0.18,
+                "contribution": 6.42
+              },
+              "class": {
+                "raw": 13.907786745927133,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "winRate": {
+                "raw": 0.17644444444444446,
+                "score": 52.7,
+                "weight": 0.1,
+                "contribution": 5.27
+              },
+              "driver": {
+                "raw": 27.599172376759064,
+                "score": 62.4,
+                "weight": 0.12,
+                "contribution": 7.49
+              },
+              "trainer": {
+                "raw": 29.15832598525357,
+                "score": 81.4,
+                "weight": 0.07,
+                "contribution": 5.7
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 16.77,
+                "score": 69.9,
+                "weight": 0.05,
+                "contribution": 3.49
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 6,
+            "number": 8,
+            "horseName": "Schassa Patraska",
+            "driverName": "Robert Skoglund",
+            "trainerName": "Maja Blank",
+            "points": 58,
+            "confidence": 1,
+            "winProbability": 0.0326,
+            "marketProbability": 0.0254,
+            "value": 1.29,
+            "odds": 33.49,
+            "factors": {
+              "form": {
+                "raw": 3.26984126984127,
+                "score": 75.9,
+                "weight": 0.2,
+                "contribution": 15.18
+              },
+              "speed": {
+                "raw": -74.625,
+                "score": 87.2,
+                "weight": 0.18,
+                "contribution": 15.69
+              },
+              "class": {
+                "raw": 13.477123081621722,
+                "score": 72.6,
+                "weight": 0.12,
+                "contribution": 8.71
+              },
+              "winRate": {
+                "raw": 0.1335753927194055,
+                "score": 24.8,
+                "weight": 0.1,
+                "contribution": 2.48
+              },
+              "driver": {
+                "raw": 23.815861124814052,
+                "score": 43.8,
+                "weight": 0.12,
+                "contribution": 5.25
+              },
+              "trainer": {
+                "raw": 15.360427250227957,
+                "score": 16.8,
+                "weight": 0.07,
+                "contribution": 1.18
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.88,
+                "score": 1.9,
+                "weight": 0.05,
+                "contribution": 0.1
+              }
+            },
+            "notes": [
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 7,
+            "number": 5,
+            "horseName": "Hyttas Mr Magic",
+            "driverName": "Kevin Svedlund",
+            "trainerName": "Kevin Svedlund",
+            "points": 57.9,
+            "confidence": 1,
+            "winProbability": 0.0322,
+            "marketProbability": 0.0692,
+            "value": 0.46,
+            "odds": 12.27,
+            "factors": {
+              "form": {
+                "raw": 4.904761904761905,
+                "score": 98.1,
+                "weight": 0.2,
+                "contribution": 19.61
+              },
+              "speed": {
+                "raw": -76.1,
+                "score": 44.4,
+                "weight": 0.18,
+                "contribution": 7.99
+              },
+              "class": {
+                "raw": 13.382161788781836,
+                "score": 66.6,
+                "weight": 0.12,
+                "contribution": 7.99
+              },
+              "winRate": {
+                "raw": 0.24900000000000005,
+                "score": 100,
+                "weight": 0.1,
+                "contribution": 10
+              },
+              "driver": {
+                "raw": 14.946089893478824,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "trainer": {
+                "raw": 17.61406125617724,
+                "score": 27.4,
+                "weight": 0.07,
+                "contribution": 1.92
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 9.49090909090909,
+                "score": 94.9,
+                "weight": 0.02,
+                "contribution": 1.9
+              },
+              "market": {
+                "raw": 3.11,
+                "score": 11.5,
+                "weight": 0.05,
+                "contribution": 0.57
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 8,
+            "number": 12,
+            "horseName": "Florio I.T.",
+            "driverName": "Marcus Lilius",
+            "trainerName": "Markus Pihlström",
+            "points": 56.5,
+            "confidence": 1,
+            "winProbability": 0.0272,
+            "marketProbability": 0.2398,
+            "value": 0.11,
+            "odds": 3.54,
+            "factors": {
+              "form": {
+                "raw": -1.126984126984127,
+                "score": 16.3,
+                "weight": 0.2,
+                "contribution": 3.27
+              },
+              "speed": {
+                "raw": -74.89,
+                "score": 79.5,
+                "weight": 0.18,
+                "contribution": 14.3
+              },
+              "class": {
+                "raw": 13.207070195641347,
+                "score": 55.4,
+                "weight": 0.12,
+                "contribution": 6.65
+              },
+              "winRate": {
+                "raw": 0.21044444444444446,
+                "score": 74.9,
+                "weight": 0.1,
+                "contribution": 7.49
+              },
+              "driver": {
+                "raw": 26.41716213778664,
+                "score": 56.6,
+                "weight": 0.12,
+                "contribution": 6.79
+              },
+              "trainer": {
+                "raw": 32.09442729870938,
+                "score": 95.1,
+                "weight": 0.07,
+                "contribution": 6.66
+              },
+              "position": {
+                "raw": 5,
+                "score": 50,
+                "weight": 0.1,
+                "contribution": 5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 19.47,
+                "score": 81.4,
+                "weight": 0.05,
+                "contribution": 4.07
+              }
+            },
+            "notes": [
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 9,
+            "number": 2,
+            "horseName": "Maxim af Djupmyra",
+            "driverName": "Henrik Svensson",
+            "trainerName": "Thomas Lönn",
+            "points": 41.5,
+            "confidence": 1,
+            "winProbability": 0.0042,
+            "marketProbability": 0.1057,
+            "value": 0.04,
+            "odds": 8.03,
+            "factors": {
+              "form": {
+                "raw": -0.15873015873015878,
+                "score": 29.5,
+                "weight": 0.2,
+                "contribution": 5.89
+              },
+              "speed": {
+                "raw": -75.279,
+                "score": 68.2,
+                "weight": 0.18,
+                "contribution": 12.27
+              },
+              "class": {
+                "raw": 12.943043013460125,
+                "score": 38.6,
+                "weight": 0.12,
+                "contribution": 4.64
+              },
+              "winRate": {
+                "raw": 0.09544794188861987,
+                "score": 0,
+                "weight": 0.1,
+                "contribution": 0
+              },
+              "driver": {
+                "raw": 24.74103249916057,
+                "score": 48.3,
+                "weight": 0.12,
+                "contribution": 5.8
+              },
+              "trainer": {
+                "raw": 11.758092079660242,
+                "score": 0,
+                "weight": 0.07,
+                "contribution": 0
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 7.65,
+                "score": 30.9,
+                "weight": 0.05,
+                "contribution": 1.54
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 3 av senaste 5"
+            ]
+          },
+          {
+            "rank": 10,
+            "number": 6,
+            "horseName": "Bardissimo",
+            "driverName": "Henrik Kihle",
+            "trainerName": "Jasmine Ising",
+            "points": 36.4,
+            "confidence": 1,
+            "winProbability": 0.0022,
+            "marketProbability": 0.021,
+            "value": 0.1,
+            "odds": 40.44,
+            "factors": {
+              "form": {
+                "raw": -2.3333333333333335,
+                "score": 0,
+                "weight": 0.2,
+                "contribution": 0
+              },
+              "speed": {
+                "raw": -76.08,
+                "score": 45,
+                "weight": 0.18,
+                "contribution": 8.09
+              },
+              "class": {
+                "raw": 13.329069238205712,
+                "score": 63.2,
+                "weight": 0.12,
+                "contribution": 7.58
+              },
+              "winRate": {
+                "raw": 0.13256753212693417,
+                "score": 24.2,
+                "weight": 0.1,
+                "contribution": 2.42
+              },
+              "driver": {
+                "raw": 18.95253805529667,
+                "score": 19.8,
+                "weight": 0.12,
+                "contribution": 2.37
+              },
+              "trainer": {
+                "raw": 33.1430222194586,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 1.08,
+                "score": 2.8,
+                "weight": 0.05,
+                "contribution": 0.14
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 3 av senaste 5",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 11,
+            "number": 4,
+            "horseName": "Pompom",
+            "driverName": "Milla Rosenberg",
+            "trainerName": "Barbro Carlsson",
+            "points": 32.9,
+            "confidence": 0.81,
+            "winProbability": 0.0014,
+            "marketProbability": 0.0175,
+            "value": 0.08,
+            "odds": 48.39,
+            "factors": {
+              "form": {
+                "raw": 1.920634920634921,
+                "score": 57.6,
+                "weight": 0.2,
+                "contribution": 11.53
+              },
+              "speed": {
+                "raw": -77.63000000000001,
+                "score": 0,
+                "weight": 0.18,
+                "contribution": 0
+              },
+              "class": {
+                "raw": 12.335571448028446,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "winRate": {
+                "raw": 0.119712414944152,
+                "score": 15.8,
+                "weight": 0.1,
+                "contribution": 1.58
+              },
+              "driver": {
+                "raw": null,
+                "score": 50,
+                "weight": 0.12,
+                "contribution": 6
+              },
+              "trainer": {
+                "raw": null,
+                "score": 50,
+                "weight": 0.07,
+                "contribution": 3.5
+              },
+              "position": {
+                "raw": 7.5,
+                "score": 75,
+                "weight": 0.1,
+                "contribution": 7.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 9.418181818181818,
+                "score": 94.2,
+                "weight": 0.02,
+                "contribution": 1.88
+              },
+              "market": {
+                "raw": 0.43,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": []
+          }
+        ],
+        "scratched": [
+          7,
+          13
+        ],
+        "topList": "all"
+      },
+      {
+        "raceId": "2026-10-11_17_6",
+        "number": 6,
+        "name": "Mack Clowns Minne (spår efter startpoäng)",
+        "trackName": "Hagmyren",
+        "distance": 2140,
+        "startMethod": "auto",
+        "startTime": "2026-10-11T15:44:00",
+        "runners": [
+          {
+            "rank": 1,
+            "number": 8,
+            "horseName": "Mellby Joker",
+            "driverName": "Mats E Djuse",
+            "trainerName": "Daniel Wäjersten",
+            "points": 92.4,
+            "confidence": 1,
+            "winProbability": 0.9777,
+            "marketProbability": 0.6624,
+            "value": 1.48,
+            "odds": 1.28,
+            "factors": {
+              "form": {
+                "raw": 6.571428571428573,
+                "score": 100,
+                "weight": 0.2,
+                "contribution": 20
+              },
+              "speed": {
+                "raw": -69.875,
+                "score": 100,
+                "weight": 0.18,
+                "contribution": 18
+              },
+              "class": {
+                "raw": 15.675953550282989,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "winRate": {
+                "raw": 0.32555294807861546,
+                "score": 100,
+                "weight": 0.1,
+                "contribution": 10
+              },
+              "driver": {
+                "raw": 35.213627269623494,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "trainer": {
+                "raw": 43.34265137169413,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 77.97,
+                "score": 100,
+                "weight": 0.05,
+                "contribution": 5
+              }
+            },
+            "notes": [
+              "Topp-10 kusk (#1)",
+              "Topp-10 tränare (#2)"
+            ]
+          },
+          {
+            "rank": 2,
+            "number": 7,
+            "horseName": "Epsom As",
+            "driverName": "Ulf Ohlsson",
+            "trainerName": "Oscar Berglund",
+            "points": 60.7,
+            "confidence": 1,
+            "winProbability": 0.0186,
+            "marketProbability": 0.0933,
+            "value": 0.2,
+            "odds": 9.09,
+            "factors": {
+              "form": {
+                "raw": 4.666666666666667,
+                "score": 74.4,
+                "weight": 0.2,
+                "contribution": 14.88
+              },
+              "speed": {
+                "raw": -70.92500000000001,
+                "score": 54.9,
+                "weight": 0.18,
+                "contribution": 9.89
+              },
+              "class": {
+                "raw": 15.095294639608417,
+                "score": 64.5,
+                "weight": 0.12,
+                "contribution": 7.73
+              },
+              "winRate": {
+                "raw": 0.221985242934707,
+                "score": 46.3,
+                "weight": 0.1,
+                "contribution": 4.63
+              },
+              "driver": {
+                "raw": 28.651212078100016,
+                "score": 67.8,
+                "weight": 0.12,
+                "contribution": 8.13
+              },
+              "trainer": {
+                "raw": 36.796695857314646,
+                "score": 77.9,
+                "weight": 0.07,
+                "contribution": 5.46
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 9.49,
+                "score": 11.8,
+                "weight": 0.05,
+                "contribution": 0.59
+              }
+            },
+            "notes": [
+              "Topp-10 kusk (#4)"
+            ]
+          },
+          {
+            "rank": 3,
+            "number": 1,
+            "horseName": "Maserati Hall",
+            "driverName": "Fredrik Plassen",
+            "trainerName": "Fredrik Wallin",
+            "points": 39.1,
+            "confidence": 1,
+            "winProbability": 0.0012,
+            "marketProbability": 0.0782,
+            "value": 0.02,
+            "odds": 10.84,
+            "factors": {
+              "form": {
+                "raw": -0.253968253968254,
+                "score": 8.3,
+                "weight": 0.2,
+                "contribution": 1.66
+              },
+              "speed": {
+                "raw": -70.6395,
+                "score": 67.2,
+                "weight": 0.18,
+                "contribution": 12.09
+              },
+              "class": {
+                "raw": 14.50107382555901,
+                "score": 28.1,
+                "weight": 0.12,
+                "contribution": 3.37
+              },
+              "winRate": {
+                "raw": 0.13261948194089748,
+                "score": 0,
+                "weight": 0.1,
+                "contribution": 0
+              },
+              "driver": {
+                "raw": 27.599172376759064,
+                "score": 62.6,
+                "weight": 0.12,
+                "contribution": 7.51
+              },
+              "trainer": {
+                "raw": 29.15832598525357,
+                "score": 52.2,
+                "weight": 0.07,
+                "contribution": 3.65
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 7.7,
+                "score": 9.5,
+                "weight": 0.05,
+                "contribution": 0.48
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 4,
+            "number": 5,
+            "horseName": "Santos de Castella",
+            "driverName": "Marcus Lilius",
+            "trainerName": "Jörgen Westholm",
+            "points": 36,
+            "confidence": 1,
+            "winProbability": 0.0008,
+            "marketProbability": 0.0343,
+            "value": 0.02,
+            "odds": 24.74,
+            "factors": {
+              "form": {
+                "raw": -0.873015873015873,
+                "score": 0,
+                "weight": 0.2,
+                "contribution": 0
+              },
+              "speed": {
+                "raw": -70.92500000000001,
+                "score": 54.9,
+                "weight": 0.18,
+                "contribution": 9.89
+              },
+              "class": {
+                "raw": 14.28683196942444,
+                "score": 15,
+                "weight": 0.12,
+                "contribution": 1.8
+              },
+              "winRate": {
+                "raw": 0.1619638305619614,
+                "score": 15.2,
+                "weight": 0.1,
+                "contribution": 1.52
+              },
+              "driver": {
+                "raw": 26.41716213778664,
+                "score": 56.8,
+                "weight": 0.12,
+                "contribution": 6.82
+              },
+              "trainer": {
+                "raw": 30.773181681417228,
+                "score": 57.6,
+                "weight": 0.07,
+                "contribution": 4.03
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 1,
+                "score": 33.3,
+                "weight": 0.04,
+                "contribution": 1.33
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 2.07,
+                "score": 2.3,
+                "weight": 0.05,
+                "contribution": 0.11
+              }
+            },
+            "notes": [
+              "Topp-10 tränare (#8)",
+              "Byter till amerikansk vagn"
+            ]
+          },
+          {
+            "rank": 5,
+            "number": 4,
+            "horseName": "Galantis",
+            "driverName": "Aleksi Flink",
+            "trainerName": "Johan Lejon",
+            "points": 30.4,
+            "confidence": 1,
+            "winProbability": 0.0004,
+            "marketProbability": 0.021,
+            "value": 0.02,
+            "odds": 40.46,
+            "factors": {
+              "form": {
+                "raw": 0.873015873015873,
+                "score": 23.5,
+                "weight": 0.2,
+                "contribution": 4.69
+              },
+              "speed": {
+                "raw": -70.902,
+                "score": 55.9,
+                "weight": 0.18,
+                "contribution": 10.07
+              },
+              "class": {
+                "raw": 14.185856702515464,
+                "score": 8.8,
+                "weight": 0.12,
+                "contribution": 1.05
+              },
+              "winRate": {
+                "raw": 0.1588,
+                "score": 13.6,
+                "weight": 0.1,
+                "contribution": 1.36
+              },
+              "driver": {
+                "raw": 17.34941165236029,
+                "score": 12.3,
+                "weight": 0.12,
+                "contribution": 1.47
+              },
+              "trainer": {
+                "raw": 13.676744696014474,
+                "score": 0,
+                "weight": 0.07,
+                "contribution": 0
+              },
+              "position": {
+                "raw": 9,
+                "score": 90,
+                "weight": 0.1,
+                "contribution": 9
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 9.2,
+                "score": 92,
+                "weight": 0.02,
+                "contribution": 1.84
+              },
+              "market": {
+                "raw": 0.67,
+                "score": 0.5,
+                "weight": 0.05,
+                "contribution": 0.02
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 6,
+            "number": 9,
+            "horseName": "From the Mine",
+            "driverName": "Henrik Kihle",
+            "trainerName": "Catarina Norqvist",
+            "points": 30.1,
+            "confidence": 1,
+            "winProbability": 0.0004,
+            "marketProbability": 0.0306,
+            "value": 0.01,
+            "odds": 27.71,
+            "factors": {
+              "form": {
+                "raw": 2.507936507936508,
+                "score": 45.4,
+                "weight": 0.2,
+                "contribution": 9.08
+              },
+              "speed": {
+                "raw": -71.175,
+                "score": 44.2,
+                "weight": 0.18,
+                "contribution": 7.96
+              },
+              "class": {
+                "raw": 14.127008134163807,
+                "score": 5.2,
+                "weight": 0.12,
+                "contribution": 0.62
+              },
+              "winRate": {
+                "raw": 0.16008266229601656,
+                "score": 14.2,
+                "weight": 0.1,
+                "contribution": 1.42
+              },
+              "driver": {
+                "raw": 18.95253805529667,
+                "score": 20.1,
+                "weight": 0.12,
+                "contribution": 2.42
+              },
+              "trainer": {
+                "raw": 15.04747658688866,
+                "score": 4.6,
+                "weight": 0.07,
+                "contribution": 0.32
+              },
+              "position": {
+                "raw": 6,
+                "score": 60,
+                "weight": 0.1,
+                "contribution": 6
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 0.53,
+                "score": 0.3,
+                "weight": 0.05,
+                "contribution": 0.02
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 7,
+            "number": 2,
+            "horseName": "Västerbo Ajax",
+            "driverName": "Henrik Svensson",
+            "trainerName": "Lars Wikström",
+            "points": 27.5,
+            "confidence": 1,
+            "winProbability": 0.0003,
+            "marketProbability": 0.0371,
+            "value": 0.01,
+            "odds": 22.88,
+            "factors": {
+              "form": {
+                "raw": 0.19047619047619044,
+                "score": 14.3,
+                "weight": 0.2,
+                "contribution": 2.86
+              },
+              "speed": {
+                "raw": -72.205,
+                "score": 0,
+                "weight": 0.18,
+                "contribution": 0
+              },
+              "class": {
+                "raw": 14.24612815164224,
+                "score": 12.5,
+                "weight": 0.12,
+                "contribution": 1.5
+              },
+              "winRate": {
+                "raw": 0.2110471279186363,
+                "score": 40.7,
+                "weight": 0.1,
+                "contribution": 4.07
+              },
+              "driver": {
+                "raw": 24.74103249916057,
+                "score": 48.6,
+                "weight": 0.12,
+                "contribution": 5.83
+              },
+              "trainer": {
+                "raw": 22.284527857703374,
+                "score": 29,
+                "weight": 0.07,
+                "contribution": 2.03
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 1,
+                "score": 33.3,
+                "weight": 0.04,
+                "contribution": 1.33
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 0.46,
+                "score": 0.2,
+                "weight": 0.05,
+                "contribution": 0.01
+              }
+            },
+            "notes": [
+              "Byter till amerikansk vagn"
+            ]
+          },
+          {
+            "rank": 8,
+            "number": 3,
+            "horseName": "Dark Roadster",
+            "driverName": "Kajsa Frick",
+            "trainerName": "Emma-Sara Sjöberg",
+            "points": 27.4,
+            "confidence": 1,
+            "winProbability": 0.0003,
+            "marketProbability": 0.0327,
+            "value": 0.01,
+            "odds": 25.95,
+            "factors": {
+              "form": {
+                "raw": 2.4126984126984126,
+                "score": 44.1,
+                "weight": 0.2,
+                "contribution": 8.83
+              },
+              "speed": {
+                "raw": -71.61500000000001,
+                "score": 25.3,
+                "weight": 0.18,
+                "contribution": 4.56
+              },
+              "class": {
+                "raw": 14.042304259486542,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "winRate": {
+                "raw": 0.15193351668061703,
+                "score": 10,
+                "weight": 0.1,
+                "contribution": 1
+              },
+              "driver": {
+                "raw": 14.854440889648881,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "trainer": {
+                "raw": 18.339235397151775,
+                "score": 15.7,
+                "weight": 0.07,
+                "contribution": 1.1
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 1,
+                "score": 33.3,
+                "weight": 0.04,
+                "contribution": 1.33
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.82,
+                "score": 0.7,
+                "weight": 0.05,
+                "contribution": 0.03
+              }
+            },
+            "notes": [
+              "Byter till amerikansk vagn"
+            ]
+          },
+          {
+            "rank": 9,
+            "number": 6,
+            "horseName": "Classic Hill U.S.",
+            "driverName": "Kevin Svedlund",
+            "trainerName": "Johanna Hedlund",
+            "points": 24.6,
+            "confidence": 1,
+            "winProbability": 0.0002,
+            "marketProbability": 0.0106,
+            "value": 0.02,
+            "odds": 80.35,
+            "factors": {
+              "form": {
+                "raw": 1.0952380952380953,
+                "score": 26.4,
+                "weight": 0.2,
+                "contribution": 5.29
+              },
+              "speed": {
+                "raw": -71.18,
+                "score": 44,
+                "weight": 0.18,
+                "contribution": 7.92
+              },
+              "class": {
+                "raw": 14.076907354828062,
+                "score": 2.1,
+                "weight": 0.12,
+                "contribution": 0.25
+              },
+              "winRate": {
+                "raw": 0.14852496714848884,
+                "score": 8.2,
+                "weight": 0.1,
+                "contribution": 0.82
+              },
+              "driver": {
+                "raw": 14.946089893478824,
+                "score": 0.5,
+                "weight": 0.12,
+                "contribution": 0.05
+              },
+              "trainer": {
+                "raw": 15.76620825147348,
+                "score": 7,
+                "weight": 0.07,
+                "contribution": 0.49
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 9.2,
+                "score": 92,
+                "weight": 0.02,
+                "contribution": 1.84
+              },
+              "market": {
+                "raw": 0.29,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5"
+            ]
+          }
+        ],
+        "scratched": [],
+        "topList": "all"
+      },
+      {
+        "raceId": "2026-10-11_17_7",
+        "number": 7,
+        "name": "Fördel Ston - Svensk Travsports Unghästserie - Fyraåringslopp (Norrlands Elitserie, Försök 12 - Final Umåker 25/10)",
+        "trackName": "Hagmyren",
+        "distance": 1640,
+        "startMethod": "volte",
+        "startTime": "2026-10-11T16:06:00",
+        "runners": [
+          {
+            "rank": 1,
+            "number": 8,
+            "horseName": "Ängsrask",
+            "driverName": "Ulf Ohlsson",
+            "trainerName": "Robert Skoglund",
+            "points": 87.4,
+            "confidence": 1,
+            "winProbability": 0.8745,
+            "marketProbability": 0.487,
+            "value": 1.8,
+            "odds": 1.74,
+            "factors": {
+              "form": {
+                "raw": 7.476190476190476,
+                "score": 100,
+                "weight": 0.2,
+                "contribution": 20
+              },
+              "speed": {
+                "raw": -82.08299999999998,
+                "score": 100,
+                "weight": 0.18,
+                "contribution": 18
+              },
+              "class": {
+                "raw": 16.13943827575137,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "winRate": {
+                "raw": 0.5343308839902027,
+                "score": 100,
+                "weight": 0.1,
+                "contribution": 10
+              },
+              "driver": {
+                "raw": 28.651212078100016,
+                "score": 70.3,
+                "weight": 0.12,
+                "contribution": 8.43
+              },
+              "trainer": {
+                "raw": 28.85481176885045,
+                "score": 73.4,
+                "weight": 0.07,
+                "contribution": 5.14
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 57.32,
+                "score": 100,
+                "weight": 0.05,
+                "contribution": 5
+              }
+            },
+            "notes": [
+              "Vann senast",
+              "Topp-10 kusk (#4)",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 2,
+            "number": 7,
+            "horseName": "Py Viking",
+            "driverName": "Mats E Djuse",
+            "trainerName": "Niclas Torstemo",
+            "points": 71.2,
+            "confidence": 1,
+            "winProbability": 0.1162,
+            "marketProbability": 0.185,
+            "value": 0.63,
+            "odds": 4.58,
+            "factors": {
+              "form": {
+                "raw": 6.7936507936507935,
+                "score": 89.8,
+                "weight": 0.2,
+                "contribution": 17.95
+              },
+              "speed": {
+                "raw": -83.10399999999998,
+                "score": 79.9,
+                "weight": 0.18,
+                "contribution": 14.39
+              },
+              "class": {
+                "raw": 14.995132883226407,
+                "score": 55.3,
+                "weight": 0.12,
+                "contribution": 6.63
+              },
+              "winRate": {
+                "raw": 0.342366732266621,
+                "score": 50.4,
+                "weight": 0.1,
+                "contribution": 5.04
+              },
+              "driver": {
+                "raw": 35.213627269623494,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "trainer": {
+                "raw": 23.565061769736605,
+                "score": 49.9,
+                "weight": 0.07,
+                "contribution": 3.49
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 21.13,
+                "score": 36.4,
+                "weight": 0.05,
+                "contribution": 1.82
+              }
+            },
+            "notes": [
+              "Vann senast",
+              "Topp-10 kusk (#1)",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 3,
+            "number": 6,
+            "horseName": "Kattelbo Elon",
+            "driverName": "Fredrik Plassen",
+            "trainerName": "Oskar Kylin Blom",
+            "points": 40.7,
+            "confidence": 1,
+            "winProbability": 0.0026,
+            "marketProbability": 0.0424,
+            "value": 0.06,
+            "odds": 20,
+            "factors": {
+              "form": {
+                "raw": 2.4761904761904763,
+                "score": 25,
+                "weight": 0.2,
+                "contribution": 5
+              },
+              "speed": {
+                "raw": -85.08,
+                "score": 41.1,
+                "weight": 0.18,
+                "contribution": 7.4
+              },
+              "class": {
+                "raw": 14.661564343946303,
+                "score": 42.2,
+                "weight": 0.12,
+                "contribution": 5.07
+              },
+              "winRate": {
+                "raw": 0.2113130462251237,
+                "score": 16.5,
+                "weight": 0.1,
+                "contribution": 1.65
+              },
+              "driver": {
+                "raw": 27.599172376759064,
+                "score": 65.5,
+                "weight": 0.12,
+                "contribution": 7.86
+              },
+              "trainer": {
+                "raw": 25.90622075618999,
+                "score": 60.3,
+                "weight": 0.07,
+                "contribution": 4.22
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 1.88,
+                "score": 2.6,
+                "weight": 0.05,
+                "contribution": 0.13
+              }
+            },
+            "notes": [
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 4,
+            "number": 5,
+            "horseName": "Ängsmolly",
+            "driverName": "Kajsa Frick",
+            "trainerName": "Kajsa Frick",
+            "points": 39.5,
+            "confidence": 1,
+            "winProbability": 0.0022,
+            "marketProbability": 0.1096,
+            "value": 0.02,
+            "odds": 7.73,
+            "factors": {
+              "form": {
+                "raw": 3.174603174603175,
+                "score": 35.5,
+                "weight": 0.2,
+                "contribution": 7.1
+              },
+              "speed": {
+                "raw": -84.716,
+                "score": 48.2,
+                "weight": 0.18,
+                "contribution": 8.68
+              },
+              "class": {
+                "raw": 14.905489506328939,
+                "score": 51.8,
+                "weight": 0.12,
+                "contribution": 6.21
+              },
+              "winRate": {
+                "raw": 0.3671197668256493,
+                "score": 56.8,
+                "weight": 0.1,
+                "contribution": 5.68
+              },
+              "driver": {
+                "raw": 14.854440889648881,
+                "score": 7.8,
+                "weight": 0.12,
+                "contribution": 0.93
+              },
+              "trainer": {
+                "raw": 12.351695832972364,
+                "score": 0,
+                "weight": 0.07,
+                "contribution": 0
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 11.54,
+                "score": 19.6,
+                "weight": 0.05,
+                "contribution": 0.98
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 5,
+            "number": 1,
+            "horseName": "Grevinnan Stöen",
+            "driverName": "Jan-Olov Persson",
+            "trainerName": "Jan-Olov Persson",
+            "points": 38.4,
+            "confidence": 1,
+            "winProbability": 0.0019,
+            "marketProbability": 0.0775,
+            "value": 0.02,
+            "odds": 10.94,
+            "factors": {
+              "form": {
+                "raw": 3.777777777777778,
+                "score": 44.5,
+                "weight": 0.2,
+                "contribution": 8.9
+              },
+              "speed": {
+                "raw": -87.16999999999999,
+                "score": 0,
+                "weight": 0.18,
+                "contribution": 0
+              },
+              "class": {
+                "raw": 14.110813991245209,
+                "score": 20.7,
+                "weight": 0.12,
+                "contribution": 2.49
+              },
+              "winRate": {
+                "raw": 0.2722678062678063,
+                "score": 32.3,
+                "weight": 0.1,
+                "contribution": 3.23
+              },
+              "driver": {
+                "raw": 23.206273529593282,
+                "score": 45.6,
+                "weight": 0.12,
+                "contribution": 5.47
+              },
+              "trainer": {
+                "raw": 34.84360515964247,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 5.77,
+                "score": 9.4,
+                "weight": 0.05,
+                "contribution": 0.47
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5",
+              "Topp-10 tränare (#4)"
+            ]
+          },
+          {
+            "rank": 6,
+            "number": 3,
+            "horseName": "Hå Ella",
+            "driverName": "Fredrik Fransson",
+            "trainerName": "Merete Viksås",
+            "points": 33,
+            "confidence": 0.93,
+            "winProbability": 0.001,
+            "marketProbability": 0.0369,
+            "value": 0.03,
+            "odds": 22.99,
+            "factors": {
+              "form": {
+                "raw": 4.666666666666667,
+                "score": 57.9,
+                "weight": 0.2,
+                "contribution": 11.57
+              },
+              "speed": {
+                "raw": -85.20400000000001,
+                "score": 38.6,
+                "weight": 0.18,
+                "contribution": 6.96
+              },
+              "class": {
+                "raw": 13.580700141794573,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "winRate": {
+                "raw": 0.17053587823145688,
+                "score": 6,
+                "weight": 0.1,
+                "contribution": 0.6
+              },
+              "driver": {
+                "raw": 13.142285098237664,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "trainer": {
+                "raw": null,
+                "score": 50,
+                "weight": 0.07,
+                "contribution": 3.5
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 1.14,
+                "score": 1.3,
+                "weight": 0.05,
+                "contribution": 0.07
+              }
+            },
+            "notes": [
+              "Vann senast"
+            ]
+          },
+          {
+            "rank": 7,
+            "number": 2,
+            "horseName": "Eld Donna",
+            "driverName": "Henrik Kihle",
+            "trainerName": "Jan-Olov Persson",
+            "points": 32.8,
+            "confidence": 1,
+            "winProbability": 0.0009,
+            "marketProbability": 0.0237,
+            "value": 0.04,
+            "odds": 35.81,
+            "factors": {
+              "form": {
+                "raw": 1.7936507936507937,
+                "score": 14.8,
+                "weight": 0.2,
+                "contribution": 2.95
+              },
+              "speed": {
+                "raw": -85.837,
+                "score": 26.2,
+                "weight": 0.18,
+                "contribution": 4.72
+              },
+              "class": {
+                "raw": 14.080589492191834,
+                "score": 19.5,
+                "weight": 0.12,
+                "contribution": 2.34
+              },
+              "winRate": {
+                "raw": 0.19360788863109052,
+                "score": 11.9,
+                "weight": 0.1,
+                "contribution": 1.19
+              },
+              "driver": {
+                "raw": 18.95253805529667,
+                "score": 26.3,
+                "weight": 0.12,
+                "contribution": 3.16
+              },
+              "trainer": {
+                "raw": 34.84360515964247,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.4,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5",
+              "Topp-10 tränare (#4)"
+            ]
+          },
+          {
+            "rank": 8,
+            "number": 4,
+            "horseName": "Komnes Fina",
+            "driverName": "Marcus Lilius",
+            "trainerName": "Jan-Olov Persson",
+            "points": 29.7,
+            "confidence": 1,
+            "winProbability": 0.0006,
+            "marketProbability": 0.038,
+            "value": 0.02,
+            "odds": 22.29,
+            "factors": {
+              "form": {
+                "raw": 0.8095238095238095,
+                "score": 0,
+                "weight": 0.2,
+                "contribution": 0
+              },
+              "speed": {
+                "raw": -86.132,
+                "score": 20.4,
+                "weight": 0.18,
+                "contribution": 3.67
+              },
+              "class": {
+                "raw": 13.871280917298952,
+                "score": 11.4,
+                "weight": 0.12,
+                "contribution": 1.36
+              },
+              "winRate": {
+                "raw": 0.14748538011695908,
+                "score": 0,
+                "weight": 0.1,
+                "contribution": 0
+              },
+              "driver": {
+                "raw": 26.41716213778664,
+                "score": 60.1,
+                "weight": 0.12,
+                "contribution": 7.22
+              },
+              "trainer": {
+                "raw": 34.84360515964247,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 7.5,
+                "score": 75,
+                "weight": 0.1,
+                "contribution": 7.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.83,
+                "score": 0.8,
+                "weight": 0.05,
+                "contribution": 0.04
+              }
+            },
+            "notes": [
+              "Topp-10 tränare (#4)"
+            ]
+          }
+        ],
+        "scratched": [],
+        "topList": "all"
+      },
+      {
+        "raceId": "2026-10-11_17_8",
+        "number": 8,
+        "name": "Svelands och BTR:s B-tränarserie 2026 - Spårtrappa",
+        "trackName": "Hagmyren",
+        "distance": 1640,
+        "startMethod": "auto",
+        "startTime": "2026-10-11T16:28:00",
+        "runners": [
+          {
+            "rank": 1,
+            "number": 8,
+            "horseName": "Edes Coktail",
+            "driverName": "Ingvar Nyberg",
+            "trainerName": "Gunilla Lindström",
+            "points": 67.5,
+            "confidence": 1,
+            "winProbability": 0.4069,
+            "marketProbability": 0.2564,
+            "value": 1.59,
+            "odds": 3.31,
+            "factors": {
+              "form": {
+                "raw": 2.142857142857143,
+                "score": 16.7,
+                "weight": 0.2,
+                "contribution": 3.34
+              },
+              "speed": {
+                "raw": -73.8,
+                "score": 100,
+                "weight": 0.18,
+                "contribution": 18
+              },
+              "class": {
+                "raw": 13.920553644064299,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "winRate": {
+                "raw": 0.23640045854031333,
+                "score": 58.8,
+                "weight": 0.1,
+                "contribution": 5.88
+              },
+              "driver": {
+                "raw": 21.04165744832246,
+                "score": 65.5,
+                "weight": 0.12,
+                "contribution": 7.86
+              },
+              "trainer": {
+                "raw": 18.118374379243946,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 23.3,
+                "score": 100,
+                "weight": 0.05,
+                "contribution": 5
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5",
+              "Vann senast"
+            ]
+          },
+          {
+            "rank": 2,
+            "number": 12,
+            "horseName": "Iamwhatiam",
+            "driverName": "Marcus Lilius",
+            "trainerName": "Jenny Martinsson",
+            "points": 64.7,
+            "confidence": 1,
+            "winProbability": 0.289,
+            "marketProbability": 0.1783,
+            "value": 1.62,
+            "odds": 4.76,
+            "factors": {
+              "form": {
+                "raw": 3.9206349206349214,
+                "score": 48.4,
+                "weight": 0.2,
+                "contribution": 9.69
+              },
+              "speed": {
+                "raw": -74,
+                "score": 93.9,
+                "weight": 0.18,
+                "contribution": 16.91
+              },
+              "class": {
+                "raw": 13.399822483441213,
+                "score": 53.8,
+                "weight": 0.12,
+                "contribution": 6.45
+              },
+              "winRate": {
+                "raw": 0.20195795006570305,
+                "score": 41.4,
+                "weight": 0.1,
+                "contribution": 4.14
+              },
+              "driver": {
+                "raw": 26.41716213778664,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "trainer": {
+                "raw": 17.818582343427586,
+                "score": 92.4,
+                "weight": 0.07,
+                "contribution": 6.47
+              },
+              "position": {
+                "raw": 4.5,
+                "score": 45,
+                "weight": 0.1,
+                "contribution": 4.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7.6,
+                "score": 76,
+                "weight": 0.02,
+                "contribution": 1.52
+              },
+              "market": {
+                "raw": 10.39,
+                "score": 43.5,
+                "weight": 0.05,
+                "contribution": 2.17
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 3,
+            "number": 3,
+            "horseName": "Barbaresco",
+            "driverName": "Jonas Rosenberg",
+            "trainerName": "Barbro Carlsson",
+            "points": 58.4,
+            "confidence": 0.81,
+            "winProbability": 0.1312,
+            "marketProbability": 0.0956,
+            "value": 1.37,
+            "odds": 8.88,
+            "factors": {
+              "form": {
+                "raw": 6.809523809523809,
+                "score": 100,
+                "weight": 0.2,
+                "contribution": 20
+              },
+              "speed": {
+                "raw": -77.1,
+                "score": 0,
+                "weight": 0.18,
+                "contribution": 0
+              },
+              "class": {
+                "raw": 13.41136797564347,
+                "score": 54.8,
+                "weight": 0.12,
+                "contribution": 6.58
+              },
+              "winRate": {
+                "raw": 0.3175298497881628,
+                "score": 100,
+                "weight": 0.1,
+                "contribution": 10
+              },
+              "driver": {
+                "raw": null,
+                "score": 50,
+                "weight": 0.12,
+                "contribution": 6
+              },
+              "trainer": {
+                "raw": null,
+                "score": 50,
+                "weight": 0.07,
+                "contribution": 3.5
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 9.418181818181818,
+                "score": 94.2,
+                "weight": 0.02,
+                "contribution": 1.88
+              },
+              "market": {
+                "raw": 5.39,
+                "score": 21.6,
+                "weight": 0.05,
+                "contribution": 1.08
+              }
+            },
+            "notes": [
+              "Vann senast"
+            ]
+          },
+          {
+            "rank": 4,
+            "number": 2,
+            "horseName": "Statement",
+            "driverName": "Henrik Kihle",
+            "trainerName": "Catarina Norqvist",
+            "points": 51.5,
+            "confidence": 1,
+            "winProbability": 0.055,
+            "marketProbability": 0.071,
+            "value": 0.77,
+            "odds": 11.96,
+            "factors": {
+              "form": {
+                "raw": 5,
+                "score": 67.7,
+                "weight": 0.2,
+                "contribution": 13.54
+              },
+              "speed": {
+                "raw": -76.879,
+                "score": 6.7,
+                "weight": 0.18,
+                "contribution": 1.21
+              },
+              "class": {
+                "raw": 13.620545993992756,
+                "score": 73.4,
+                "weight": 0.12,
+                "contribution": 8.8
+              },
+              "winRate": {
+                "raw": 0.277175837722739,
+                "score": 79.5,
+                "weight": 0.1,
+                "contribution": 7.95
+              },
+              "driver": {
+                "raw": 18.95253805529667,
+                "score": 52.1,
+                "weight": 0.12,
+                "contribution": 6.26
+              },
+              "trainer": {
+                "raw": 15.04747658688866,
+                "score": 22.5,
+                "weight": 0.07,
+                "contribution": 1.58
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 3.85,
+                "score": 14.8,
+                "weight": 0.05,
+                "contribution": 0.74
+              }
+            },
+            "notes": [
+              "Vann senast"
+            ]
+          },
+          {
+            "rank": 5,
+            "number": 7,
+            "horseName": "Hackels Lumiere",
+            "driverName": "Clas Jonsson",
+            "trainerName": "Patricia Rosén",
+            "points": 51.2,
+            "confidence": 1,
+            "winProbability": 0.053,
+            "marketProbability": 0.1339,
+            "value": 0.4,
+            "odds": 6.34,
+            "factors": {
+              "form": {
+                "raw": 2.857142857142857,
+                "score": 29.5,
+                "weight": 0.2,
+                "contribution": 5.89
+              },
+              "speed": {
+                "raw": -74.189,
+                "score": 88.2,
+                "weight": 0.18,
+                "contribution": 15.88
+              },
+              "class": {
+                "raw": 13.610367164009247,
+                "score": 72.5,
+                "weight": 0.12,
+                "contribution": 8.7
+              },
+              "winRate": {
+                "raw": 0.2022774168895682,
+                "score": 41.5,
+                "weight": 0.1,
+                "contribution": 4.15
+              },
+              "driver": {
+                "raw": 10.818377262352373,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "trainer": {
+                "raw": 17.16009638173487,
+                "score": 75.8,
+                "weight": 0.07,
+                "contribution": 5.31
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 3,
+                "score": 30,
+                "weight": 0.02,
+                "contribution": 0.6
+              },
+              "market": {
+                "raw": 15.36,
+                "score": 65.2,
+                "weight": 0.05,
+                "contribution": 3.26
+              }
+            },
+            "notes": [
+              "Comeback efter 95 dagar"
+            ]
+          },
+          {
+            "rank": 6,
+            "number": 1,
+            "horseName": "Sotomayor Zon",
+            "driverName": "Joseph Taavela Ruocco",
+            "trainerName": "Allani Svarts",
+            "points": 47.7,
+            "confidence": 1,
+            "winProbability": 0.0342,
+            "marketProbability": 0.1439,
+            "value": 0.24,
+            "odds": 5.9,
+            "factors": {
+              "form": {
+                "raw": 2.920634920634921,
+                "score": 30.6,
+                "weight": 0.2,
+                "contribution": 6.12
+              },
+              "speed": {
+                "raw": -74.73200000000001,
+                "score": 71.8,
+                "weight": 0.18,
+                "contribution": 12.92
+              },
+              "class": {
+                "raw": 13.083206363921185,
+                "score": 25.7,
+                "weight": 0.12,
+                "contribution": 3.08
+              },
+              "winRate": {
+                "raw": 0.25929387597894465,
+                "score": 70.5,
+                "weight": 0.1,
+                "contribution": 7.05
+              },
+              "driver": {
+                "raw": 12.351396037227662,
+                "score": 9.8,
+                "weight": 0.12,
+                "contribution": 1.18
+              },
+              "trainer": {
+                "raw": 15.918682449819869,
+                "score": 44.5,
+                "weight": 0.07,
+                "contribution": 3.12
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 9.636363636363637,
+                "score": 96.4,
+                "weight": 0.02,
+                "contribution": 1.93
+              },
+              "market": {
+                "raw": 15.96,
+                "score": 67.9,
+                "weight": 0.05,
+                "contribution": 3.39
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 7,
+            "number": 11,
+            "horseName": "Jordan Garline",
+            "driverName": "Hanna Forslin",
+            "trainerName": "Magnus Wallin",
+            "points": 45.3,
+            "confidence": 1,
+            "winProbability": 0.0254,
+            "marketProbability": 0.0691,
+            "value": 0.37,
+            "odds": 12.29,
+            "factors": {
+              "form": {
+                "raw": 1.8253968253968254,
+                "score": 11,
+                "weight": 0.2,
+                "contribution": 2.21
+              },
+              "speed": {
+                "raw": -75.21000000000001,
+                "score": 57.3,
+                "weight": 0.18,
+                "contribution": 10.31
+              },
+              "class": {
+                "raw": 13.779622794857772,
+                "score": 87.5,
+                "weight": 0.12,
+                "contribution": 10.5
+              },
+              "winRate": {
+                "raw": 0.19535564853556486,
+                "score": 38,
+                "weight": 0.1,
+                "contribution": 3.8
+              },
+              "driver": {
+                "raw": 17.91229315303874,
+                "score": 45.5,
+                "weight": 0.12,
+                "contribution": 5.46
+              },
+              "trainer": {
+                "raw": 16.773907009021514,
+                "score": 66.1,
+                "weight": 0.07,
+                "contribution": 4.63
+              },
+              "position": {
+                "raw": 5,
+                "score": 50,
+                "weight": 0.1,
+                "contribution": 5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 2.8,
+                "score": 10.2,
+                "weight": 0.05,
+                "contribution": 0.51
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 8,
+            "number": 4,
+            "horseName": "Bumblebee Mi",
+            "driverName": "Ida Olsson",
+            "trainerName": "Mari Edenström",
+            "points": 30.5,
+            "confidence": 1,
+            "winProbability": 0.004,
+            "marketProbability": 0.0272,
+            "value": 0.15,
+            "odds": 31.22,
+            "factors": {
+              "form": {
+                "raw": 2.253968253968254,
+                "score": 18.7,
+                "weight": 0.2,
+                "contribution": 3.74
+              },
+              "speed": {
+                "raw": -76.5,
+                "score": 18.2,
+                "weight": 0.18,
+                "contribution": 3.27
+              },
+              "class": {
+                "raw": 13.239903687228491,
+                "score": 39.6,
+                "weight": 0.12,
+                "contribution": 4.75
+              },
+              "winRate": {
+                "raw": 0.1663392200147167,
+                "score": 23.3,
+                "weight": 0.1,
+                "contribution": 2.33
+              },
+              "driver": {
+                "raw": 12.102592272881843,
+                "score": 8.2,
+                "weight": 0.12,
+                "contribution": 0.99
+              },
+              "trainer": {
+                "raw": 16.37649893533565,
+                "score": 56.1,
+                "weight": 0.07,
+                "contribution": 3.92
+              },
+              "position": {
+                "raw": 9,
+                "score": 90,
+                "weight": 0.1,
+                "contribution": 9
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7.527272727272727,
+                "score": 75.3,
+                "weight": 0.02,
+                "contribution": 1.51
+              },
+              "market": {
+                "raw": 0.77,
+                "score": 1.4,
+                "weight": 0.05,
+                "contribution": 0.07
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 9,
+            "number": 10,
+            "horseName": "Unique Love",
+            "driverName": "Hans Högberg",
+            "trainerName": "Hans Högberg",
+            "points": 21,
+            "confidence": 1,
+            "winProbability": 0.0012,
+            "marketProbability": 0.0248,
+            "value": 0.05,
+            "odds": 34.28,
+            "factors": {
+              "form": {
+                "raw": 1.2063492063492063,
+                "score": 0,
+                "weight": 0.2,
+                "contribution": 0
+              },
+              "speed": {
+                "raw": -75.225,
+                "score": 56.8,
+                "weight": 0.18,
+                "contribution": 10.23
+              },
+              "class": {
+                "raw": 12.793811958787767,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "winRate": {
+                "raw": 0.12037595277666341,
+                "score": 0,
+                "weight": 0.1,
+                "contribution": 0
+              },
+              "driver": {
+                "raw": 13.881288454578357,
+                "score": 19.6,
+                "weight": 0.12,
+                "contribution": 2.36
+              },
+              "trainer": {
+                "raw": 14.154694782411369,
+                "score": 0,
+                "weight": 0.07,
+                "contribution": 0
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.46,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": []
+          }
+        ],
+        "scratched": [
+          5,
+          6,
+          9
+        ],
+        "topList": "all"
+      },
+      {
+        "raceId": "2026-10-11_17_9",
+        "number": 9,
+        "name": "Miss Goldens lopp - Stolopp (Norrlands Elitserie, Försök 8 - Final Bergsåker 7/11)",
+        "trackName": "Hagmyren",
+        "distance": 2140,
+        "startMethod": "volte",
+        "startTime": "2026-10-11T16:48:00",
+        "runners": [
+          {
+            "rank": 1,
+            "number": 6,
+            "horseName": "Ditte Gel",
+            "driverName": "Mats E Djuse",
+            "trainerName": "Jasmine Ising",
+            "points": 78.4,
+            "confidence": 1,
+            "winProbability": 0.6033,
+            "marketProbability": 0.2275,
+            "value": 2.65,
+            "odds": 3.73,
+            "factors": {
+              "form": {
+                "raw": 3.7460317460317465,
+                "score": 100,
+                "weight": 0.2,
+                "contribution": 20
+              },
+              "speed": {
+                "raw": -73.375,
+                "score": 53.7,
+                "weight": 0.18,
+                "contribution": 9.67
+              },
+              "class": {
+                "raw": 14.675043826678632,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "winRate": {
+                "raw": 0.2764705072613394,
+                "score": 62.3,
+                "weight": 0.1,
+                "contribution": 6.23
+              },
+              "driver": {
+                "raw": 35.213627269623494,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "trainer": {
+                "raw": 33.1430222194586,
+                "score": 85.5,
+                "weight": 0.07,
+                "contribution": 5.98
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 27.75,
+                "score": 75.3,
+                "weight": 0.05,
+                "contribution": 3.76
+              }
+            },
+            "notes": [
+              "Topp-10 kusk (#1)",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 2,
+            "number": 9,
+            "horseName": "Wing Profile",
+            "driverName": "Ulf Ohlsson",
+            "trainerName": "Markus Pihlström",
+            "points": 70.4,
+            "confidence": 1,
+            "winProbability": 0.2204,
+            "marketProbability": 0.1217,
+            "value": 1.81,
+            "odds": 6.97,
+            "factors": {
+              "form": {
+                "raw": 3.6507936507936507,
+                "score": 98.1,
+                "weight": 0.2,
+                "contribution": 19.63
+              },
+              "speed": {
+                "raw": -72.93,
+                "score": 72,
+                "weight": 0.18,
+                "contribution": 12.96
+              },
+              "class": {
+                "raw": 14.044074582447049,
+                "score": 65.2,
+                "weight": 0.12,
+                "contribution": 7.82
+              },
+              "winRate": {
+                "raw": 0.24230029539312425,
+                "score": 50.3,
+                "weight": 0.1,
+                "contribution": 5.03
+              },
+              "driver": {
+                "raw": 28.651212078100016,
+                "score": 67.8,
+                "weight": 0.12,
+                "contribution": 8.13
+              },
+              "trainer": {
+                "raw": 32.09442729870938,
+                "score": 81.3,
+                "weight": 0.07,
+                "contribution": 5.69
+              },
+              "position": {
+                "raw": 6,
+                "score": 60,
+                "weight": 0.1,
+                "contribution": 6
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 16.46,
+                "score": 44.4,
+                "weight": 0.05,
+                "contribution": 2.22
+              }
+            },
+            "notes": [
+              "Topp-10 kusk (#4)",
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 3,
+            "number": 5,
+            "horseName": "Tarte Tatin",
+            "driverName": "Fredrik Plassen",
+            "trainerName": "Fredrik Wallin",
+            "points": 57.9,
+            "confidence": 1,
+            "winProbability": 0.0463,
+            "marketProbability": 0.2886,
+            "value": 0.16,
+            "odds": 2.94,
+            "factors": {
+              "form": {
+                "raw": 1.492063492063492,
+                "score": 56.2,
+                "weight": 0.2,
+                "contribution": 11.23
+              },
+              "speed": {
+                "raw": -73.0916,
+                "score": 65.4,
+                "weight": 0.18,
+                "contribution": 11.77
+              },
+              "class": {
+                "raw": 13.87413541532647,
+                "score": 55.8,
+                "weight": 0.12,
+                "contribution": 6.7
+              },
+              "winRate": {
+                "raw": 0.14237310266035577,
+                "score": 15.3,
+                "weight": 0.1,
+                "contribution": 1.53
+              },
+              "driver": {
+                "raw": 27.599172376759064,
+                "score": 62.6,
+                "weight": 0.12,
+                "contribution": 7.51
+              },
+              "trainer": {
+                "raw": 29.15832598525357,
+                "score": 69.7,
+                "weight": 0.07,
+                "contribution": 4.88
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 36.79,
+                "score": 100,
+                "weight": 0.05,
+                "contribution": 5
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 4,
+            "number": 3,
+            "horseName": "Önas Samanta",
+            "driverName": "Henrik Kihle",
+            "trainerName": "Oscar Berglund",
+            "points": 56.9,
+            "confidence": 1,
+            "winProbability": 0.0407,
+            "marketProbability": 0.0897,
+            "value": 0.45,
+            "odds": 9.46,
+            "factors": {
+              "form": {
+                "raw": 0.1428571428571429,
+                "score": 29.9,
+                "weight": 0.2,
+                "contribution": 5.99
+              },
+              "speed": {
+                "raw": -73.3,
+                "score": 56.8,
+                "weight": 0.18,
+                "contribution": 10.22
+              },
+              "class": {
+                "raw": 14.269638309216141,
+                "score": 77.6,
+                "weight": 0.12,
+                "contribution": 9.32
+              },
+              "winRate": {
+                "raw": 0.3838434766249647,
+                "score": 100,
+                "weight": 0.1,
+                "contribution": 10
+              },
+              "driver": {
+                "raw": 18.95253805529667,
+                "score": 20.1,
+                "weight": 0.12,
+                "contribution": 2.42
+              },
+              "trainer": {
+                "raw": 36.796695857314646,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 7.79,
+                "score": 20.7,
+                "weight": 0.05,
+                "contribution": 1.04
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5"
+            ]
+          },
+          {
+            "rank": 5,
+            "number": 11,
+            "horseName": "Megan di Quattro",
+            "driverName": "Lars-Göran Söderberg",
+            "trainerName": "Caroline L Örnfeldt",
+            "points": 56.1,
+            "confidence": 1,
+            "winProbability": 0.0372,
+            "marketProbability": 0.0978,
+            "value": 0.38,
+            "odds": 8.68,
+            "factors": {
+              "form": {
+                "raw": 3.111111111111112,
+                "score": 87.7,
+                "weight": 0.2,
+                "contribution": 17.53
+              },
+              "speed": {
+                "raw": -72.25,
+                "score": 100,
+                "weight": 0.18,
+                "contribution": 18
+              },
+              "class": {
+                "raw": 13.910852960917275,
+                "score": 57.8,
+                "weight": 0.12,
+                "contribution": 6.94
+              },
+              "winRate": {
+                "raw": 0.17555294807861546,
+                "score": 26.9,
+                "weight": 0.1,
+                "contribution": 2.69
+              },
+              "driver": {
+                "raw": 16.799410770183634,
+                "score": 9.6,
+                "weight": 0.12,
+                "contribution": 1.15
+              },
+              "trainer": {
+                "raw": 16.447108383607237,
+                "score": 19.2,
+                "weight": 0.07,
+                "contribution": 1.35
+              },
+              "position": {
+                "raw": 5,
+                "score": 50,
+                "weight": 0.1,
+                "contribution": 5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 4.57,
+                "score": 11.9,
+                "weight": 0.05,
+                "contribution": 0.59
+              }
+            },
+            "notes": [
+              "40 m tillägg"
+            ]
+          },
+          {
+            "rank": 6,
+            "number": 7,
+            "horseName": "Ronja Muscles",
+            "driverName": "Marcus Lilius",
+            "trainerName": "Thomas Lönn",
+            "points": 55.7,
+            "confidence": 1,
+            "winProbability": 0.0352,
+            "marketProbability": 0.0691,
+            "value": 0.51,
+            "odds": 12.28,
+            "factors": {
+              "form": {
+                "raw": 1.4603174603174605,
+                "score": 55.6,
+                "weight": 0.2,
+                "contribution": 11.11
+              },
+              "speed": {
+                "raw": -72.279,
+                "score": 98.8,
+                "weight": 0.18,
+                "contribution": 17.79
+              },
+              "class": {
+                "raw": 14.041379545025418,
+                "score": 65,
+                "weight": 0.12,
+                "contribution": 7.8
+              },
+              "winRate": {
+                "raw": 0.1686187050359712,
+                "score": 24.5,
+                "weight": 0.1,
+                "contribution": 2.45
+              },
+              "driver": {
+                "raw": 26.41716213778664,
+                "score": 56.8,
+                "weight": 0.12,
+                "contribution": 6.82
+              },
+              "trainer": {
+                "raw": 11.758092079660242,
+                "score": 0.6,
+                "weight": 0.07,
+                "contribution": 0.04
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 3.16,
+                "score": 8,
+                "weight": 0.05,
+                "contribution": 0.4
+              }
+            },
+            "notes": [
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 7,
+            "number": 8,
+            "horseName": "Eva Aloha",
+            "driverName": "Henrik Svensson",
+            "trainerName": "Stig Jarle Röste",
+            "points": 46.3,
+            "confidence": 1,
+            "winProbability": 0.0109,
+            "marketProbability": 0.0392,
+            "value": 0.28,
+            "odds": 21.65,
+            "factors": {
+              "form": {
+                "raw": 0.33333333333333326,
+                "score": 33.6,
+                "weight": 0.2,
+                "contribution": 6.73
+              },
+              "speed": {
+                "raw": -72.92,
+                "score": 72.4,
+                "weight": 0.18,
+                "contribution": 13.04
+              },
+              "class": {
+                "raw": 13.706753971435562,
+                "score": 46.6,
+                "weight": 0.12,
+                "contribution": 5.59
+              },
+              "winRate": {
+                "raw": 0.21499132723248998,
+                "score": 40.7,
+                "weight": 0.1,
+                "contribution": 4.07
+              },
+              "driver": {
+                "raw": 24.74103249916057,
+                "score": 48.6,
+                "weight": 0.12,
+                "contribution": 5.83
+              },
+              "trainer": {
+                "raw": 17.33273823460548,
+                "score": 22.7,
+                "weight": 0.07,
+                "contribution": 1.59
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.71,
+                "score": 1.3,
+                "weight": 0.05,
+                "contribution": 0.07
+              }
+            },
+            "notes": [
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 8,
+            "number": 10,
+            "horseName": "Diamond Sid",
+            "driverName": "Kajsa Frick",
+            "trainerName": "Kajsa Frick",
+            "points": 40.3,
+            "confidence": 1,
+            "winProbability": 0.0051,
+            "marketProbability": 0.0223,
+            "value": 0.23,
+            "odds": 38.13,
+            "factors": {
+              "form": {
+                "raw": 1.650793650793651,
+                "score": 59.3,
+                "weight": 0.2,
+                "contribution": 11.85
+              },
+              "speed": {
+                "raw": -72.42500000000001,
+                "score": 92.8,
+                "weight": 0.18,
+                "contribution": 16.7
+              },
+              "class": {
+                "raw": 13.203859078691181,
+                "score": 18.8,
+                "weight": 0.12,
+                "contribution": 2.26
+              },
+              "winRate": {
+                "raw": 0.13933972569486588,
+                "score": 14.2,
+                "weight": 0.1,
+                "contribution": 1.42
+              },
+              "driver": {
+                "raw": 14.854440889648881,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "trainer": {
+                "raw": 12.351695832972364,
+                "score": 3,
+                "weight": 0.07,
+                "contribution": 0.21
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 0.58,
+                "score": 1,
+                "weight": 0.05,
+                "contribution": 0.05
+              }
+            },
+            "notes": [
+              "20 m tillägg"
+            ]
+          },
+          {
+            "rank": 9,
+            "number": 1,
+            "horseName": "Greta S.E.",
+            "driverName": "Ingvar Nyberg",
+            "trainerName": "Stefan Öhrberg",
+            "points": 22.4,
+            "confidence": 1,
+            "winProbability": 0.0005,
+            "marketProbability": 0.0272,
+            "value": 0.02,
+            "odds": 31.23,
+            "factors": {
+              "form": {
+                "raw": -1.396825396825397,
+                "score": 0,
+                "weight": 0.2,
+                "contribution": 0
+              },
+              "speed": {
+                "raw": -74,
+                "score": 28,
+                "weight": 0.18,
+                "contribution": 5.04
+              },
+              "class": {
+                "raw": 13.013241435091695,
+                "score": 8.3,
+                "weight": 0.12,
+                "contribution": 1
+              },
+              "winRate": {
+                "raw": 0.11433248945147681,
+                "score": 5.4,
+                "weight": 0.1,
+                "contribution": 0.54
+              },
+              "driver": {
+                "raw": 21.04165744832246,
+                "score": 30.4,
+                "weight": 0.12,
+                "contribution": 3.65
+              },
+              "trainer": {
+                "raw": 16.135062267300036,
+                "score": 18,
+                "weight": 0.07,
+                "contribution": 1.26
+              },
+              "position": {
+                "raw": 8,
+                "score": 80,
+                "weight": 0.1,
+                "contribution": 8
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.37,
+                "score": 0.4,
+                "weight": 0.05,
+                "contribution": 0.02
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5"
+            ]
+          },
+          {
+            "rank": 10,
+            "number": 4,
+            "horseName": "Hollie D.",
+            "driverName": "Kevin Svedlund",
+            "trainerName": "Veronica Sundberg",
+            "points": 20,
+            "confidence": 1,
+            "winProbability": 0.0004,
+            "marketProbability": 0.017,
+            "value": 0.02,
+            "odds": 49.79,
+            "factors": {
+              "form": {
+                "raw": 1.2063492063492063,
+                "score": 50.6,
+                "weight": 0.2,
+                "contribution": 10.12
+              },
+              "speed": {
+                "raw": -74.67999999999999,
+                "score": 0,
+                "weight": 0.18,
+                "contribution": 0
+              },
+              "class": {
+                "raw": 12.862721535866328,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "winRate": {
+                "raw": 0.0988728559760414,
+                "score": 0,
+                "weight": 0.1,
+                "contribution": 0
+              },
+              "driver": {
+                "raw": 14.946089893478824,
+                "score": 0.5,
+                "weight": 0.12,
+                "contribution": 0.05
+              },
+              "trainer": {
+                "raw": 11.601371460396471,
+                "score": 0,
+                "weight": 0.07,
+                "contribution": 0
+              },
+              "position": {
+                "raw": 7.5,
+                "score": 75,
+                "weight": 0.1,
+                "contribution": 7.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 0.22,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": []
+          }
+        ],
+        "scratched": [
+          2
+        ],
+        "topList": "all"
+      },
+      {
+        "raceId": "2026-10-11_17_10",
+        "number": 10,
+        "name": "Lennart Dahlbergs Minneslopp - Ungdomslopp (U30/K400) - Spårtrappa",
+        "trackName": "Hagmyren",
+        "distance": 2140,
+        "startMethod": "auto",
+        "startTime": "2026-10-11T17:08:00",
+        "runners": [
+          {
+            "rank": 1,
+            "number": 4,
+            "horseName": "Good Habit",
+            "driverName": "Emelie Pettersson",
+            "trainerName": "Henrik Svensson",
+            "points": 74.2,
+            "confidence": 1,
+            "winProbability": 0.3238,
+            "marketProbability": 0.1264,
+            "value": 2.56,
+            "odds": 6.72,
+            "factors": {
+              "form": {
+                "raw": 2.888888888888889,
+                "score": 82.1,
+                "weight": 0.2,
+                "contribution": 16.42
+              },
+              "speed": {
+                "raw": -72.825,
+                "score": 66.7,
+                "weight": 0.18,
+                "contribution": 12.01
+              },
+              "class": {
+                "raw": 13.991572679164301,
+                "score": 76.9,
+                "weight": 0.12,
+                "contribution": 9.23
+              },
+              "winRate": {
+                "raw": 0.21790762200097924,
+                "score": 77.5,
+                "weight": 0.1,
+                "contribution": 7.75
+              },
+              "driver": {
+                "raw": 23.1287975285867,
+                "score": 74,
+                "weight": 0.12,
+                "contribution": 8.88
+              },
+              "trainer": {
+                "raw": 24.072851494718133,
+                "score": 56.3,
+                "weight": 0.07,
+                "contribution": 3.94
+              },
+              "position": {
+                "raw": 9,
+                "score": 90,
+                "weight": 0.1,
+                "contribution": 9
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 17.76,
+                "score": 82.1,
+                "weight": 0.05,
+                "contribution": 4.11
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 2,
+            "number": 9,
+            "horseName": "Global Groovy",
+            "driverName": "Henrik Kihle",
+            "trainerName": "Stefan Arvidsson",
+            "points": 73.3,
+            "confidence": 1,
+            "winProbability": 0.2887,
+            "marketProbability": 0.157,
+            "value": 1.84,
+            "odds": 5.41,
+            "factors": {
+              "form": {
+                "raw": 3.0952380952380953,
+                "score": 88.6,
+                "weight": 0.2,
+                "contribution": 17.71
+              },
+              "speed": {
+                "raw": -72.7,
+                "score": 71.7,
+                "weight": 0.18,
+                "contribution": 12.91
+              },
+              "class": {
+                "raw": 14.046949050415307,
+                "score": 80.9,
+                "weight": 0.12,
+                "contribution": 9.7
+              },
+              "winRate": {
+                "raw": 0.2058996970716931,
+                "score": 70.4,
+                "weight": 0.1,
+                "contribution": 7.04
+              },
+              "driver": {
+                "raw": 18.95253805529667,
+                "score": 49.7,
+                "weight": 0.12,
+                "contribution": 5.96
+              },
+              "trainer": {
+                "raw": 23.874641191245065,
+                "score": 55.2,
+                "weight": 0.07,
+                "contribution": 3.87
+              },
+              "position": {
+                "raw": 6,
+                "score": 60,
+                "weight": 0.1,
+                "contribution": 6
+              },
+              "equipment": {
+                "raw": 5,
+                "score": 77.8,
+                "weight": 0.04,
+                "contribution": 3.11
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 21.54,
+                "score": 100,
+                "weight": 0.05,
+                "contribution": 5
+              }
+            },
+            "notes": [
+              "Barfota runt om – ändrat till idag"
+            ]
+          },
+          {
+            "rank": 3,
+            "number": 3,
+            "horseName": "Pontiac Renka",
+            "driverName": "Fredrik Plassen",
+            "trainerName": "Oskar Kylin Blom",
+            "points": 67.5,
+            "confidence": 1,
+            "winProbability": 0.1391,
+            "marketProbability": 0.1352,
+            "value": 1.03,
+            "odds": 6.28,
+            "factors": {
+              "form": {
+                "raw": 1.9523809523809526,
+                "score": 52.7,
+                "weight": 0.2,
+                "contribution": 10.55
+              },
+              "speed": {
+                "raw": -73.12,
+                "score": 55,
+                "weight": 0.18,
+                "contribution": 9.89
+              },
+              "class": {
+                "raw": 13.882824366144774,
+                "score": 69.2,
+                "weight": 0.12,
+                "contribution": 8.3
+              },
+              "winRate": {
+                "raw": 0.21291454836687793,
+                "score": 74.5,
+                "weight": 0.1,
+                "contribution": 7.45
+              },
+              "driver": {
+                "raw": 27.599172376759064,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "trainer": {
+                "raw": 25.90622075618999,
+                "score": 66.3,
+                "weight": 0.07,
+                "contribution": 4.64
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 14.07,
+                "score": 64.7,
+                "weight": 0.05,
+                "contribution": 3.23
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5"
+            ]
+          },
+          {
+            "rank": 4,
+            "number": 12,
+            "horseName": "Can't be Ruled",
+            "driverName": "Felicia Molin",
+            "trainerName": "Jimmy Dahlman",
+            "points": 64.1,
+            "confidence": 1,
+            "winProbability": 0.0911,
+            "marketProbability": 0.1818,
+            "value": 0.5,
+            "odds": 4.67,
+            "factors": {
+              "form": {
+                "raw": 2.0634920634920637,
+                "score": 56.2,
+                "weight": 0.2,
+                "contribution": 11.24
+              },
+              "speed": {
+                "raw": -72.339,
+                "score": 86.1,
+                "weight": 0.18,
+                "contribution": 15.5
+              },
+              "class": {
+                "raw": 14.315078938828716,
+                "score": 100,
+                "weight": 0.12,
+                "contribution": 12
+              },
+              "winRate": {
+                "raw": 0.22577274336283187,
+                "score": 82.1,
+                "weight": 0.1,
+                "contribution": 8.21
+              },
+              "driver": {
+                "raw": 16.875431014665992,
+                "score": 37.6,
+                "weight": 0.12,
+                "contribution": 4.51
+              },
+              "trainer": {
+                "raw": 19.182072773496465,
+                "score": 29.7,
+                "weight": 0.07,
+                "contribution": 2.08
+              },
+              "position": {
+                "raw": 4.5,
+                "score": 45,
+                "weight": 0.1,
+                "contribution": 4.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 13.72,
+                "score": 63,
+                "weight": 0.05,
+                "contribution": 3.15
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 5,
+            "number": 8,
+            "horseName": "For Sure Aldebaran",
+            "driverName": "Emma Tångring",
+            "trainerName": "Anna Mårten",
+            "points": 61.5,
+            "confidence": 1,
+            "winProbability": 0.0656,
+            "marketProbability": 0.0398,
+            "value": 1.65,
+            "odds": 21.36,
+            "factors": {
+              "form": {
+                "raw": 2.5238095238095237,
+                "score": 70.6,
+                "weight": 0.2,
+                "contribution": 14.13
+              },
+              "speed": {
+                "raw": -71.99000000000001,
+                "score": 100,
+                "weight": 0.18,
+                "contribution": 18
+              },
+              "class": {
+                "raw": 14.216924091114873,
+                "score": 93,
+                "weight": 0.12,
+                "contribution": 11.16
+              },
+              "winRate": {
+                "raw": 0.196471099521947,
+                "score": 64.9,
+                "weight": 0.1,
+                "contribution": 6.49
+              },
+              "driver": {
+                "raw": 12.452126947283848,
+                "score": 11.8,
+                "weight": 0.12,
+                "contribution": 1.42
+              },
+              "trainer": {
+                "raw": 17.170731707317074,
+                "score": 18.7,
+                "weight": 0.07,
+                "contribution": 1.31
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 2.74,
+                "score": 11.2,
+                "weight": 0.05,
+                "contribution": 0.56
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 6,
+            "number": 10,
+            "horseName": "Boba Fett",
+            "driverName": "Ludwig Wickman",
+            "trainerName": "Markus Pihlström",
+            "points": 59.5,
+            "confidence": 1,
+            "winProbability": 0.0517,
+            "marketProbability": 0.1287,
+            "value": 0.4,
+            "odds": 6.6,
+            "factors": {
+              "form": {
+                "raw": 1.8095238095238093,
+                "score": 48.3,
+                "weight": 0.2,
+                "contribution": 9.65
+              },
+              "speed": {
+                "raw": -73.48,
+                "score": 40.6,
+                "weight": 0.18,
+                "contribution": 7.31
+              },
+              "class": {
+                "raw": 13.781639302409681,
+                "score": 61.9,
+                "weight": 0.12,
+                "contribution": 7.43
+              },
+              "winRate": {
+                "raw": 0.2195007499464324,
+                "score": 78.4,
+                "weight": 0.1,
+                "contribution": 7.84
+              },
+              "driver": {
+                "raw": 23.53571189251671,
+                "score": 76.3,
+                "weight": 0.12,
+                "contribution": 9.16
+              },
+              "trainer": {
+                "raw": 32.09442729870938,
+                "score": 100,
+                "weight": 0.07,
+                "contribution": 7
+              },
+              "position": {
+                "raw": 5.5,
+                "score": 55,
+                "weight": 0.1,
+                "contribution": 5.5
+              },
+              "equipment": {
+                "raw": 1,
+                "score": 33.3,
+                "weight": 0.04,
+                "contribution": 1.33
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 10.19,
+                "score": 46.4,
+                "weight": 0.05,
+                "contribution": 2.32
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 2 av senaste 5",
+              "Byter till amerikansk vagn"
+            ]
+          },
+          {
+            "rank": 7,
+            "number": 5,
+            "horseName": "Flossa Vendil",
+            "driverName": "Lukas L Svedlund",
+            "trainerName": "Maria Lingman",
+            "points": 55.4,
+            "confidence": 1,
+            "winProbability": 0.0308,
+            "marketProbability": 0.1247,
+            "value": 0.25,
+            "odds": 6.81,
+            "factors": {
+              "form": {
+                "raw": 1.5238095238095242,
+                "score": 39.3,
+                "weight": 0.2,
+                "contribution": 7.86
+              },
+              "speed": {
+                "raw": -72.82,
+                "score": 66.9,
+                "weight": 0.18,
+                "contribution": 12.05
+              },
+              "class": {
+                "raw": 14.024328233640556,
+                "score": 79.3,
+                "weight": 0.12,
+                "contribution": 9.51
+              },
+              "winRate": {
+                "raw": 0.24208252561617283,
+                "score": 91.7,
+                "weight": 0.1,
+                "contribution": 9.17
+              },
+              "driver": {
+                "raw": 11.460955334739868,
+                "score": 6.1,
+                "weight": 0.12,
+                "contribution": 0.73
+              },
+              "trainer": {
+                "raw": 18.17867521795771,
+                "score": 24.2,
+                "weight": 0.07,
+                "contribution": 1.7
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 15.58,
+                "score": 71.8,
+                "weight": 0.05,
+                "contribution": 3.59
+              }
+            },
+            "notes": []
+          },
+          {
+            "rank": 8,
+            "number": 11,
+            "horseName": "Tulinas Eddie",
+            "driverName": "Vincent Eliasson",
+            "trainerName": "Tamara Skutnabb",
+            "points": 41.5,
+            "confidence": 1,
+            "winProbability": 0.0054,
+            "marketProbability": 0.0512,
+            "value": 0.11,
+            "odds": 16.6,
+            "factors": {
+              "form": {
+                "raw": 1.8412698412698412,
+                "score": 49.3,
+                "weight": 0.2,
+                "contribution": 9.85
+              },
+              "speed": {
+                "raw": -74.02,
+                "score": 19.1,
+                "weight": 0.18,
+                "contribution": 3.44
+              },
+              "class": {
+                "raw": 14.219034808919,
+                "score": 93.1,
+                "weight": 0.12,
+                "contribution": 11.18
+              },
+              "winRate": {
+                "raw": 0.25627925944050245,
+                "score": 100,
+                "weight": 0.1,
+                "contribution": 10
+              },
+              "driver": {
+                "raw": 10.419963080168777,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "trainer": {
+                "raw": 13.73078704214171,
+                "score": 0,
+                "weight": 0.07,
+                "contribution": 0
+              },
+              "position": {
+                "raw": 5,
+                "score": 50,
+                "weight": 0.1,
+                "contribution": 5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 3,
+                "score": 30,
+                "weight": 0.02,
+                "contribution": 0.6
+              },
+              "market": {
+                "raw": 2.68,
+                "score": 10.9,
+                "weight": 0.05,
+                "contribution": 0.54
+              }
+            },
+            "notes": [
+              "Comeback efter 173 dagar"
+            ]
+          },
+          {
+            "rank": 9,
+            "number": 7,
+            "horseName": "Orlando Vox",
+            "driverName": "Ida Olsson",
+            "trainerName": "Carina M Sedin",
+            "points": 34.7,
+            "confidence": 1,
+            "winProbability": 0.0023,
+            "marketProbability": 0.0225,
+            "value": 0.1,
+            "odds": 37.66,
+            "factors": {
+              "form": {
+                "raw": 3.4603174603174605,
+                "score": 100,
+                "weight": 0.2,
+                "contribution": 20
+              },
+              "speed": {
+                "raw": -74.499,
+                "score": 0,
+                "weight": 0.18,
+                "contribution": 0
+              },
+              "class": {
+                "raw": 13.01348617499296,
+                "score": 7.1,
+                "weight": 0.12,
+                "contribution": 0.86
+              },
+              "winRate": {
+                "raw": 0.13187069912681434,
+                "score": 26.9,
+                "weight": 0.1,
+                "contribution": 2.69
+              },
+              "driver": {
+                "raw": 12.102592272881843,
+                "score": 9.8,
+                "weight": 0.12,
+                "contribution": 1.18
+              },
+              "trainer": {
+                "raw": 15.153515541519248,
+                "score": 7.7,
+                "weight": 0.07,
+                "contribution": 0.54
+              },
+              "position": {
+                "raw": 6.5,
+                "score": 65,
+                "weight": 0.1,
+                "contribution": 6.5
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 10,
+                "score": 100,
+                "weight": 0.02,
+                "contribution": 2
+              },
+              "market": {
+                "raw": 0.72,
+                "score": 1.6,
+                "weight": 0.05,
+                "contribution": 0.08
+              }
+            },
+            "notes": [
+              "Vann senast"
+            ]
+          },
+          {
+            "rank": 10,
+            "number": 2,
+            "horseName": "Queen Tobina",
+            "driverName": "Kevin Jonsson",
+            "trainerName": "Patricia Rosén",
+            "points": 28.1,
+            "confidence": 1,
+            "winProbability": 0.001,
+            "marketProbability": 0.0161,
+            "value": 0.06,
+            "odds": 52.74,
+            "factors": {
+              "form": {
+                "raw": 0.2857142857142857,
+                "score": 0.5,
+                "weight": 0.2,
+                "contribution": 0.1
+              },
+              "speed": {
+                "raw": -74.05754999999999,
+                "score": 17.6,
+                "weight": 0.18,
+                "contribution": 3.17
+              },
+              "class": {
+                "raw": 13.422663930158556,
+                "score": 36.3,
+                "weight": 0.12,
+                "contribution": 4.36
+              },
+              "winRate": {
+                "raw": 0.14555791162817355,
+                "score": 35,
+                "weight": 0.1,
+                "contribution": 3.5
+              },
+              "driver": {
+                "raw": 16.693746297706696,
+                "score": 36.5,
+                "weight": 0.12,
+                "contribution": 4.38
+              },
+              "trainer": {
+                "raw": 17.16009638173487,
+                "score": 18.7,
+                "weight": 0.07,
+                "contribution": 1.31
+              },
+              "position": {
+                "raw": 8.5,
+                "score": 85,
+                "weight": 0.1,
+                "contribution": 8.5
+              },
+              "equipment": {
+                "raw": 1,
+                "score": 33.3,
+                "weight": 0.04,
+                "contribution": 1.33
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 0.51,
+                "score": 0.6,
+                "weight": 0.05,
+                "contribution": 0.03
+              }
+            },
+            "notes": [
+              "Galopp/diskning i 3 av senaste 5",
+              "Byter till amerikansk vagn"
+            ]
+          },
+          {
+            "rank": 11,
+            "number": 6,
+            "horseName": "Catchtwentytwo",
+            "driverName": "Ella Ungh",
+            "trainerName": "Emelie Mood",
+            "points": 22.2,
+            "confidence": 1,
+            "winProbability": 0.0005,
+            "marketProbability": 0.0167,
+            "value": 0.03,
+            "odds": 50.76,
+            "factors": {
+              "form": {
+                "raw": 0.2698412698412699,
+                "score": 0,
+                "weight": 0.2,
+                "contribution": 0
+              },
+              "speed": {
+                "raw": -73.22500000000001,
+                "score": 50.8,
+                "weight": 0.18,
+                "contribution": 9.14
+              },
+              "class": {
+                "raw": 12.913424319933469,
+                "score": 0,
+                "weight": 0.12,
+                "contribution": 0
+              },
+              "winRate": {
+                "raw": 0.08600709663953247,
+                "score": 0,
+                "weight": 0.1,
+                "contribution": 0
+              },
+              "driver": {
+                "raw": 14.821582638320468,
+                "score": 25.6,
+                "weight": 0.12,
+                "contribution": 3.07
+              },
+              "trainer": {
+                "raw": 15.617021276595747,
+                "score": 10.3,
+                "weight": 0.07,
+                "contribution": 0.72
+              },
+              "position": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.1,
+                "contribution": 7
+              },
+              "equipment": {
+                "raw": 0,
+                "score": 22.2,
+                "weight": 0.04,
+                "contribution": 0.89
+              },
+              "freshness": {
+                "raw": 7,
+                "score": 70,
+                "weight": 0.02,
+                "contribution": 1.4
+              },
+              "market": {
+                "raw": 0.38,
+                "score": 0,
+                "weight": 0.05,
+                "contribution": 0
+              }
+            },
+            "notes": []
+          }
+        ],
+        "scratched": [
+          1
+        ],
+        "topList": "all"
+      }
+    ]
+  }
+]

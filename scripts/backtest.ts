@@ -355,7 +355,9 @@ function printAblation(a: Ablation) {
     `  Log loss med − utan, lopp för lopp (${races} testlopp): ${sign}${dec(Math.abs(diff), 3)} ± ${dec(se, 3)}`,
   );
   console.log(
-    diff + 2 * se < 0
+    Math.abs(diff) < 0.001
+      ? "  Ingen skillnad – faktorerna fick (nästan) ingen vikt i anpassningen."
+      : diff + 2 * se < 0
       ? "  De hjälper: bättre med än utan, med mer än två medelfels marginal."
       : diff - 2 * se > 0
         ? "  De stjälper: sämre med än utan, med mer än två medelfels marginal."

@@ -13,6 +13,7 @@ import { toNumber } from "../clients/travsport.ts";
 import type { ChartSource } from "../clients/charts.ts";
 import { rankDay, raceDate } from "../pipeline.ts";
 import type { ScoringConfig } from "../scoring/config.ts";
+import type { ResultsHistory } from "../results/history.ts";
 import type { AtgExtendedStart, AtgPastResult, AtgRace } from "../types/atg.ts";
 import { evaluate, type BacktestReport, type EvalRace } from "./evaluate.ts";
 
@@ -22,6 +23,8 @@ export interface BacktestOptions {
   gameTypes: string[];
   config?: ScoringConfig;
   charts?: ChartSource;
+  /** Resultatsamlingen för kusk- och tränarform. Default som i rankDay. */
+  results?: ResultsHistory | null;
   log?: (m: string) => void;
 }
 
@@ -109,7 +112,15 @@ function checkSnapshot(
 export async function runBacktest(
   opts: BacktestOptions,
 ): Promise<BacktestResult> {
-  const { from, to, gameTypes, config, charts = "atg", log = () => {} } = opts;
+  const {
+    from,
+    to,
+    gameTypes,
+    config,
+    charts = "atg",
+    results,
+    log = () => {},
+  } = opts;
   const races: EvalRace[] = [];
   const games: BacktestResult["games"] = [];
   const snapshot = { horses: 0, ahead: 0 };
@@ -124,6 +135,7 @@ export async function runBacktest(
         historical: true,
         charts,
         config,
+        results,
       });
     } catch (err) {
       log(`${date}: kunde inte hämtas (${(err as Error).message})`);

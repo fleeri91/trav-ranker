@@ -36,6 +36,28 @@ export const FIT_REGULARIZATION = 0.002;
 
 type Weights = Partial<Record<FactorKey, number>>;
 
+type Variant = "current" | "recalibrated" | "marketOnly" | "fitted";
+
+/** Skillnad i log loss lopp för lopp (a − b), med medelfel. */
+export interface Paired {
+  diff: number;
+  se: number;
+  races: number;
+}
+
+export function paired(a: (number | null)[], b: (number | null)[]): Paired | null {
+  const d: number[] = [];
+  a.forEach((x, i) => {
+    const y = b[i];
+    if (x !== null && y !== null && y !== undefined) d.push(x - y);
+  });
+  const n = d.length;
+  if (n < 2) return null;
+  const mean = d.reduce((s, v) => s + v, 0) / n;
+  const variance = d.reduce((s, v) => s + (v - mean) ** 2, 0) / (n - 1);
+  return { diff: mean, se: Math.sqrt(variance / n), races: n };
+}
+
 export interface ModelEval extends HitStats {
   logLoss: number;
 }
@@ -47,20 +69,29 @@ export interface FitResult {
   current: { weights: Weights; temperature: number };
   /** Nuvarande vikter, bara temperaturen anpassad. */
   recalibrated: { weights: Weights; temperature: number };
+  /** Bara marknaden, kalibrerad. null om marknaden inte ingår (--no-market). */
+  marketOnly: { weights: Weights; temperature: number } | null;
   fitted: { weights: Weights; temperature: number };
   /** Allt nedan gäller testomgångarna. */
   results: {
     current: ModelEval;
     recalibrated: ModelEval;
+    marketOnly: ModelEval | null;
     fitted: ModelEval;
     favorite: HitStats;
     marketLogLoss: number | null;
   };
   /**
-   * Bäst på testomgångarna (lägst log loss). "current" om inget av alternativen
-   * är tydligt bättre (minst 0,01 lägre log loss).
+   * Log loss mot oddsen, lopp för lopp på samma testlopp. Negativt = bättre än
+   * oddsen. null om inga testlopp har odds för alla hästar.
    */
-  recommended: "current" | "recalibrated" | "fitted";
+  vsMarket: Record<Variant, Paired | null> | null;
+  /**
+   * Bäst på testomgångarna (lägst log loss). "current" om inget av alternativen
+   * är tydligt bättre: minst 0,01 lägre log loss och mer än två medelfel,
+   * lopp för lopp mot de nuvarande värdena.
+   */
+  recommended: Variant;
   /** Kalibrering och spel gäller det rekommenderade alternativet. */
   calibration: {
     label: string;
@@ -154,7 +185,7 @@ function fitScale(data: Features[], direction: number[]): number {
       false,
     ).loss;
   let lo = 0.01;
-  let hi = 10;
+  let hi = 30;
   const g = (Math.sqrt(5) - 1) / 2;
   for (let i = 0; i < 80; i++) {
     const a = hi - g * (hi - lo);
@@ -177,23 +208,48 @@ const fromBeta = (keys: FactorKey[], beta: number[]) => {
   return { weights, temperature: sum ? 100 / sum : Infinity };
 };
 
+/** Log loss för vinnaren per lopp, null om vinnaren saknas. */
+function raceLosses(
+  races: EvalRace[],
+  weights: Weights,
+  temperature: number,
+): (number | null)[] {
+  return races.map((race) => {
+    const idx = race.runners.findIndex((r) => r.number === race.winners[0]);
+    if (idx < 0) return null;
+    const points = race.runners.map((r) => pointsWith(r, weights));
+    const p = softmax(points, temperature);
+    return -Math.log(Math.max(p[idx]!, 1e-6));
+  });
+}
+
+/** Oddsens log loss per lopp, null om något pris saknas. */
+function marketLosses(races: EvalRace[]): (number | null)[] {
+  return races.map((race) => {
+    if (!race.runners.every((h) => h.marketProbability !== null)) return null;
+    const w = race.runners.find((h) => h.number === race.winners[0]);
+    if (!w) return null;
+    return -Math.log(Math.max(w.marketProbability ?? 0, 1e-6));
+  });
+}
+
+const mean = (xs: (number | null)[]) => {
+  const v = xs.filter((x): x is number => x !== null);
+  return v.length ? v.reduce((s, x) => s + x, 0) / v.length : 0;
+};
+
 function evalModel(
   races: EvalRace[],
   weights: Weights,
   temperature: number,
-): ModelEval {
+): ModelEval & { losses: (number | null)[] } {
+  const losses = raceLosses(races, weights, temperature);
   const score = (r: RankedRunner) => pointsWith(r, weights);
-  let loss = 0;
-  let n = 0;
-  for (const race of races) {
-    const idx = race.runners.findIndex((r) => r.number === race.winners[0]);
-    if (idx < 0) continue;
-    const p = softmax(race.runners.map(score), temperature);
-    loss += -Math.log(Math.max(p[idx]!, 1e-6));
-    n++;
-  }
-  return { ...hitStats(races, score), logLoss: n ? loss / n : 0 };
+  return { ...hitStats(races, score), logLoss: mean(losses), losses };
 }
+
+/** Utan per-lopp-listan, så att --json inte blir enormt. */
+const summary = ({ losses: _, ...e }: ModelEval & { losses: unknown }) => e;
 
 /** Delar upp per tävlingsdag: de tidiga omgångarna tränar, de senaste testar. */
 export function splitByDate(races: EvalRace[], holdout: number) {
@@ -208,6 +264,41 @@ export function splitByDate(races: EvalRace[], holdout: number) {
     test: races.filter((r) => !trainDates.has(r.date ?? "")),
     trainDates: dates.slice(0, trainCount),
     testDates: dates.slice(trainCount),
+  };
+}
+
+export interface Ablation {
+  without: FactorKey[];
+  /**
+   * Log loss med alla faktorer minus utan `without`, lopp för lopp på
+   * testloppen (båda anpassade). Negativt = faktorerna hjälper.
+   */
+  diff: Paired | null;
+}
+
+/**
+ * Hjälper `without`? Anpassar en gång till utan dem och jämför med `full`
+ * (resultatet av fitBacktest med samma lopp och inställningar).
+ */
+export function compareWithout(
+  races: EvalRace[],
+  config: ScoringConfig,
+  holdout: number,
+  excluded: FactorKey[],
+  without: FactorKey[],
+  full: FitResult,
+): Ablation {
+  const { test } = splitByDate(races, holdout);
+  const reduced = fitBacktest(races, config, holdout, [
+    ...excluded,
+    ...without,
+  ]).fitted;
+  return {
+    without,
+    diff: paired(
+      raceLosses(test, full.fitted.weights, full.fitted.temperature),
+      raceLosses(test, reduced.weights, reduced.temperature),
+    ),
   };
 }
 
@@ -245,45 +336,71 @@ export function fitBacktest(
   };
   const currentBeta = toBeta(keys, current.weights, current.temperature);
 
-  // 1. Bara temperaturen. 2. Vikterna, med start i (och dragna mot) steg 1.
+  const trainLoss = (beta: number[]) =>
+    logLossAndGrad(data, beta, false).loss;
+
+  // 1. Bara temperaturen.
   const recalibratedBeta = currentBeta.map(
     (b) => b * fitScale(data, currentBeta),
   );
   const recalibrated = fromBeta(keys, recalibratedBeta);
-  const fitted = fromBeta(keys, fitBeta(data, recalibratedBeta));
 
-  const results = {
+  // 2. Bara marknaden, kalibrerad (om den ingår).
+  const marketIdx = keys.indexOf("market");
+  const marketDirection = keys.map((_, i) => (i === marketIdx ? 1 : 0));
+  const marketBeta =
+    marketIdx >= 0
+      ? marketDirection.map((b) => b * fitScale(data, marketDirection))
+      : null;
+  const marketOnly = marketBeta ? fromBeta(keys, marketBeta) : null;
+
+  // 3. Alla vikter. Startar i det bästa av 1 och 2 på träningsloppen: oftast
+  //    marknaden, så att övriga faktorer bara får vikt om de förbättrar oddsen.
+  const start =
+    marketBeta && trainLoss(marketBeta) < trainLoss(recalibratedBeta)
+      ? marketBeta
+      : recalibratedBeta;
+  const fitted = fromBeta(keys, fitBeta(data, start));
+
+  const variants = { current, recalibrated, marketOnly, fitted };
+  const evals = {
     current: evalModel(test, current.weights, current.temperature),
     recalibrated: evalModel(
       test,
       recalibrated.weights,
       recalibrated.temperature,
     ),
+    marketOnly: marketOnly
+      ? evalModel(test, marketOnly.weights, marketOnly.temperature)
+      : null,
     fitted: evalModel(test, fitted.weights, fitted.temperature),
   };
-  const best =
-    results.fitted.logLoss < results.recalibrated.logLoss
-      ? "fitted"
-      : "recalibrated";
-  const recommended: FitResult["recommended"] =
-    results[best].logLoss < results.current.logLoss - 0.01 ? best : "current";
-  const chosen =
-    recommended === "current"
-      ? current
-      : recommended === "fitted"
-        ? fitted
-        : recalibrated;
+
+  // Lopp för lopp mot de nuvarande värdena: ett alternativ rekommenderas bara
+  // om förbättringen är större än slumpen på så här många testlopp.
+  const candidates = (["recalibrated", "marketOnly", "fitted"] as const).filter(
+    (k) => evals[k] !== null,
+  );
+  const best = candidates.reduce((a, b) =>
+    evals[b]!.logLoss < evals[a]!.logLoss ? b : a,
+  );
+  const gain = paired(evals[best]!.losses, evals.current.losses);
+  const recommended: Variant =
+    gain && gain.diff < -0.01 && gain.diff + 2 * gain.se < 0 ? best : "current";
+  const chosen = variants[recommended] ?? current;
 
   // Marknaden och favoriten på testomgångarna.
   const priced = test.filter((r) => r.runners.every((h) => h.odds));
-  const withMarket = test.filter((r) =>
-    r.runners.every((h) => h.marketProbability !== null),
-  );
-  let marketLoss = 0;
-  for (const race of withMarket) {
-    const w = race.runners.find((h) => h.number === race.winners[0]);
-    marketLoss += -Math.log(Math.max(w?.marketProbability ?? 0, 1e-6));
-  }
+  const market = marketLosses(test);
+  const hasMarket = market.some((x) => x !== null);
+  const vsMarket = hasMarket
+    ? (Object.fromEntries(
+        (Object.keys(evals) as Variant[]).map((k) => [
+          k,
+          evals[k] ? paired(evals[k]!.losses, market) : null,
+        ]),
+      ) as Record<Variant, Paired | null>)
+    : null;
 
   // Vinstchans och spelvärde med det rekommenderade alternativet.
   const rescored = test.map((race) => {
@@ -332,12 +449,17 @@ export function fitBacktest(
     keys,
     current,
     recalibrated,
+    marketOnly,
     fitted,
     results: {
-      ...results,
+      current: summary(evals.current),
+      recalibrated: summary(evals.recalibrated),
+      marketOnly: evals.marketOnly ? summary(evals.marketOnly) : null,
+      fitted: summary(evals.fitted),
       favorite: hitStats(priced, (h) => -(h.odds ?? Infinity)),
-      marketLogLoss: withMarket.length ? marketLoss / withMarket.length : null,
+      marketLogLoss: hasMarket ? mean(market) : null,
     },
+    vsMarket,
     recommended,
     calibration,
     topPickBets: bets(rescored, (race) =>

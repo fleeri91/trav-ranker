@@ -136,6 +136,7 @@ export interface AtgRace {
   startMethod?: string;
   startTime?: string;
   sport?: string; // "trot" | "monté" | "gallop"
+  status?: string; // "results" när loppet är avgjort
   track?: { id?: number; name?: string; condition?: string };
   starts?: AtgStart[];
 }
@@ -152,11 +153,18 @@ export interface AtgCalendarGame {
   status?: string;
   startTime?: string;
   tracks?: number[];
+  races?: string[];
 }
 
 export interface AtgCalendarDay {
   date?: string;
-  tracks?: Array<{ id: number; name?: string; sport?: string }>;
+  tracks?: Array<{
+    id: number;
+    name?: string;
+    sport?: string;
+    countryCode?: string;
+    races?: Array<{ id: string; number?: number; status?: string }>;
+  }>;
   games?: Record<string, AtgCalendarGame[] | undefined>;
 }
 

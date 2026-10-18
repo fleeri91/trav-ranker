@@ -198,6 +198,27 @@ test("motiveringar och topplista kopplas på", () => {
   assert.ok(nr4.notes.some((n) => n.startsWith("Topp-10 kusk")));
 });
 
+test("bara marknaden med rätt temperatur ger exakt oddsens chanser", () => {
+  const weights = Object.fromEntries(
+    Object.keys(DEFAULT_CONFIG.weights).map((k) => [k, k === "market" ? 1 : 0]),
+  );
+  const ranked = scoreRace(
+    toRaceInput(race, { driverChart, extended }),
+    withConfig({
+      weights,
+      // Marknadens skala är ln(0,002)–0, så 100/ln(500) återskapar oddsen.
+      probability: { ...DEFAULT_CONFIG.probability, temperature: 100 / Math.log(500) },
+    } as Parameters<typeof withConfig>[0]),
+  );
+  for (const r of ranked.runners) {
+    assert.ok(r.marketProbability !== null);
+    assert.ok(
+      Math.abs(r.winProbability - r.marketProbability) < 1e-3,
+      `nr ${r.number}: ${r.winProbability} mot ${r.marketProbability}`,
+    );
+  }
+});
+
 test("vikt 0 stänger av en faktor", () => {
   const ranked = scoreRace(
     toRaceInput(race, { extended }),

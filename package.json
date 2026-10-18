@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test test/*.test.ts",
     "backtest": "tsx scripts/backtest.ts",
+    "collect": "tsx scripts/collect-results.ts",
     "check:charts": "tsx scripts/check-charts.ts",
     "dashboard": "tsx watch src/server.ts"
   },

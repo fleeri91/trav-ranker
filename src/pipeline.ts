@@ -26,6 +26,12 @@ import {
 import { DEFAULT_CONFIG, type ScoringConfig } from "./scoring/config.ts";
 import { scoreRace, type RankedRace } from "./scoring/engine.ts";
 import { season } from "./scoring/season.ts";
+import {
+  ALL_RACES,
+  readAllDays,
+  type ResultsScope,
+} from "./results/collect.ts";
+import { ResultsHistory } from "./results/history.ts";
 import type {
   AtgExtendedStart,
   AtgGame,
@@ -33,7 +39,7 @@ import type {
   AtgRace,
   AtgStart,
 } from "./types/atg.ts";
-import type { Sport } from "./types/domain.ts";
+import type { RaceInput, Sport } from "./types/domain.ts";
 
 /** Spelformer med flera lopp. Övriga (vinnare, plats, trio…) är per lopp. */
 export const MULTI_RACE_GAMES = [
@@ -77,6 +83,11 @@ export interface RankDayOptions {
   charts?: ChartSource;
   /** Vilka sporter som rankas. Default: både trav och monté. */
   sports?: readonly Sport[];
+  /**
+   * Resultatsamlingen för kusk- och tränarform. Default: alla svenska lopp
+   * i data/results/all/ (läses en gång per process). null = använd inte.
+   */
+  results?: ResultsHistory | null;
   log?: (msg: string) => void;
 }
 
@@ -292,6 +303,55 @@ export function raceDate(race: AtgRace, fallback: string): string {
   return (race.date ?? race.startTime ?? fallback).slice(0, 10);
 }
 
+const historyLoads = new Map<string, Promise<ResultsHistory>>();
+/** Resultatsamlingen från data/results/<scope>/, läst en gång per process. */
+export function loadResultsHistory(
+  scope: ResultsScope = ALL_RACES,
+): Promise<ResultsHistory> {
+  let load = historyLoads.get(scope);
+  if (!load) {
+    load = readAllDays(scope).then((days) => new ResultsHistory(days));
+    historyLoads.set(scope, load);
+  }
+  return load;
+}
+
+/** Lägger på kusk- och tränarform från resultatsamlingen, före `before`. */
+export function withRecent(
+  input: RaceInput,
+  history: ResultsHistory,
+  before: string,
+  trackId: number | undefined,
+  cfg: ScoringConfig,
+): RaceInput {
+  const { recentForm, trackForm } = cfg;
+  return {
+    ...input,
+    runners: input.runners.map((r) => ({
+      ...r,
+      recent: {
+        driver: history.tally("driver", r.driver.id, before, recentForm.days),
+        trainer: history.tally(
+          "trainer",
+          r.trainer.id,
+          before,
+          recentForm.days,
+        ),
+        driverTrack:
+          trackId === undefined
+            ? null
+            : history.tally(
+                "driver",
+                r.driver.id,
+                before,
+                trackForm.days,
+                trackId,
+              ),
+      },
+    })),
+  };
+}
+
 export async function rankDay(opts: RankDayOptions): Promise<GameRanking[]> {
   const {
     date,
@@ -305,6 +365,8 @@ export async function rankDay(opts: RankDayOptions): Promise<GameRanking[]> {
     sports = SPORTS,
     log = () => {},
   } = opts;
+  const history =
+    opts.results === undefined ? await loadResultsHistory() : opts.results;
 
   const fetchOpts = { persist: historical };
   const calendar = await atg.calendarDay(date, fetchOpts);
@@ -404,7 +466,7 @@ export async function rankDay(opts: RankDayOptions): Promise<GameRanking[]> {
           );
         }
       }
-      const input = toRaceInput(race, {
+      const parsed = toRaceInput(race, {
         gameId,
         gameType,
         driverChart: chartSet.drivers,
@@ -412,6 +474,16 @@ export async function rankDay(opts: RankDayOptions): Promise<GameRanking[]> {
         extended: extendedByNumber,
         before: historical ? raceDate(race, date) : undefined,
       });
+      // Bara dagar före loppets datum, även live (dagens tidigare lopp räknas inte).
+      const input = history?.size
+        ? withRecent(
+            parsed,
+            history,
+            raceDate(race, date),
+            race.track?.id,
+            config,
+          )
+        : parsed;
       return {
         ...scoreRace(input, config),
         topList: stl ? "stl" : "all",

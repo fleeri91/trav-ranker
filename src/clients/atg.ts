@@ -51,6 +51,17 @@ export const atg = {
   },
 
   /**
+   * Ett avgjort spel för resultatsamlingen: i lugn takt, men utan diskcache –
+   * samlingen sparar själv en kompakt kopia, och råsvaren är stora.
+   */
+  settledGame(gameId: string) {
+    return getJson<AtgGame>(
+      `${BASE}/games/${encodeURIComponent(gameId)}`,
+      PERSIST_HTTP,
+    );
+  },
+
+  /**
    * Utökad info för alla starter i ett lopp, i ett anrop: varje post har
    * `startNumber` och hästens tidigare resultat i `horse.results.records`.
    */

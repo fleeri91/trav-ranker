@@ -124,7 +124,9 @@ export function scoreRace(
       points += contribution;
       if (raw !== null) presentWeight += weight;
     }
-    const notes = activeFactors.flatMap(
+    // Motiveringar från alla faktorer: de är information till läsaren även när
+    // faktorn inte väger in i poängen.
+    const notes = FACTORS.flatMap(
       (f) => f.notes?.(runner, race, cfg) ?? [],
     );
     return { runner, factors, points, confidence: presentWeight, notes };

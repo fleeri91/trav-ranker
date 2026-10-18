@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { fitBeta, splitByDate } from "../src/backtest/fit.ts";
+import { fitBeta, paired, splitByDate } from "../src/backtest/fit.ts";
 import type { EvalRace } from "../src/backtest/evaluate.ts";
 
 let seed = 11;
@@ -69,4 +69,13 @@ test("med svag regularisering kan en stark faktor få den skärpa den behöver",
   const data = synthetic(600, 6);
   const beta = fitBeta(data, [2, 0]);
   assert.ok(beta[0]! > 4.5, `β = ${beta}`);
+});
+
+test("paired ger skillnad och medelfel lopp för lopp, och hoppar över saknade", () => {
+  const p = paired([1, 2, 3, null], [0.5, 1.5, 2.5, 1]);
+  assert.ok(p);
+  assert.equal(p.races, 3);
+  assert.ok(Math.abs(p.diff - 0.5) < 1e-12);
+  assert.ok(Math.abs(p.se) < 1e-12);
+  assert.equal(paired([1], [0]), null);
 });

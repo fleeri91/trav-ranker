@@ -162,7 +162,7 @@ test("pointsWithout räknar om totalen utan valda faktorer", () => {
   const r = rankedRace("A", 2).runners[0]!;
   const all = pointsWithout(r, []);
   assert.ok(Math.abs(all - r.points) < 0.2);
-  assert.notEqual(pointsWithout(r, ["form"]), all);
+  assert.notEqual(pointsWithout(r, ["market"]), all);
 });
 
 test("lika poäng delar på placeringarna", async () => {

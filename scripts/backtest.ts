@@ -6,9 +6,14 @@
  *   npm run backtest -- --game V85 --from 2026-08-01 --no-market
  *   npm run --silent backtest -- --game V85 --from 2026-08-01 --json > backtest.json
  *   npm run backtest -- --game V85 --from 2026-01-01 --no-market --fit
+ *   npm run backtest -- --game V85,V86,V64 --from 2025-09-01 --fit --compare-without driverForm,trainerForm
  *
  * --fit anpassar vikter och temperatur på de tidiga omgångarna och mäter dem på
  * de senaste (--holdout, standard 0.3 = sista 30 % av omgångarna).
+ * --results väljer resultatsamling för kusk- och tränarform: "all" (standard,
+ * alla svenska lopp) eller en spelform som samlats med npm run collect -- --game.
+ * --compare-without anpassar en gång till utan de angivna faktorerna och
+ * jämför lopp för lopp: hjälper faktorerna på omgångar anpassningen inte sett?
  *
  * --to är som standard i går. Svaren från ATG sparas i .cache/ i 30 dagar,
  * så en omkörning (t.ex. efter ändrade vikter) går snabbt.
@@ -17,8 +22,12 @@
  */
 import { CHART_SOURCES, type ChartSource } from "../src/clients/charts.ts";
 import { runBacktest, type BacktestResult } from "../src/backtest/run.ts";
+import { loadResultsHistory } from "../src/pipeline.ts";
+import { ALL_RACES, resultsDir } from "../src/results/collect.ts";
 import {
+  compareWithout,
   fitBacktest,
+  type Ablation,
   type FitResult,
   type ModelEval,
 } from "../src/backtest/fit.ts";
@@ -57,6 +66,11 @@ const charts = (arg("charts") ?? "atg") as ChartSource;
 const json = flag("json");
 const fit = flag("fit");
 const holdout = Number(arg("holdout") ?? 0.3);
+const resultsScope = arg("results") ?? ALL_RACES;
+const without = (arg("compare-without") ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean) as FactorKey[];
 
 if (!isDate(from)) fail("Ange startdatum: --from ÅÅÅÅ-MM-DD");
 if (!isDate(to)) fail("--to måste vara ÅÅÅÅ-MM-DD");
@@ -65,6 +79,12 @@ if (to >= today)
 if ((from as string) > to) fail("--from måste vara före --to");
 if (!(holdout > 0 && holdout < 1))
   fail("--holdout måste vara mellan 0 och 1, t.ex. 0.3");
+const unknownFactor = without.find((k) => !(k in FACTOR_LABELS));
+if (unknownFactor)
+  fail(
+    `Okänd faktor "${unknownFactor}" i --compare-without. Välj bland: ${Object.keys(FACTOR_LABELS).join(", ")}`,
+  );
+if (without.length && !fit) fail("--compare-without kräver --fit");
 if (!CHART_SOURCES.includes(charts))
   fail(`Okänd --charts "${charts}". Välj: ${CHART_SOURCES.join(", ")}`);
 
@@ -208,26 +228,34 @@ function printFit(f: FitResult) {
 
   const row = (label: string, e: ModelEval) =>
     hitRow(label, e, padL(dec(e.logLoss), 11));
+  // Lopp för lopp mot oddsen: skillnad ± medelfel. Negativt = bättre än oddsen.
+  const vs = (k: keyof NonNullable<FitResult["vsMarket"]>) => {
+    const p = f.vsMarket?.[k];
+    if (!p) return "";
+    const sign = p.diff >= 0 ? "+" : "−";
+    return padL(`${sign}${dec(Math.abs(p.diff))} ± ${dec(p.se)}`, 16);
+  };
   console.log("\nPå testomgångarna");
   console.log(
-    `  ${pad("", W.label)}${padL("Etta vann", W.top1)}${padL("Vinnare topp 3", W.top3)}${padL("Vinnarens plac.", W.rank)}${padL("Log loss", 11)}`,
+    `  ${pad("", W.label)}${padL("Etta vann", W.top1)}${padL("Vinnare topp 3", W.top3)}${padL("Vinnarens plac.", W.rank)}${padL("Log loss", 11)}` +
+      (f.vsMarket ? padL("Mot oddsen", 16) : ""),
   );
-  console.log(row("Nuvarande", f.results.current));
+  console.log(row("Nuvarande", f.results.current) + vs("current"));
   console.log(
     row(
       `Bara ny temperatur (${dec(f.recalibrated.temperature, 1)})`,
       f.results.recalibrated,
-    ),
+    ) + vs("recalibrated"),
   );
   if (f.results.marketOnly && f.marketOnly) {
     console.log(
       row(
         `Bara marknaden (${dec(f.marketOnly.temperature, 1)})`,
         f.results.marketOnly,
-      ),
+      ) + vs("marketOnly"),
     );
   }
-  console.log(row("Anpassade vikter", f.results.fitted));
+  console.log(row("Anpassade vikter", f.results.fitted) + vs("fitted"));
   console.log(
     hitRow(
       "Favoriten (lägst odds)",
@@ -272,10 +300,11 @@ function printFit(f: FitResult) {
   console.log("\nRekommendation");
   if (f.recommended === "current") {
     console.log(
-      "  Inget alternativ är tydligt bättre än de nuvarande värdena på testomgångarna.",
+      "  Inget alternativ är tydligt bättre än de nuvarande värdena på testomgångarna\n" +
+        "  (minst 0,01 lägre log loss och mer än två medelfel, lopp för lopp).",
     );
     console.log(
-      "  Behåll dem, eller kör igen med fler omgångar (tidigare --from).",
+      "  Behåll dem, eller kör igen med fler lopp (tidigare --from, fler spel som --game V85,V86,V64).",
     );
     return;
   }
@@ -313,20 +342,64 @@ function printFit(f: FitResult) {
   }
 }
 
+function printAblation(a: Ablation) {
+  const names = a.without.map((k) => FACTOR_LABELS[k]).join(", ");
+  console.log(`\n════════ Med och utan ${names} (--compare-without) ════════`);
+  if (!a.diff) {
+    console.log("  För få testlopp för en jämförelse.");
+    return;
+  }
+  const { diff, se, races } = a.diff;
+  const sign = diff >= 0 ? "+" : "−";
+  console.log(
+    `  Log loss med − utan, lopp för lopp (${races} testlopp): ${sign}${dec(Math.abs(diff), 3)} ± ${dec(se, 3)}`,
+  );
+  console.log(
+    diff + 2 * se < 0
+      ? "  De hjälper: bättre med än utan, med mer än två medelfels marginal."
+      : diff - 2 * se > 0
+        ? "  De stjälper: sämre med än utan, med mer än två medelfels marginal."
+        : "  Ingen säker skillnad – inom två medelfel.",
+  );
+}
+
 const log = json ? () => {} : (m: string) => console.error(m);
 
-runBacktest({ from: from as string, to, gameTypes, config, charts, log })
+loadResultsHistory(resultsScope)
+  .then((results) => {
+    log(
+      `Resultatsamling: ${results.size} dagar i ${resultsDir(resultsScope)}` +
+        (results.size
+          ? ""
+          : ` – kusk- och tränarform blir neutrala. Kör npm run collect${resultsScope === ALL_RACES ? "" : ` -- --game ${resultsScope}`} först.`),
+    );
+    return runBacktest({
+      from: from as string,
+      to,
+      gameTypes,
+      config,
+      charts,
+      results,
+      log,
+    });
+  })
   .then((result) => {
     let fitted: FitResult | undefined;
+    let ablation: Ablation | undefined;
     let fitError: string | undefined;
     if (fit) {
+      const excluded: FactorKey[] = flag("no-market") ? ["market"] : [];
       try {
-        fitted = fitBacktest(
-          result.races,
-          config,
-          holdout,
-          flag("no-market") ? ["market"] : [],
-        );
+        fitted = fitBacktest(result.races, config, holdout, excluded);
+        if (without.length)
+          ablation = compareWithout(
+            result.races,
+            config,
+            holdout,
+            excluded,
+            without,
+            fitted,
+          );
       } catch (err) {
         fitError = (err as Error).message;
       }
@@ -334,11 +407,12 @@ runBacktest({ from: from as string, to, gameTypes, config, charts, log })
     if (json) {
       const { races: _races, ...rest } = result;
       return console.log(
-        JSON.stringify({ ...rest, fit: fitted ?? fitError }, null, 2),
+        JSON.stringify({ ...rest, fit: fitted ?? fitError, ablation }, null, 2),
       );
     }
     print(result);
     if (fitted) printFit(fitted);
+    if (ablation) printAblation(ablation);
     if (fitError) console.log(`\n--fit: ${fitError}`);
   })
   .catch((err) => {

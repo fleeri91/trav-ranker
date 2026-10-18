@@ -15,6 +15,9 @@ export type FactorKey =
   | "gearForm"
   | "gearChange"
   | "freshness"
+  | "driverForm"
+  | "trainerForm"
+  | "driverTrack"
   | "market";
 
 export interface ScoringConfig {
@@ -87,23 +90,38 @@ export interface ScoringConfig {
   /** Bonus (0..maxBonus) för placering på Travsports topplista. */
   chart: { maxBonus: number };
 
+  /**
+   * Kusk- och tränarform ur resultatsamlingen. k = antal "snittstarter" som
+   * läggs till, så att få starter inte ger extrema värden.
+   */
+  recentForm: { days: number; k: number };
+  /** Kusken på dagens bana. */
+  trackForm: { days: number; k: number };
+
   /** Temperatur för softmax poäng -> vinstsannolikhet. Lägre = skarpare. */
   probability: { temperature: number };
 }
 
 export const DEFAULT_CONFIG: ScoringConfig = {
+  // Anpassade med --fit på V85, V86 och V64 sedan 2025-09-01 (2400 lopp, okt
+  // 2026). Marknaden är på log-skala och bär nästan allt; övriga faktorer
+  // tillför i dag inget mätbart utöver oddsen.
   weights: {
-    form: 0.01,
-    speed: 0.08,
-    class: 0.16,
-    winRate: 0.04,
-    driver: 0.01,
-    trainer: 0.02,
-    position: 0.12,
+    form: 0.0,
+    speed: 0.01,
+    class: 0.01,
+    winRate: 0.0,
+    driver: 0.0,
+    trainer: 0.03,
+    position: 0.03,
     gearForm: 0.0,
-    gearChange: 0.13,
-    freshness: 0.04,
-    market: 0.38,
+    gearChange: 0.08,
+    freshness: 0.0,
+    // Nya, ännu inte backtestade: vikt 0 tills --fit visar att de hjälper.
+    driverForm: 0.0,
+    trainerForm: 0.0,
+    driverTrack: 0.0,
+    market: 0.85,
   },
   form: {
     placementPoints: [10, 7, 5, 3, 2, 1],
@@ -169,7 +187,9 @@ export const DEFAULT_CONFIG: ScoringConfig = {
   },
   freshness: { idealMinDays: 10, idealMaxDays: 35, longLayoffDays: 90 },
   chart: { maxBonus: 10 },
-  probability: { temperature: 19 },
+  recentForm: { days: 21, k: 15 },
+  trackForm: { days: 180, k: 20 },
+  probability: { temperature: 12.6 },
 };
 
 export const FACTOR_LABELS: Record<FactorKey, string> = {
@@ -183,12 +203,17 @@ export const FACTOR_LABELS: Record<FactorKey, string> = {
   gearForm: "Rustningsform",
   gearChange: "Ny utrustning",
   freshness: "Vila",
+  driverForm: "Kuskform",
+  trainerForm: "Stallform",
+  driverTrack: "Kusk på banan",
   market: "Marknad",
 };
 
 /** Faktornamn som skiljer sig i montélopp. */
 export const MONTE_FACTOR_LABELS: Partial<Record<FactorKey, string>> = {
   driver: "Ryttare",
+  driverForm: "Ryttarform",
+  driverTrack: "Ryttare på banan",
 };
 
 export type ConfigOverrides = Partial<Omit<ScoringConfig, "weights">> & {

@@ -6,6 +6,7 @@ import type {
   PastStart,
   Person,
   RaceInput,
+  RecentTally,
   Runner,
   StatLine,
 } from "../types/domain.ts";
@@ -22,6 +23,9 @@ export interface FactorDef {
   /** Korta motiveringar som visas i UI ("Barfota runt om – första gången"). */
   notes?(runner: Runner, race: RaceInput, cfg: ScoringConfig): string[];
 }
+
+/** Lägsta chans Marknad skiljer på (odds 500). Längre odds räknas som detta. */
+const MARKET_MIN_CHANCE = 0.002;
 
 const shrink = (hits: number, n: number, prior: number, k: number) =>
   (hits + prior * k) / (n + k);
@@ -66,6 +70,20 @@ function personScore(p: Person, cfg: ScoringConfig): number | null {
       ? cfg.chart.maxBonus * Math.max(0, 1 - (p.chartRank - 1) / p.chartSize)
       : 0;
   return win * 70 + top3 * 30 + chartBonus;
+}
+
+/** Segrar och topp 3 ur resultatsamlingen, krympta mot snittet. */
+function recentScore(
+  t: RecentTally | null | undefined,
+  k: number,
+  cfg: ScoringConfig,
+): number | null {
+  if (!t) return null;
+  const { priorWin, priorTop3 } = cfg.shrinkage;
+  return (
+    0.6 * shrink(t.wins, t.starts, priorWin, k) +
+    0.4 * shrink(t.top3, t.starts, priorTop3, k)
+  );
 }
 
 function ratesFor(line: StatLine) {
@@ -392,11 +410,36 @@ export const FACTORS: FactorDef[] = [
     },
   },
   {
+    // Kuskens form just nu: senaste veckornas lopp, alla svenska banor.
+    key: "driverForm",
+    normalize: { kind: "fixed", min: 0, max: 0.5 },
+    compute: (r, _race, cfg) => recentScore(r.recent?.driver, cfg.recentForm.k, cfg),
+  },
+  {
+    // Stallform: ett stall i slag vinner ofta flera lopp i rad.
+    key: "trainerForm",
+    normalize: { kind: "fixed", min: 0, max: 0.5 },
+    compute: (r, _race, cfg) =>
+      recentScore(r.recent?.trainer, cfg.recentForm.k, cfg),
+  },
+  {
+    key: "driverTrack",
+    normalize: { kind: "fixed", min: 0, max: 0.5 },
+    compute: (r, _race, cfg) =>
+      recentScore(r.recent?.driverTrack, cfg.trackForm.k, cfg),
+  },
+  {
     key: "market",
-    normalize: { kind: "minmax" },
+    // Log-chans på en fast skala: då ger rätt vikt exakt oddsens chanser (softmax
+    // tar bort det som är lika för alla i loppet). Minmax per lopp kunde inte det.
+    normalize: { kind: "fixed", min: Math.log(MARKET_MIN_CHANCE), max: 0 },
     compute(r) {
-      if (r.betDistribution !== null) return r.betDistribution;
-      return r.odds ? 100 / r.odds : null;
+      const p = r.odds
+        ? 1 / r.odds
+        : r.betDistribution
+          ? r.betDistribution / 100
+          : null;
+      return p !== null ? Math.log(Math.max(p, MARKET_MIN_CHANCE)) : null;
     },
   },
 ];

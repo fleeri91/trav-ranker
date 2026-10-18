@@ -80,6 +80,23 @@ export interface Runner {
 
   odds: number | null; // vinnarodds, decimal
   betDistribution: number | null; // % i spelformen (t.ex. V75)
+
+  /**
+   * Från resultatsamlingen (alla svenska lopp), före loppets datum. Saknas
+   * när samlingen inte täcker perioden.
+   */
+  recent?: {
+    driver: RecentTally | null;
+    trainer: RecentTally | null;
+    /** Kusken på just den här banan. */
+    driverTrack: RecentTally | null;
+  };
+}
+
+export interface RecentTally {
+  starts: number;
+  wins: number;
+  top3: number;
 }
 
 export interface RaceInput {

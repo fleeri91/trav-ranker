@@ -9,6 +9,7 @@
 import { rankDay, SPORTS } from "./pipeline.ts";
 import { CHART_SOURCES, type ChartSource } from "./clients/charts.ts";
 import {
+  DEFAULT_CONFIG,
   FACTOR_LABELS,
   MONTE_FACTOR_LABELS,
   withConfig,
@@ -30,7 +31,16 @@ const gameTypes = arg("game")
   ?.split(",")
   .map((s) => s.trim());
 const json = flag("json");
-const config = withConfig(flag("no-market") ? { weights: { market: 0 } } : {});
+// Utan marknaden rankas efter den egna anpassningen (cfg.own). Att bara nolla
+// Marknad skulle skala upp de få vikter som finns kvar bredvid den.
+const config = withConfig(
+  flag("no-market")
+    ? {
+        weights: DEFAULT_CONFIG.own.weights,
+        probability: { temperature: DEFAULT_CONFIG.own.temperature },
+      }
+    : {},
+);
 const chartsArg = arg("charts") ?? "auto";
 if (!CHART_SOURCES.includes(chartsArg as ChartSource)) {
   console.error(

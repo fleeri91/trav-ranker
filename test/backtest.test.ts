@@ -190,3 +190,13 @@ test("evaluate delar upp modellen per sport", () => {
     ],
   );
 });
+
+test("favoriten räknas även om en häst i loppet saknar odds", () => {
+  const a = rankedRace("A", 2);
+  const runners = a.runners.map((r) =>
+    r.number === 4 ? { ...r, odds: null } : r,
+  );
+  const report = evaluate([{ raceId: "A", winners: [2], runners }]);
+  assert.equal(report.favorite.races, 1);
+  assert.equal(report.favorite.top1, 1);
+});

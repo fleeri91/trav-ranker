@@ -93,17 +93,17 @@ export interface ScoringConfig {
 
 export const DEFAULT_CONFIG: ScoringConfig = {
   weights: {
-    form: 0.0,
-    speed: 0.12,
-    class: 0.17,
-    winRate: 0.0,
+    form: 0.01,
+    speed: 0.08,
+    class: 0.16,
+    winRate: 0.04,
     driver: 0.01,
-    trainer: 0.11,
-    position: 0.11,
-    gearForm: 0.03,
-    gearChange: 0.12,
-    freshness: 0.01,
-    market: 0.32,
+    trainer: 0.02,
+    position: 0.12,
+    gearForm: 0.0,
+    gearChange: 0.13,
+    freshness: 0.04,
+    market: 0.38,
   },
   form: {
     placementPoints: [10, 7, 5, 3, 2, 1],
@@ -169,7 +169,7 @@ export const DEFAULT_CONFIG: ScoringConfig = {
   },
   freshness: { idealMinDays: 10, idealMaxDays: 35, longLayoffDays: 90 },
   chart: { maxBonus: 10 },
-  probability: { temperature: 20.7 },
+  probability: { temperature: 19 },
 };
 
 export const FACTOR_LABELS: Record<FactorKey, string> = {

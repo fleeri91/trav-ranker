@@ -219,6 +219,14 @@ function printFit(f: FitResult) {
       f.results.recalibrated,
     ),
   );
+  if (f.results.marketOnly && f.marketOnly) {
+    console.log(
+      row(
+        `Bara marknaden (${dec(f.marketOnly.temperature, 1)})`,
+        f.results.marketOnly,
+      ),
+    );
+  }
   console.log(row("Anpassade vikter", f.results.fitted));
   console.log(
     hitRow(
@@ -233,6 +241,7 @@ function printFit(f: FitResult) {
   const chosenLabel = {
     current: "nuvarande värden",
     recalibrated: "bara ny temperatur",
+    marketOnly: "bara marknaden",
     fitted: "anpassade vikter",
   }[f.recommended];
 
@@ -278,20 +287,25 @@ function printFit(f: FitResult) {
     console.log(temperature(f.recalibrated.temperature));
     return;
   }
+  const pick =
+    f.recommended === "marketOnly" && f.marketOnly ? f.marketOnly : f.fitted;
   console.log(
-    "  De anpassade vikterna träffar bäst på omgångar de inte sett. Ersätt i src/scoring/config.ts:",
+    f.recommended === "marketOnly"
+      ? "  Bara oddsen träffar bäst på omgångar de inte sett – de andra faktorerna tillför inget än.\n" +
+          "  Rankingen blir då oddsens. Vill du ändå använda dem, ersätt i src/scoring/config.ts:"
+      : "  De anpassade vikterna träffar bäst på omgångar de inte sett. Ersätt i src/scoring/config.ts:",
   );
   const all = Object.keys(FACTOR_LABELS) as FactorKey[];
   const lines = all.map((k) => {
     const fitted = f.keys.includes(k);
-    const w = fitted ? (f.fitted.weights[k] ?? 0) : DEFAULT_CONFIG.weights[k];
+    const w = fitted ? (pick.weights[k] ?? 0) : DEFAULT_CONFIG.weights[k];
     const note = fitted
       ? ""
       : "  // inte med i anpassningen, värdet från config.ts";
     return `    ${k}: ${(Math.round(w * 100) / 100).toFixed(2)},${note}`;
   });
   console.log(`\n  weights: {\n${lines.join("\n")}\n  },`);
-  console.log(temperature(f.fitted.temperature));
+  console.log(temperature(pick.temperature));
   if (!f.keys.includes("market")) {
     console.log(
       "\n  Marknad var avstängd (--no-market) och ingick inte. Behåll dess vikt som den är.",

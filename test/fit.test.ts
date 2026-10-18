@@ -63,3 +63,10 @@ test("en faktor med vikt 0 kan få vikt igen om den förutsäger vinnaren", () =
   const beta = fitBeta(data, [0, 5], 0.02);
   assert.ok(beta[0]! > 1, `β = ${beta}`);
 });
+
+test("med svag regularisering kan en stark faktor få den skärpa den behöver", () => {
+  // Vinnaren dras med styrka 6 på faktor 0 (som marknaden på log-skala).
+  const data = synthetic(600, 6);
+  const beta = fitBeta(data, [2, 0]);
+  assert.ok(beta[0]! > 4.5, `β = ${beta}`);
+});

@@ -27,8 +27,12 @@ import {
   type HitStats,
 } from "./evaluate.ts";
 
-/** Hur hårt vikterna dras mot de nuvarande. Högre = försiktigare anpassning. */
-export const FIT_REGULARIZATION = 0.02;
+/**
+ * Hur hårt vikterna dras mot utgångsläget. Högre = försiktigare anpassning.
+ * Hålls lågt: marknaden på log-skala behöver stora vikter för att kunna
+ * återskapa oddsen, och en hög regularisering hindrade det.
+ */
+export const FIT_REGULARIZATION = 0.002;
 
 type Weights = Partial<Record<FactorKey, number>>;
 

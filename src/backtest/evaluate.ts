@@ -236,8 +236,9 @@ export function evaluate(
     };
   });
 
-  // Favoriten: lägst odds. Bara lopp där alla har odds.
-  const priced = valid.filter((r) => r.runners.every((h) => h.odds));
+  // Favoriten = lägst vinnarodds. En häst utan odds räknas som längst odds,
+  // så att loppet ändå räknas (förut föll hela loppet bort).
+  const priced = valid.filter((r) => r.runners.some((h) => h.odds));
   const favorite = hitStats(priced, (h) => -(h.odds ?? Infinity));
 
   // Log loss för vinnaren, på lopp där marknadens sannolikhet finns.

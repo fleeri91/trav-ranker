@@ -13,6 +13,8 @@ export interface FactorResult {
   weight: number;
   /** weight * score – faktorns bidrag till totalpoängen. */
   contribution: number;
+  /** Vikten i den egna rankningen utan marknaden (cfg.own). */
+  ownWeight: number;
 }
 
 export interface RankedRunner {
@@ -29,8 +31,20 @@ export interface RankedRunner {
   winProbability: number;
   /** Marknadens sannolikhet (från odds, utan överrundning). */
   marketProbability: number | null;
-  /** > 1 = modellen tror mer på hästen än marknaden. */
+  /** > 1 = modellen tror mer på hästen än marknaden (vinnaroddsen). */
   value: number | null;
+  /**
+   * Andel av insatserna i spelformen (t.ex. V85-procenten), normerad inom
+   * loppet. Saknas för spel utan sådan fördelning (vinnare m.fl.).
+   */
+  poolShare?: number | null;
+  /** Vinstchans ÷ poolShare. > 1 = underspelad i spelformen. */
+  poolValue?: number | null;
+  /**
+   * Egen rankning utan marknaden (cfg.own): samma faktorer men egna vikter,
+   * utan odds och spelprocent. Ändras inte när oddsen rör sig.
+   */
+  own: { rank: number; points: number; winProbability: number };
   odds: number | null;
   factors: Record<FactorKey, FactorResult>;
   notes: string[];
@@ -50,6 +64,8 @@ export interface RankedRace {
   topList?: "all" | "stl";
   /** Sant om ryttarbonusen kommer från montétopplistan. */
   monteList?: boolean;
+  /** Spelformen som poolShare/poolValue gäller, t.ex. "V85". */
+  pool?: string;
 }
 
 const NEUTRAL = 50;
@@ -88,6 +104,8 @@ export function scoreRace(
   const activeFactors = FACTORS.filter((f) => (cfg.weights[f.key] ?? 0) > 0);
   const totalWeight =
     activeFactors.reduce((s, f) => s + cfg.weights[f.key], 0) || 1;
+  const ownTotal =
+    FACTORS.reduce((s, f) => s + (cfg.own.weights[f.key] ?? 0), 0) || 1;
 
   // 1. Råvärden + normalisering per faktor (inom loppet). Alla faktorer räknas,
   //    även de med vikt 0: de påverkar inte poängen, men backtest och --fit kan
@@ -120,6 +138,7 @@ export function scoreRace(
         score: round(score),
         weight: round(weight, 3),
         contribution: round(contribution, 2),
+        ownWeight: round((cfg.own.weights[f.key] ?? 0) / ownTotal, 3),
       };
       points += contribution;
       if (raw !== null) presentWeight += weight;
@@ -136,6 +155,24 @@ export function scoreRace(
   const probs = softmax(
     scored.map((s) => s.points),
     cfg.probability.temperature,
+  );
+
+  // 4. Egen rankning utan marknaden, på samma faktorpoäng.
+  const ownPoints = active.map((_, i) =>
+    FACTORS.reduce(
+      (s, f) =>
+        s +
+        ((cfg.own.weights[f.key] ?? 0) / ownTotal) *
+          (perFactor.get(f.key)?.score[i] ?? NEUTRAL),
+      0,
+    ),
+  );
+  const ownProbs = softmax(ownPoints, cfg.own.temperature);
+  const ownRank = new Map(
+    ownPoints
+      .map((p, i) => ({ p, i, nr: active[i]!.number }))
+      .sort((a, b) => b.p - a.p || a.nr - b.nr)
+      .map(({ i }, k) => [i, k + 1]),
   );
   const implied = scored.map((s) => (s.runner.odds ? 1 / s.runner.odds : null));
   const overround = implied.reduce<number>((a, b) => a + (b ?? 0), 0);
@@ -159,6 +196,11 @@ export function scoreRace(
         odds: s.runner.odds,
         factors: s.factors,
         notes: s.notes,
+        own: {
+          rank: ownRank.get(i) ?? 0,
+          points: round(ownPoints[i] ?? 0, 1),
+          winProbability: round(ownProbs[i] ?? 0, 4),
+        },
       };
     })
     .sort((a, b) => b.points - a.points || a.number - b.number)

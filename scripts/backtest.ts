@@ -135,6 +135,7 @@ function print(result: BacktestResult) {
   console.log(head);
   console.log(hitRow("Modellen", r.model));
   console.log(hitRow("Utan statistikfaktorer", r.clean));
+  console.log(hitRow("Egen (utan odds)", r.own));
   console.log(hitRow("Favoriten (lägst odds)", r.favorite));
   console.log(hitRow("Slumpen", r.random));
   if (r.bySport.length > 1) {
@@ -158,7 +159,7 @@ function print(result: BacktestResult) {
       `\nVinstchanser, log loss för vinnaren (lägre är bättre, ${r.logLoss.races} lopp)`,
     );
     console.log(
-      `  Modellen ${dec(r.logLoss.model)}   Utan statistikfaktorer ${dec(r.logLoss.clean)}   Marknaden ${dec(r.logLoss.market)}`,
+      `  Modellen ${dec(r.logLoss.model)}   Utan statistikfaktorer ${dec(r.logLoss.clean)}   Egen ${dec(r.logLoss.own)}   Marknaden ${dec(r.logLoss.market)}`,
     );
   }
 

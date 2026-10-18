@@ -1704,9 +1704,39 @@
         ["driverTrack", "Kusk på banan"],
         ["market", "Marknad"],
       ];
-      /** Spelvärde (modell/marknad) från vilket etiketten fylls i. */
-      const GOOD_VALUE = 1.15;
+      /**
+       * Spelvärde från vilket etiketten fylls i. I V-spel är värdet vinstchans
+       * ÷ andel av insatserna i spelformen (t.ex. V85-procenten), annars
+       * vinstchans ÷ vinnaroddsens chans.
+       */
+      const GOOD_VALUE = 1.25;
+      const val = (r) => r.poolValue ?? r.value;
+      /** Under så här låg vinstchans är värdet för osäkert att lyfta fram. */
+      const MIN_CHANCE = 0.05;
+      const pickable = (r) => val(r) != null && r.winProbability >= MIN_CHANCE;
+      const valueName = (race) => (race?.pool ? `${race.pool}-värde` : "Värde");
       const LOW_CONFIDENCE = 0.6;
+      /**
+       * Rankning med marknaden (odds, ändras fram till start) eller egen
+       * rankning utan odds och spelprocent (stabil hela dagen).
+       */
+      const MODELS = [
+        ["market", "Med odds"],
+        ["own", "Egen"],
+      ];
+      const MODEL_KEY = "trav-ranker:model";
+      const savedModel = (() => {
+        try {
+          return localStorage.getItem(MODEL_KEY);
+        } catch {
+          return null;
+        }
+      })();
+      /** Rank, poäng och vinstchans i vald rankning. */
+      const shown = (r) =>
+        state.model === "own" && r.own
+          ? { rank: r.own.rank, points: r.own.points, win: r.own.winProbability }
+          : { rank: r.rank, points: r.points, win: r.winProbability };
       const SORTS = [
         ["points", "Poäng"],
         ["value", "Värde"],
@@ -1736,6 +1766,7 @@
         /** Avdelning 1..n när loppvyn visas, annars null. */
         leg: null,
         sort: "points",
+        model: savedModel === "own" ? "own" : "market",
         open: new Set(),
         highlight: null,
         source: null,
@@ -1800,8 +1831,8 @@
       };
       const bestValue = (race) =>
         race.runners
-          .filter((r) => r.value != null)
-          .sort((a, b) => b.value - a.value)[0] ?? null;
+          .filter(pickable)
+          .sort((a, b) => val(b) - val(a))[0] ?? null;
 
       function countdown(race) {
         if (!race.startTime) return "";
@@ -1995,7 +2026,7 @@
         const allDone = races.length > 0 && races.every(started);
         const starters = races.reduce((n, r) => n + r.runners.length, 0);
         const valueCount = races.filter(
-          (r) => !started(r) && (bestValue(r)?.value ?? 0) >= GOOD_VALUE,
+          (r) => !started(r) && (val(bestValue(r) ?? {}) ?? 0) >= GOOD_VALUE,
         ).length;
         const meta = g
           ? `${plural(races.length, "avdelning", "avdelningar")} · ${starters} startande`
@@ -2041,7 +2072,7 @@
           <span class="status-pill${done ? " done" : ""}">${done ? "Avgjord" : "Öppen"}</span>
         </div>
         <div class="legs"><div class="legs-inner">
-          <div class="leg-head label d-only" aria-hidden="true"><span>Avd</span><span>Lopp</span><span>Tid</span><span>Distans · start</span><span style="text-align:right">Startande</span><span>Högst rankad</span><span>Bästa värde</span><span></span></div>
+          <div class="leg-head label d-only" aria-hidden="true"><span>Avd</span><span>Lopp</span><span>Tid</span><span>Distans · start</span><span style="text-align:right">Startande</span><span>Högst rankad</span><span>Bästa ${valueName(g?.races?.find((r) => r.pool)).toLowerCase()}</span><span></span></div>
           ${list.map(({ race, i }) => legRowHtml(g, race, i)).join("")}
         </div></div>
       </section>`;
@@ -2050,7 +2081,7 @@
       }
 
       function legRowHtml(g, race, i) {
-        const top = race.runners[0];
+        const top = race.runners.find((r) => shown(r).rank === 1) ?? race.runners[0];
         const best = bestValue(race);
         const meta = [
           race.distance ? `${race.distance} m` : "",
@@ -2059,7 +2090,7 @@
         ]
           .filter(Boolean)
           .join(" · ");
-        const showBest = best && best.value > 1;
+        const showBest = best && val(best) > 1;
         return `<a href="${urlFor(i + 1)}" data-leg="${i + 1}" class="leg-row${started(race) ? " past" : ""}">
       <span class="leg">${esc(legLabel(g, i))}</span>
       <span class="r-main">
@@ -2067,8 +2098,8 @@
         <span class="r-meta">${esc(meta)}<span class="m-only"> · ${race.runners.length} startande</span></span>
       </span>
       <span class="r-starters d-only">${race.runners.length}</span>
-      <span class="r-pick"><span class="label m-only">Högst rankad</span><span class="r-pickname">${top ? esc(top.horseName) : "–"}</span>${top ? `<span class="r-note d-only">${winPct(top.winProbability)} vinst</span>` : ""}</span>
-      <span class="r-val d-only">${showBest ? `<span class="r-valname">${esc(best.horseName)}</span>${valueBadge(best.value)}` : '<span class="r-valname" style="color:var(--muted)">–</span>'}</span>
+      <span class="r-pick"><span class="label m-only">Högst rankad</span><span class="r-pickname">${top ? esc(top.horseName) : "–"}</span>${top ? `<span class="r-note d-only">${winPct(shown(top).win)} vinst</span>` : ""}</span>
+      <span class="r-val d-only">${showBest ? `<span class="r-valname">${esc(best.horseName)}</span>${valueBadge(val(best))}` : '<span class="r-valname" style="color:var(--muted)">–</span>'}</span>
       <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </a>`;
       }
@@ -2107,18 +2138,22 @@
 
         const runners = race.runners.slice().sort((a, b) =>
           state.sort === "value"
-            ? (b.value ?? -1) - (a.value ?? -1) || a.rank - b.rank
+            ? (val(b) ?? -1) - (val(a) ?? -1) || shown(a).rank - shown(b).rank
             : state.sort === "number"
               ? a.number - b.number
-              : a.rank - b.rank,
+              : shown(a).rank - shown(b).rank,
         );
         const sorts = SORTS.map(
           ([id, label]) =>
             `<button type="button" data-sort="${id}" aria-pressed="${state.sort === id}">${label}</button>`,
         ).join("");
+        const models = MODELS.map(
+          ([id, label]) =>
+            `<button type="button" data-model="${id}" aria-pressed="${state.model === id}">${label}</button>`,
+        ).join("");
         const best = race.runners
-          .filter((r) => r.value != null)
-          .sort((a, b) => b.value - a.value)
+          .filter(pickable)
+          .sort((a, b) => val(b) - val(a))
           .slice(0, 3);
         const person = monte ? "ryttare" : "kusk";
 
@@ -2153,6 +2188,10 @@
         <div class="ranking-head">
           <h2 id="ranking-h">Ranking</h2>
           <div class="sort">
+            <span class="label" id="model-label">Rankning</span>
+            <div class="seg" role="group" aria-labelledby="model-label">${models}</div>
+          </div>
+          <div class="sort">
             <span class="label" id="sort-label">Sortera efter</span>
             <div class="seg" role="group" aria-labelledby="sort-label">${sorts}</div>
           </div>
@@ -2166,7 +2205,7 @@
               <th scope="col" class="c-pts">Poäng</th>
               <th scope="col" class="c-win right" title="Modellens chans att hästen vinner"><span class="d-only">Vinst %</span><span class="m-only">Vinst</span></th>
               <th scope="col" class="right d-only">Odds</th>
-              <th scope="col" class="c-val right" title="Modellens vinstchans jämfört med marknadens">Värde</th>
+              <th scope="col" class="c-val right" title="${race.pool ? `Modellens vinstchans jämfört med ${esc(race.pool)}-procenten` : "Modellens vinstchans jämfört med vinnaroddsen"}">${valueName(race)}</th>
             </tr></thead>
             <tbody>${runners.map((r) => runnerHtml(race, r)).join("")}</tbody>
           </table>
@@ -2176,15 +2215,15 @@
 
       <aside class="side">
         <section class="card" aria-labelledby="best-h">
-          <h2 id="best-h">Bästa värde</h2>
+          <h2 id="best-h">Bästa ${valueName(race).toLowerCase()}</h2>
           ${
             best.length
               ? best
                   .map(
                     (b) => `<div class="best">
             <span class="nr">${b.number}</span>
-            <span class="b-text"><span class="b-name">${esc(b.horseName)}</span><span class="b-meta">${winPct(b.winProbability)} vinst · odds ${b.odds ? nf(b.odds, 2) : "–"}</span></span>
-            ${valueBadge(b.value)}
+            <span class="b-text"><span class="b-name">${esc(b.horseName)}</span><span class="b-meta">${winPct(b.winProbability)} vinst enl. odds · ${b.poolShare != null ? `${winPct(b.poolShare)} spelad` : `odds ${b.odds ? nf(b.odds, 2) : "–"}`}</span></span>
+            ${valueBadge(val(b))}
           </div>`,
                   )
                   .join("")
@@ -2194,7 +2233,12 @@
         <section class="card">
           <h2>Så läser du tabellen</h2>
           <p><strong>Poäng</strong> är hästens samlade rankingpoäng (0–100). <strong>Vinst %</strong> är modellens chans att hästen vinner. Tryck på en häst för att se delpoängen.</p>
-          <p><strong>Värde</strong> jämför modellens vinstchans med marknadens (oddsen). Positivt betyder att modellen tror mer på hästen än spelarna gör; en fylld etikett markerar +${valuePct(GOOD_VALUE)}% eller mer.</p>
+          <p><strong>Rankning:</strong> <em>Med odds</em> väger in vinnaroddsen och träffar bäst, men ändras fram till start. <em>Egen</em> bygger bara på form, klass, fart, spår, utrustning och personer – den ändras inte under dagen men träffar sämre (etta vann 31 % mot 39 % i backtest).</p>
+          ${
+            race.pool
+              ? `<p><strong>${valueName(race)}</strong> jämför modellens vinstchans med hur mycket hästen är spelad i ${esc(race.pool)}. Positivt betyder att hästen är underspelad: fler vinster än spelarna tror, och bättre utdelning när den går in. Värdet räknas med oddsen och spelprocenten, så det ändras fram till start – även i egen rankning. En fylld etikett markerar +${valuePct(GOOD_VALUE)}% eller mer för hästar med minst ${Math.round(MIN_CHANCE * 100)} % vinstchans.</p>`
+              : `<p><strong>Värde</strong> jämför modellens vinstchans med marknadens (vinnaroddsen). Positivt betyder att modellen tror mer på hästen än spelarna gör; en fylld etikett markerar +${valuePct(GOOD_VALUE)}% eller mer.</p>`
+          }
         </section>
       </aside>
     </div>
@@ -2217,13 +2261,18 @@
         const id = `d-${r.number}`;
         const open = state.open.has(key);
         const low = r.confidence < LOW_CONFIDENCE;
-        const strong = r.value != null && r.value >= GOOD_VALUE;
-        const rankCls = r.rank === 1 ? " r1" : r.rank <= 3 ? " r2" : "";
+        const strong = pickable(r) && val(r) >= GOOD_VALUE;
+        const s = shown(r);
+        const rankCls = s.rank === 1 ? " r1" : s.rank <= 3 ? " r2" : "";
         const tags = [
           ...r.notes.map((n) => `<span class="tag">${esc(n)}</span>`),
           low ? '<span class="tag plain">Lite data</span>' : "",
         ].join("");
-        const factors = FACTORS.filter(([k]) => r.factors[k]?.weight > 0)
+        const factors = FACTORS.filter(([k]) =>
+          state.model === "own"
+            ? r.factors[k]?.ownWeight > 0
+            : r.factors[k]?.weight > 0,
+        )
           .map(([k, name]) => {
             const label =
               race.sport === "monte" && k === "driver" ? "Ryttare" : name;
@@ -2237,7 +2286,7 @@
         const odds = r.odds ? nf(r.odds, 2) : "–";
 
         return `<tr class="runner${strong ? " strong" : ""}${low ? " low" : ""}" data-nr="${r.number}">
-      <td class="c-rank center"><span class="rank${rankCls}">${r.rank}</span></td>
+      <td class="c-rank center"><span class="rank${rankCls}">${s.rank}</span></td>
       <td class="c-nr center d-only"><span class="nr">${r.number}</span></td>
       <td><div class="horse-cell">
         <span class="nr m-only" aria-label="Startnummer ${r.number}">${r.number}</span>
@@ -2245,10 +2294,10 @@
           <span class="h-name">${esc(r.horseName)}</span><span class="h-driver">${esc(r.driverName)}</span>
         </button>
       </div></td>
-      <td class="c-pts"><div class="pts"><span class="pts-n">${nf(r.points, 1)}</span><span class="bar"><span style="width:${Math.max(0, Math.min(100, r.points))}%"></span></span></div></td>
-      <td class="c-win right num">${winPct(r.winProbability)}</td>
+      <td class="c-pts"><div class="pts"><span class="pts-n">${nf(s.points, 1)}</span><span class="bar"><span style="width:${Math.max(0, Math.min(100, s.points))}%"></span></span></div></td>
+      <td class="c-win right num">${winPct(s.win)}</td>
       <td class="c-odds right num d-only">${odds}</td>
-      <td class="c-val right">${valueBadge(r.value)}<span class="odds-inline m-only">odds ${odds}</span></td>
+      <td class="c-val right">${valueBadge(val(r))}<span class="odds-inline m-only">${r.poolShare != null ? `${winPct(r.poolShare)} spelad` : `odds ${odds}`}</span></td>
     </tr>
     <tr class="detail" id="${id}"${open ? "" : " hidden"}><td colspan="7">
       ${tags ? `<div class="tags">${tags}</div>` : ""}
@@ -2287,7 +2336,7 @@
               .map(
                 ({ race, i, r }) => `<li><button type="button" data-leg="${i + 1}" data-nr="${r.number}">
           <span class="nr">${r.number}</span>
-          <span><span class="rs-name">${esc(r.horseName)}</span><br><span class="rs-meta">${esc(legLabel(g, i))} · ${esc(race.trackName)} lopp ${race.number} · ${esc(r.driverName)} · rank ${r.rank}</span></span>
+          <span><span class="rs-name">${esc(r.horseName)}</span><br><span class="rs-meta">${esc(legLabel(g, i))} · ${esc(race.trackName)} lopp ${race.number} · ${esc(r.driverName)} · rank ${shown(r).rank}</span></span>
         </button></li>`,
               )
               .join("")
@@ -2347,6 +2396,15 @@
           history.pushState(null, "", urlFor(null));
           loadRanking(false);
           return refocus(`[data-game="${CSS.escape(state.gameId)}"]`);
+        }
+        const modelBtn = e.target.closest("button[data-model]");
+        if (modelBtn) {
+          state.model = modelBtn.dataset.model;
+          try {
+            localStorage.setItem(MODEL_KEY, state.model);
+          } catch {}
+          render();
+          return refocus(`[data-model="${state.model}"]`);
         }
         const sortBtn = e.target.closest("button[data-sort]");
         if (sortBtn) {

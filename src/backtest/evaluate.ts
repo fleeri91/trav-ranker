@@ -43,6 +43,8 @@ export interface BacktestReport {
   model: HitStats;
   /** Modellen utan faktorer som bygger på ATG:s statistik (kan innehålla efterhandsdata). */
   clean: HitStats;
+  /** Egen rankning utan odds och spelprocent (cfg.own). */
+  own: HitStats;
   favorite: HitStats;
   random: HitStats;
   /** Modellen uppdelad per sport (bara sporter med lopp). */
@@ -57,6 +59,7 @@ export interface BacktestReport {
     races: number;
     model: number;
     clean: number;
+    own: number;
     market: number;
   } | null;
   calibration: {
@@ -249,6 +252,7 @@ export function evaluate(
   if (withMarket.length) {
     let model = 0;
     let clean = 0;
+    let own = 0;
     let market = 0;
     for (const race of withMarket) {
       const winner = race.winners[0];
@@ -261,6 +265,7 @@ export function evaluate(
       const ln = (p: number) => -Math.log(Math.max(p, 1e-6));
       model += ln(race.runners[idx]!.winProbability);
       clean += ln(cleanProbs[idx]!);
+      own += ln(race.runners[idx]!.own.winProbability);
       market += ln(race.runners[idx]!.marketProbability ?? 0);
     }
     const n = withMarket.length;
@@ -268,6 +273,7 @@ export function evaluate(
       races: n,
       model: model / n,
       clean: clean / n,
+      own: own / n,
       market: market / n,
     };
   }
@@ -295,6 +301,7 @@ export function evaluate(
     races: valid.length,
     model: hitStats(valid, (h) => h.points),
     clean: hitStats(valid, (h) => pointsWithout(h, excluded)),
+    own: hitStats(valid, (h) => h.own.points),
     favorite,
     random: randomStats(valid),
     bySport: (["trot", "monte"] as const)

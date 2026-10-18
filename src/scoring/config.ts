@@ -95,11 +95,19 @@ export interface ScoringConfig {
    * läggs till, så att få starter inte ger extrema värden.
    */
   recentForm: { days: number; k: number };
+  /** Stallform: tränarens lopp senaste månaden, alla svenska banor. */
+  stableForm: { days: number; k: number };
   /** Kusken på dagens bana. */
   trackForm: { days: number; k: number };
 
   /** Temperatur för softmax poäng -> vinstsannolikhet. Lägre = skarpare. */
   probability: { temperature: number };
+
+  /**
+   * Egen rankning, utan marknaden (odds och spelprocent). Ändras inte under
+   * dagen och finns innan spelet öppnar, men träffar sämre än oddsen.
+   */
+  own: { weights: Record<FactorKey, number>; temperature: number };
 }
 
 export const DEFAULT_CONFIG: ScoringConfig = {
@@ -188,8 +196,31 @@ export const DEFAULT_CONFIG: ScoringConfig = {
   freshness: { idealMinDays: 10, idealMaxDays: 35, longLayoffDays: 90 },
   chart: { maxBonus: 10 },
   recentForm: { days: 21, k: 15 },
+  stableForm: { days: 30, k: 15 },
   trackForm: { days: 180, k: 20 },
   probability: { temperature: 12.6 },
+  // Anpassade med --fit utan marknaden på V85, V86 och V64 sedan 2025-09-01
+  // (okt 2026): etta vann 31 % (oddsen 39 %), log loss 1,92 (oddsen 1,69).
+  // Kusk-/stallform och kusk på banan är inte med: samlingen täcker inte perioden.
+  own: {
+    weights: {
+      form: 0.08,
+      speed: 0.12,
+      class: 0.18,
+      winRate: 0.05,
+      driver: 0.06,
+      trainer: 0.09,
+      position: 0.22,
+      gearForm: 0.0,
+      gearChange: 0.17,
+      freshness: 0.03,
+      driverForm: 0.0,
+      trainerForm: 0.0,
+      driverTrack: 0.0,
+      market: 0.0,
+    },
+    temperature: 11.7,
+  },
 };
 
 export const FACTOR_LABELS: Record<FactorKey, string> = {

@@ -416,11 +416,12 @@ export const FACTORS: FactorDef[] = [
     compute: (r, _race, cfg) => recentScore(r.recent?.driver, cfg.recentForm.k, cfg),
   },
   {
-    // Stallform: ett stall i slag vinner ofta flera lopp i rad.
+    // Stallform: tränarens lopp senaste månaden. Ett stall i slag vinner ofta
+    // flera lopp i rad.
     key: "trainerForm",
     normalize: { kind: "fixed", min: 0, max: 0.5 },
     compute: (r, _race, cfg) =>
-      recentScore(r.recent?.trainer, cfg.recentForm.k, cfg),
+      recentScore(r.recent?.trainer, cfg.stableForm.k, cfg),
   },
   {
     key: "driverTrack",

@@ -35,7 +35,12 @@ const C = {
   valStrong: "#3d6bff",
   rowStrong: "#162038",
 };
-const GOOD_VALUE = 1.15;
+/** Fylld etikett från detta spelvärde (se val). */
+const GOOD_VALUE = 1.25;
+/** I V-spel: vinstchans ÷ andel av insatserna i spelformen, annars mot vinnaroddsen. */
+const val = (r: RankedRunner) => r.poolValue ?? r.value;
+/** Under så här låg vinstchans är värdet för osäkert att lyfta fram. */
+const MIN_CHANCE = 0.05;
 const LOW_CONFIDENCE = 0.6;
 
 const FONT_DIR = fileURLToPath(new URL("../../assets/fonts/", import.meta.url));
@@ -59,6 +64,8 @@ const COLS = [
   { key: "horse", label: "Häst · kusk", width: 0, align: "left" },
   { key: "points", label: "Poäng", width: 100, align: "left" },
   { key: "win", label: "Vinst %", width: 50, align: "right" },
+  // Egen rankning utan odds och spelprocent (ändras inte under dagen).
+  { key: "own", label: "Egen", width: 36, align: "center" },
   { key: "odds", label: "Odds", width: 46, align: "right" },
   { key: "value", label: "Värde", width: 56, align: "right" },
 ] as const;
@@ -342,7 +349,9 @@ function drawSummary(
 
   const first = game.races.map((r) => hhmm(r.startTime)).find(Boolean) ?? "–";
   const values = game.races.filter((race) =>
-    race.runners.some((r) => (r.value ?? 0) >= GOOD_VALUE),
+    race.runners.some(
+      (r) => r.winProbability >= MIN_CHANCE && (val(r) ?? 0) >= GOOD_VALUE,
+    ),
   ).length;
   const stats: [string, string, string][] = [
     ["Lopp", String(game.races.length), C.ink],
@@ -471,7 +480,8 @@ function drawRow(
   height: number,
 ) {
   const cols = colLayout(x0, width);
-  const strong = r.value != null && r.value >= GOOD_VALUE;
+  const v = val(r);
+  const strong = v != null && v >= GOOD_VALUE && r.winProbability >= MIN_CHANCE;
   const low = isLow(r);
   if (strong) doc.rect(x0, y, width, height).fill(C.rowStrong);
   hline(doc, x0, x0 + width, y, C.lineSoft);
@@ -559,6 +569,13 @@ function drawRow(
     width: cols.win.w,
     align: "right",
   });
+  textMid(doc, String(r.own.rank), cols.own.x, mid, {
+    font: r.own.rank <= 3 ? "condSemibold" : "regular",
+    size: 11,
+    color: r.own.rank <= 3 ? C.ink : C.ink2,
+    width: cols.own.w,
+    align: "center",
+  });
   textMid(doc, r.odds ? nf(r.odds, 2) : "–", cols.odds.x, mid, {
     font: "regular",
     size: 10,
@@ -569,7 +586,7 @@ function drawRow(
 
   // Spelvärde som etikett: fylld från GOOD_VALUE, tonad när positivt
   const vc = cols.value;
-  if (r.value == null) {
+  if (v == null) {
     textMid(doc, "–", vc.x, mid, {
       font: "condBold",
       size: 12,
@@ -578,8 +595,8 @@ function drawRow(
       align: "right",
     });
   } else {
-    const s = valueText(r.value);
-    const p = valuePct(r.value);
+    const s = valueText(v);
+    const p = valuePct(v);
     const w = widthOf(doc, s, "condBold", 12) + 10;
     const bx2 = vc.x + vc.w - w;
     if (strong) doc.roundedRect(bx2, mid - 8, w, 16, 4).fill(C.valStrong);
@@ -643,7 +660,9 @@ function drawPageChrome(
     hline(doc, x0, x0 + width, fy - 8, C.lineSoft);
     text(
       doc,
-      `Värde jämför modellens vinstchans med marknadens. Positivt betyder att modellen tror mer på hästen än spelarna gör; fylld etikett = +${valuePct(GOOD_VALUE)}% eller mer.`,
+      game.races.some((r) => r.pool)
+        ? `Värde jämför modellens vinstchans med hur mycket hästen är spelad i ${game.gameType}. Positivt = underspelad: vinner oftare än spelarna tror. Fylld etikett = +${valuePct(GOOD_VALUE)}% eller mer.`
+        : `Värde jämför modellens vinstchans med marknadens (vinnaroddsen). Positivt betyder att modellen tror mer på hästen än spelarna gör; fylld etikett = +${valuePct(GOOD_VALUE)}% eller mer.`,
       x0,
       fy,
       { font: "regular", size: 7, color: C.faint, width: width - 70 },

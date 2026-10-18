@@ -526,3 +526,29 @@ test("faktorer med vikt 0 räknas men påverkar inte poängen", () => {
   assert.equal(nr4.factors.form.weight, 0);
   assert.equal(nr4.factors.form.contribution, 0);
 });
+
+test("egen rankning påverkas inte av odds eller spelprocent", () => {
+  const input = toRaceInput(race, { driverChart, extended });
+  const flipped = {
+    ...input,
+    runners: input.runners.map((r, i) => ({
+      ...r,
+      odds: r.odds ? 1.5 + i * 10 : null,
+      betDistribution: r.betDistribution !== null ? 90 - i : null,
+    })),
+  };
+  const own = (rr: ReturnType<typeof scoreRace>) =>
+    rr.runners
+      .map((r) => [r.number, r.own.rank, r.own.winProbability])
+      .sort((a, b) => a[0]! - b[0]!);
+  const a = scoreRace(input);
+  const b = scoreRace(flipped);
+  assert.deepEqual(own(a), own(b));
+  // Marknadsrankningen följer däremot oddsen.
+  assert.notDeepEqual(
+    a.runners.map((r) => r.number),
+    b.runners.map((r) => r.number),
+  );
+  const sum = b.runners.reduce((s, r) => s + r.own.winProbability, 0);
+  assert.ok(Math.abs(sum - 1) < 1e-3);
+});

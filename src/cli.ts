@@ -73,13 +73,13 @@ function printRace(race: RankedRace) {
       (race.scratched.length ? ` · struken: ${race.scratched.join(", ")}` : ""),
   );
   console.log(
-    `  ${pad("#", 3)}${pad("Nr", 4)}${pad("Häst", 20)}${pad(monte ? "Ryttare" : "Kusk", 18)}${padL("Poäng", 6)}${padL("V%", 6)}${padL("Odds", 7)}${padL("Värde", 7)}  Styrkor`,
+    `  ${pad("#", 3)}${pad("Nr", 4)}${pad("Häst", 20)}${pad(monte ? "Ryttare" : "Kusk", 18)}${padL("Poäng", 6)}${padL("V%", 6)}${padL("Egen", 6)}${padL("Odds", 7)}${padL("Värde", 7)}  Styrkor`,
   );
   for (const r of race.runners) {
     console.log(
       `  ${pad(r.rank, 3)}${pad(r.number, 4)}${pad(r.horseName, 20)}${pad(r.driverName, 18)}` +
-        `${padL(r.points.toFixed(1), 6)}${padL((r.winProbability * 100).toFixed(0), 6)}` +
-        `${padL(r.odds?.toFixed(2) ?? "–", 7)}${padL(r.value?.toFixed(2) ?? "–", 7)}  ${topFactors(r, race)}` +
+        `${padL(r.points.toFixed(1), 6)}${padL((r.winProbability * 100).toFixed(0), 6)}${padL(r.own.rank, 6)}` +
+        `${padL(r.odds?.toFixed(2) ?? "–", 7)}${padL((r.poolValue ?? r.value)?.toFixed(2) ?? "–", 7)}  ${topFactors(r, race)}` +
         (r.confidence < 0.6 ? "  (låg datatäckning)" : "") +
         (r.notes.length ? `\n${" ".repeat(9)}↳ ${r.notes.join(" · ")}` : ""),
     );

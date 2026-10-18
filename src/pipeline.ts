@@ -5,6 +5,7 @@ import {
   CHART_PRESETS,
   ChartIndex,
   fetchPersonChart,
+  toNumber,
 } from "./clients/travsport.ts";
 import {
   blendCharts,
@@ -324,7 +325,7 @@ export function withRecent(
   trackId: number | undefined,
   cfg: ScoringConfig,
 ): RaceInput {
-  const { recentForm, trackForm } = cfg;
+  const { recentForm, stableForm, trackForm } = cfg;
   return {
     ...input,
     runners: input.runners.map((r) => ({
@@ -335,7 +336,7 @@ export function withRecent(
           "trainer",
           r.trainer.id,
           before,
-          recentForm.days,
+          stableForm.days,
         ),
         driverTrack:
           trackId === undefined
@@ -349,6 +350,62 @@ export function withRecent(
               ),
       },
     })),
+  };
+}
+
+/**
+ * Gränser för under- och överspelad i spelformen. I V85 sedan 2025-09 vann
+ * hästar med vinstchans ÷ V85-procent 1,25–1,6 1,65 gånger så ofta som sin
+ * procent, och 0,6–0,8 bara 0,65 gånger (vinnaroddsen mot slutprocenten).
+ */
+export const UNDERBET = 1.25;
+export const OVERBET = 0.8;
+
+const pct = (x: number) => `${Math.round(x * 100)} %`;
+
+/**
+ * Vinstchans mot hur mycket hästen är spelad i just den här spelformen: det
+ * är fördelningen i poolen, inte vinnaroddsen, som avgör utdelningen i V-spel.
+ * Räknas per spel, eftersom samma lopp kan ingå i flera (V85 och V5).
+ */
+export function withPoolValue(
+  ranked: RankedRace,
+  race: AtgRace,
+  gameType: string,
+): RankedRace {
+  const dist = new Map(
+    (race.starts ?? []).map((s) => [
+      s.number,
+      toNumber(s.pools?.[gameType]?.betDistribution),
+    ]),
+  );
+  const raw = ranked.runners.map((r) => dist.get(r.number) ?? null);
+  const total = raw.reduce<number>((a, b) => a + (b ?? 0), 0);
+  if (raw.some((x) => x === null) || !(total > 0)) return ranked;
+
+  return {
+    ...ranked,
+    pool: gameType,
+    runners: ranked.runners.map((r, i) => {
+      const share = (raw[i] as number) / total;
+      const poolValue = share > 0 ? r.winProbability / share : null;
+      const notes = [...r.notes];
+      if (poolValue !== null && poolValue >= UNDERBET && r.winProbability >= 0.05)
+        notes.push(
+          `Underspelad i ${gameType}: ${pct(share)} spelad, ${pct(r.winProbability)} vinstchans`,
+        );
+      if (poolValue !== null && poolValue <= OVERBET && share >= 0.15)
+        notes.push(
+          `Överspelad i ${gameType}: ${pct(share)} spelad, ${pct(r.winProbability)} vinstchans`,
+        );
+      return {
+        ...r,
+        poolShare: Math.round(share * 10_000) / 10_000,
+        poolValue:
+          poolValue !== null ? Math.round(poolValue * 100) / 100 : null,
+        notes,
+      };
+    }),
   };
 }
 
@@ -503,8 +560,8 @@ export async function rankDay(opts: RankDayOptions): Promise<GameRanking[]> {
     log(
       `ATG: ${game.id} – ${ranked.length} lopp${monte ? ` (varav ${monte} monté)` : ""}`,
     );
-    const races = await mapLimit(ranked, concurrency, (race) =>
-      rankRace(race, game.id, type),
+    const races = await mapLimit(ranked, concurrency, async (race) =>
+      withPoolValue(await rankRace(race, game.id, type), race, type),
     );
     return { gameId: game.id, gameType: type, races };
   });
